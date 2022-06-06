@@ -23,11 +23,11 @@ zypper addrepo https://download.opensuse.org/repositories/games/openSUSE_Leap_15
 zypper in drascula
 {% endhighlight %}
 
-Then just run the command `drascula`, select your language (via `xmessage` - isn't this retro?) and enjoy! And in case you struggle - Walthroughs are available on Youtube - also in Spanish. :-) 
+Then just run the command `drascula`, select your language (via `xmessage` - isn't this retro?) and enjoy! And in case you struggle - Walkthroughs are available on Youtube - also in Spanish. :-) 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YuzG8GA0nNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-In case you're using Windows, MacOS, etc. There are precompiled executables of the `ScummVM` program availabe for download on the [ScummVM Download Page][scummvm-downloads], which you can easily install on your machine. Don't forget to download also the [Drascula datafiles][drascula]. Install them to your favorite directory, then run `scummvm`, press `Add Game` and select the directory, into which you installed the `Drascula` datafiles right before. Then press `Start` to start the game.
+In case you're using Windows, MacOS, etc. There are precompiled executables of the `ScummVM` program availabe for download on the [ScummVM Download Page][scummvm-downloads], which you can easily install on your machine. Don't forget to download also the [Drascula datafiles][drascula]. Install them to your favorite directory, then run `scummvm`, press `Add Game` and select the directory, into which you installed the `Drascula` datafiles right before. Then press `Start` to start the game. Have fun!
 
 [games]: https://www.scummvm.org/games/
 [scummvm]: https://www.scummvm.org
