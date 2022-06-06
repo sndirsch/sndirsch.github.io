@@ -8,11 +8,11 @@ Recently I was packaging one of the [Retro freeware games][games], which are sup
 
 ![Drascula The Vampire Strikes Back](/assets/2022-06-06-drascula.jpg)
 
-During testing the language support I noticed, that it has been originally developed by a company in Spain called `Alcachofa Soft S.L.`, so additional to English it also includes speech in Spanish. Subtitles are available in English, German , French, Italian and Spanish. Therefore I decided to try improving my Spanish language skills and began to play this Adventure. And although the game is from 1996 I enjoyed it a lot!
+When testing the language support I noticed, that it has been originally developed by a company in Spain called `Alcachofa Soft S.L.`, so additional to English it also includes speech in Spanish. Subtitles are available in English, German , French, Italian and Spanish. Therefore I decided to try improving my Spanish language skills and began to play this Adventure. And although the game is from 1996 I enjoyed it a lot!
 
-I figured out that if you press `SPACE` while a character is speaking, the sentence will be interrupted (apart from the voice part). And by pressing `SPACE` again the game continues. Which was rather useful for me to have more time for reading and understanding subtitles.
+I figured out that if you press `SPACE` while a character is speaking, the sentence will be interrupted (apart from the voice part). And by pressing `SPACE` again the game continues. Which was rather useful for me to have more time for reading and understanding the subtitles.
 
-You can find [drascula][drascula-pkg] and [scummvm][scummvm-pkg] packages in our [games repository][games-repo].
+You can find [drascula][drascula-pkg] and [scummvm][scummvm-pkg] packages in the [games repository][games-repo] of the [openSUSE Build Service][obs].
 
 Installation instructions for openSUSE 15.3:
 
@@ -23,7 +23,11 @@ zypper addrepo https://download.opensuse.org/repositories/games/openSUSE_Leap_15
 zypper in drascula
 {% endhighlight %}
 
-Enjoy! And in case you struggle - Walthroughs are available on Youtube - also in Spanish. :-)
+Then just run the command `drascula`, select your language (via `xmessage`; isn't this retro?) and enjoy! 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YuzG8GA0nNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+And in case you struggle - Walthroughs are available on Youtube - also in Spanish. :-)
 
 [games]: https://www.scummvm.org/games/
 [scummvm]: https://www.scummvm.org
@@ -31,3 +35,4 @@ Enjoy! And in case you struggle - Walthroughs are available on Youtube - also in
 [drascula-pkg]: https://build.opensuse.org/package/show/games/drascula
 [scummvm-pkg]: https://build.opensuse.org/package/show/games/scummvm
 [games-repo]: https://build.opensuse.org/project/show/games
+[obs]: https://build.opensuse.org
