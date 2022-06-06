@@ -1,0 +1,33 @@
+---
+layout: post
+title:  "Drascula: Improving your Spanish language skills by playing an Adventure Game"
+date:   2022-06-06
+categories: scummvm
+---
+Recently I was packaging one of the [Retro freeware games][games], which are supported by [ScummVm project][scummvm]. It's called [Drascula The Vampire Strikes Back][drascula] and the story is some kind of strange mixture between `Dracula` and `Frankenstein`. 
+
+![Drascula The Vampire Strikes Back](/assets/2022-06-06-drascula.jpg)
+
+During testing the language support I noticed, that it has been originally developed by a company in Spain called `Alcachofa Soft S.L.`, so additional to English it also includes speech in Spanish. Subtitles are available in English, German , French, Italian and Spanish. Therefore I decided to try improving my Spanish language skills and began to play this Adventure. And although the game is from 1996 I enjoyed it a lot!
+
+I figured out that if you press `SPACE` while a character is speaking, the sentence will be interrupted (apart from the voice part). And by pressing `SPACE` again the game continues. Which was rather useful for me to have more time for reading and understanding subtitles.
+
+You can find [drascula][drascula-pkg] and [scummvm][scummvm-pkg] packages in our [games repository][games-repo].
+
+Installation instructions for openSUSE 15.3:
+
+{% highlight shell %}
+# if you don't have added the 'games' repository yet
+zypper addrepo https://download.opensuse.org/repositories/games/openSUSE_Leap_15.3/  games
+# will install 'scummvm' package and other dependancies automatically
+zypper in drascula
+{% endhighlight %}
+
+Enjoy! And in case you struggle - Walthroughs are available on Youtube - also in Spanish. :-)
+
+[games]: https://www.scummvm.org/games/
+[scummvm]: https://www.scummvm.org
+[drascula]: https://www.scummvm.org/games/#games-drascula
+[drascula-pkg]: https://build.opensuse.org/package/show/games/drascula
+[scummvm-pkg]: https://build.opensuse.org/package/show/games/scummvm
+[games-repo]: https://build.opensuse.org/project/show/games
