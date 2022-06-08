@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "NVIDIA opengpu driver: (open)SUSE packages available"
+title:  "NVIDIA Open GPU kernel modules: (open)SUSE packages available"
 date:   2022-06-07
 categories: nvidia
 ---
-On May 19, 2022 nVidia made a [release][nvidia-release] of their [OpenSource kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have (open)SUSE packages for simple testing available in the [X11:Drivers:Video][x11-drivers-video] project of our [openSUSE Build Service][obs]. If you want to give these a try you need to install [ nvidia-open-gfxG06 ][kmp] and [kernel-firmware-nvidia-gsp][firmware] packages.
+On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have (open)SUSE packages for simple testing available in the [X11:Drivers:Video][x11-drivers-video] project of our [openSUSE Build Service][obs]. If you want to give these a try you need to install [ nvidia-open-gfxG06 ][kmp] and [kernel-firmware-nvidia-gsp][firmware] packages.
 
 Installation instructions for openSUSE 15.4:
 
@@ -21,7 +21,7 @@ With that you can do a very simple test.
 nvidia-smi --query
 {% endhighlight %}
 
-But unless you have access to one of these Turing/Ampere GPUs (check with `inxi -aG`):
+But unless you have access to one of these Turing or Ampere architecture GPUs (check with `inxi -aG`):
 
 | NVIDIA GPU product | Device PCI ID * |
 |--------------------|-----------------|
@@ -59,7 +59,7 @@ you'll need to remove the `#` from the options line in `/usr/lib/modprobe.d/50-n
 
 Unfortunately the prebuilt kernel modules are not signed yet with (open)SUSE's Secureboot Key, so on such systems you'll need to do this step manually. Which is not a trivial task, I know. :-(
 
-I'm planning to have `x11-video-nvidiaG06`, `nvidia-glG06` and `nvidia-computeG06` packages available via nVidia's (open)SUSE repositories in week 24 (next week), which then can be used together with the OpenSource driver packages above.
+I'm planning to have `x11-video-nvidiaG06`, `nvidia-glG06` and `nvidia-computeG06` packages available via NVIDIA's (open)SUSE repositories in week 24 (next week), which then can be used together with NVIDIA's Open GPU kernel modules above.
 
 If you have questions, comments and any kind of feedback regarding this topic, don't hesitate to contact me via email. Thanks!
 
