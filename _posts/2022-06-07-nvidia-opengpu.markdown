@@ -61,6 +61,23 @@ Unfortunately the prebuilt kernel modules are not signed yet with (open)SUSE's S
 
 I'm planning to have `x11-video-nvidiaG06`, `nvidia-glG06` and `nvidia-computeG06` packages available via NVIDIA's (open)SUSE repositories in week 24 (next week), which then can be used together with NVIDIA's Open GPU kernel modules above.
 
+With that - after installing `nvidia-computeG06` (contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
+
+Installing CUDA on Leap 15.x
+
+{% highlight shell %}
+# if you have not added this repository yet
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
+# will install needed CUDA packages
+zypper in cuda
+{% endhighlight %}
+
+Let's have a first test for using libcuda.
+
+{% highlight shell %}
+/usr/local/cuda-11.7/extras/demo_suite/deviceQuery
+{% endhighlight %}
+
 If you have questions, comments and any kind of feedback regarding this topic, don't hesitate to contact me via email. Thanks!
 
 [nvidia-release]: https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/
@@ -69,4 +86,4 @@ If you have questions, comments and any kind of feedback regarding this topic, d
 [obs]: https://build.opensuse.org/
 [kmp]: https://build.opensuse.org/package/show/X11:Drivers:Video/nvidia-open-gfxG06
 [firmware]: https://build.opensuse.org/package/show/X11:Drivers:Video/kernel-firmware-nvidia-gsp
-
+[cuda-stack]: https://developer.download.nvidia.com/compute/cuda/repos/
