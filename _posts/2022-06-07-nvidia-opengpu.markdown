@@ -1,12 +1,14 @@
 ---
 layout: post
-title:  "NVIDIA Open GPU kernel modules: (open)SUSE packages available"
+title:  "NVIDIA Open GPU kernel modules: openSUSE/SLE packages available"
 date:   2022-06-07
 categories: nvidia
 ---
-On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have (open)SUSE packages for simple testing available in the [X11:Drivers:Video][x11-drivers-video] project of our [openSUSE Build Service][obs]. If you want to give these a try you need to install [ nvidia-open-gfxG06 ][kmp] and [kernel-firmware-nvidia-gsp][firmware] packages.
+On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have openSUSE/SLE packages for simple testing available in the [X11:Drivers:Video][x11-drivers-video] project of our [openSUSE Build Service][obs]. If you want to give these a try you need to install [ nvidia-open-gfxG06 ][kmp] and [kernel-firmware-nvidia-gsp][firmware] packages.
 
-Installation instructions for openSUSE 15.4:
+## Installation
+
+Installation instructions for Leap 15.4:
 
 {% highlight shell %}
 # if you have not added this repository yet
@@ -54,12 +56,30 @@ you'll need to remove the `#` from the options line in `/usr/lib/modprobe.d/50-n
 
 {% highlight shell %}
 ### Enable support on *all* Turing/Ampere GPUs: Alpha Quality!
-#options nvidia NVreg_OpenRmEnableUnsupportedGpus=1
+options nvidia NVreg_OpenRmEnableUnsupportedGpus=1
 {% endhighlight %}
 
-Unfortunately the prebuilt kernel modules are not signed yet with (open)SUSE's Secureboot Key, so on such systems you'll need to do this step manually. Which is not a trivial task, I know. :-(
+# Secure Boot
 
-I'm planning to have `x11-video-nvidiaG06`, `nvidia-glG06` and `nvidia-computeG06` packages available via NVIDIA's (open)SUSE repositories in week 24 (next week), which then can be used together with NVIDIA's Open GPU kernel modules above.
+Unfortunately the prebuilt kernel modules are not signed yet with the Secureboot Key of openSUSE/SLE, so on such systems you'll need to do this step manually. Which is not a trivial task, I know. :-(
+
+## Display Drivers
+
+I'm planning to have `x11-video-nvidiaG06`, `nvidia-glG06` and `nvidia-computeG06` packages available via NVIDIA's [openSUSE][opensuse]/[SLE][sle] repositories in week 24 (next week), which then can be used together with NVIDIA's Open GPU kernel modules above.
+
+
+> Update June 15, 2022: These are now availabe!
+
+Installing Display Drivers on Leap 15.4
+
+{% highlight shell %}
+# if you have not added this repository yet
+zypper addrepo https://download.nvidia.com/opensuse/leap/15.4/  nvidia
+# install all required packages
+zypper in x11-video-nvidiaG06 nvidia-glG06 nvidia-computeG06
+{% endhighlight %}
+
+## CUDA
 
 With that - after installing `nvidia-computeG06` (contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
 
@@ -78,6 +98,8 @@ Let's have a first test for using libcuda.
 /usr/local/cuda-11.7/extras/demo_suite/deviceQuery
 {% endhighlight %}
 
+## Feedback
+
 If you have questions, comments and any kind of feedback regarding this topic, don't hesitate to contact me via email. Thanks!
 
 [nvidia-release]: https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/
@@ -86,4 +108,6 @@ If you have questions, comments and any kind of feedback regarding this topic, d
 [obs]: https://build.opensuse.org/
 [kmp]: https://build.opensuse.org/package/show/X11:Drivers:Video/nvidia-open-gfxG06
 [firmware]: https://build.opensuse.org/package/show/X11:Drivers:Video/kernel-firmware-nvidia-gsp
+[opensuse]: https://download.nvidia.com/opensuse
+[sle]: https://download.nvidia.com/suse
 [cuda-stack]: https://developer.download.nvidia.com/compute/cuda/repos/
