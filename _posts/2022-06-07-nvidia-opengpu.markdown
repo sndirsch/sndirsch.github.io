@@ -12,7 +12,7 @@ Installation instructions for Leap 15.4:
 
 {% highlight shell %}
 # if you have not added this repository yet
-zypper addrepo https://download.opensuse.org/repositories/X11:/Drivers:/Video/openSUSE_Leap_15.4/   X11:Drivers:Video
+zypper addrepo -p 90 https://download.opensuse.org/repositories/X11:/Drivers:/Video/openSUSE_Leap_15.4/   X11:Drivers:Video
 # will install needed packages
 zypper in nvidia-open-gfxG06-kmp-default kernel-firmware-nvidia-gsp
 {% endhighlight %}
@@ -74,7 +74,7 @@ Installing Display Drivers on Leap 15.4
 
 {% highlight shell %}
 # if you have not added this repository yet
-zypper addrepo https://download.nvidia.com/opensuse/leap/15.4/  nvidia
+zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.4/  nvidia
 # install all required packages
 zypper in x11-video-nvidiaG06 nvidia-glG06 nvidia-computeG06
 {% endhighlight %}
@@ -87,7 +87,7 @@ Installing CUDA on Leap 15.x
 
 {% highlight shell %}
 # if you have not added this repository yet
-zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
+zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
 # will install needed CUDA packages
 zypper in cuda
 {% endhighlight %}
@@ -97,6 +97,16 @@ Let's have a first test for using libcuda.
 {% highlight shell %}
 /usr/local/cuda-11.7/extras/demo_suite/deviceQuery
 {% endhighlight %}
+
+# CUDA Minimal Installation
+
+![CUDA: Repository and Package Dependancies](/assets/2022-06-07-cuda-repos.png)
+
+These **CUDA Packages** and **Proprietary:X11:Drivers** repositories are hosted on the **NVIDIA** server, whereas the **X11:Drivers:Video** repository is hosted on our **openSUSE Build Service**.
+
+What happens is that package **cuda** requires package **cuda-runtime** (both on **CUDA packages** repo), which again requires **cuda-drivers**. The last one is provided by our **nvidia-computeG06** package on **Proprietary:X11:Drivers** repository. It has higher priority than the **cuda-drivers** meta package from **CUDA Packages** repository, which would require in addition the display driver packages **x11-video-nvidiaG06** and **nvidia-glG06** with all kind of dependancies we would like to avoid for a **CUDA Minimal Installation**. Our **nvidia-computeG06** package on **Proprietary:X11:Drivers** requires **nvidia-open-gfxG06-kmp** package on **openSUSE Build Service** or **nvidia-gfxG06-kmp** package on **Proprietary:X11:Drivers** repository. But the former has a higher priority than the latter because of the repository priorities. Last but not least **kernel-firmware-nvidia-gsp** package is required by **nvidia-open-gfxG06-kmp**.
+
+![Minimal CUDA: Zypper Install](/assets/2022-06-07-cuda-zypper-install-output.png)
 
 ## Feedback
 
