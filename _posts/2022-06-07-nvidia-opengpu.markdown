@@ -98,13 +98,19 @@ Let's have a first test for using libcuda.
 /usr/local/cuda-11.7/extras/demo_suite/deviceQuery
 {% endhighlight %}
 
-# CUDA Minimal Installation
+## CUDA Minimal Installation
+
+# Repository and Package Dependancies as Overview
 
 ![CUDA: Repository and Package Dependancies](/assets/2022-06-07-cuda-repos.png)
 
-These `CUDA Packages` and `Proprietary:X11:Drivers` repositories are hosted on the `NVIDIA` server, whereas the `X11:Drivers:Video` repository is hosted on our `openSUSE Build Service`.
+# Explained in Detail
+
+These `CUDA Packages` and `Proprietary:X11:Drivers` repositories on the picture right above are hosted on the `NVIDIA` server, whereas the `X11:Drivers:Video` repository on the same picture is hosted on our `openSUSE Build Service`.
 
 What happens is that package `cuda` requires package `cuda-runtime` (both on `CUDA packages` repo), which again requires `cuda-drivers`. The last one is provided by our `nvidia-computeG06` package on `Proprietary:X11:Drivers` repository. It has higher priority than the `cuda-drivers` meta package from `CUDA Packages` repository, which would require in addition the display driver packages `x11-video-nvidiaG06` and `nvidia-glG06` with all kind of dependancies we would like to avoid for a `CUDA Minimal Installation`. Our `nvidia-computeG06` package on `Proprietary:X11:Drivers` requires `nvidia-open-gfxG06-kmp` package on `openSUSE Build Service` or `nvidia-gfxG06-kmp` package on `Proprietary:X11:Drivers` repository. But the former has a higher priority than the latter because of the repository priorities. Last but not least `kernel-firmware-nvidia-gsp` package is required by `nvidia-open-gfxG06-kmp`.
+
+Example for installation on SLE-15-SP4:
 
 ![Minimal CUDA: Zypper Install](/assets/2022-06-07-cuda-zypper-install-output.png)
 
