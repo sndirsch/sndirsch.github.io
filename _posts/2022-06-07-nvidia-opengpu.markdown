@@ -23,7 +23,7 @@ With that you can do a very simple test.
 nvidia-smi --query
 {% endhighlight %}
 
-But unless you have access to one of these Turing or Ampere architecture GPUs (check with `inxi -aG`):
+But unless you have access to one of these Turing or Ampere architecture GPUs (check with `inxi -aG`; use `hwinfo --gfxcard` on SLE):
 
 | NVIDIA GPU product | Device PCI ID * |
 |--------------------|-----------------|
