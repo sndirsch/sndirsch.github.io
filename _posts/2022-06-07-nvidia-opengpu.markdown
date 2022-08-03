@@ -20,7 +20,8 @@ zypper in nvidia-open-gfxG06-kmp-default kernel-firmware-nvidia-gsp
 With that you can do a very simple test.
 
 {% highlight shell %}
-nvidia-smi --query
+LD_LIBRARY_PATH=/usr/lib/kernel-firmware-nvidia-gsp \
+/usr/lib/kernel-firmware-nvidia-gsp/nvidia-smi --query
 {% endhighlight %}
 
 But unless you have access to one of these Turing or Ampere architecture GPUs (check with `inxi -aG`; use `hwinfo --gfxcard` on SLE):
