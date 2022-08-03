@@ -59,6 +59,8 @@ you'll need to remove the `#` from the options line in `/usr/lib/modprobe.d/50-n
 options nvidia NVreg_OpenRmEnableUnsupportedGpus=1
 {% endhighlight %}
 
+Find a list of Turing/Ampere GPUs, where you need this option [here][pci_ids-unsupported].
+
 # Secure Boot
 
 Unfortunately the prebuilt kernel modules are not signed yet with the Secureboot Key of openSUSE/SLE, so on such systems you'll need to do this step manually. Which is not a trivial task, I know. :-(
@@ -124,6 +126,7 @@ If you have questions, comments and any kind of feedback regarding this topic, d
 [obs]: https://build.opensuse.org/
 [kmp]: https://build.opensuse.org/package/show/X11:Drivers:Video/nvidia-open-gfxG06
 [firmware]: https://build.opensuse.org/package/show/X11:Drivers:Video/kernel-firmware-nvidia-gsp
+[pci_ids-unsupported]: https://build.opensuse.org/package/view_file/X11:Drivers:Video/nvidia-open-gfxG06/pci_ids-unsupported
 [opensuse]: https://download.nvidia.com/opensuse
 [sle]: https://download.nvidia.com/suse
 [cuda-stack]: https://developer.download.nvidia.com/compute/cuda/repos/
