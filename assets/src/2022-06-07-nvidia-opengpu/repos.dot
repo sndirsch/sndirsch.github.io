@@ -1,0 +1,28 @@
+digraph {
+	subgraph cluster_0 {
+		repo_nvidia_cuda[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="CUDA packages\nNVIDIA\n Prio 100"]
+		cuda [fillcolor=red,style=filled] 
+		cuda_runtime [fillcolor=red,style=filled,label="cuda-runtime"]
+		cuda_other_packages[fillcolor=lightblue,style=filled,label="Other Cuda Packages"]
+	}
+	subgraph cluster_1 {
+		repo_nvidia_gfx[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="Proprietary:X11:Drivers\nNVIDIA\n Prio 99"]
+		nvidia_computeG06[fillcolor=yellow,style=filled,label="nvidia-computeG06\n(Provides:cuda-drivers)"]
+	}
+	subgraph cluster_2 {
+		repo_obs[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="X11:Drivers:Video\n openSUSE Build Service\n Prio 90"]
+		nvidia_open_gfxG06_kmp[fillcolor=yellow,style=filled,label="nvidia-open-gfxG06-kmp\n(PCI Supplements)"]
+		kernel_firmware_nvidia_gsp[fillcolor=yellow,style=filled,label="kernel-firmware-nvidia-gsp"]
+	}
+	subgraph cluster_3 {
+		bgcolor="lightgreen"
+		repo_install[fillcolor=green,style=filled,width=1.5,shape=component,label="Installation"]
+		command1[shape=none,width=7,label="zypper ar -p 90 <X11:Drivers:Video> X11:Drivers:Video\nzypper ar -p 99 <Proprietary:X11:Drivers> Proprietary:X11:Drivers\nzypper ar -p 100 <CUDA packages> CUDA\nzypper in cuda"]
+	}
+	cuda -> cuda_runtime
+	cuda -> cuda_other_packages
+	cuda_runtime -> nvidia_computeG06 [color="blue",fontcolor="blue",label="Requires: cuda-drivers"]
+	cuda_runtime -> cuda_other_packages
+        nvidia_computeG06 -> nvidia_open_gfxG06_kmp
+	nvidia_open_gfxG06_kmp -> kernel_firmware_nvidia_gsp
+}

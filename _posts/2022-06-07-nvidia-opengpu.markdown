@@ -105,7 +105,7 @@ Let's have a first test for using libcuda.
 
 # Repository and Package Dependancies as Overview
 
-![CUDA: Repository and Package Dependancies](/assets/2022-06-07-cuda-repos.png)
+![CUDA: Repository and Package Dependancies](/assets/2022-06-07-cuda-repos.svg)
 
 # Explained in Detail
 
