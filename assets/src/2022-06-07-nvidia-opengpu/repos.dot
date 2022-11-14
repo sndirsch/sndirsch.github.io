@@ -17,7 +17,7 @@ digraph {
 	subgraph cluster_3 {
 		bgcolor="lightgreen"
 		repo_install[fillcolor=green,style=filled,width=1.5,shape=component,label="Installation"]
-		command1[shape=none,width=7,label="zypper ar -p 90 <X11:Drivers:Video> X11:Drivers:Video\nzypper ar -p 99 <Proprietary:X11:Drivers> Proprietary:X11:Drivers\nzypper ar -p 100 <CUDA packages> CUDA\nzypper in cuda-11-7"]
+		command1[shape=none,width=7,label="zypper ar -p 90 <X11:Drivers:Video> X11:Drivers:Video\nzypper ar -p 99 <Proprietary:X11:Drivers> Proprietary:X11:Drivers\nzypper ar -p 100 <CUDA packages> CUDA\nzypper in cuda-11-8"]
 	}
 	cuda -> cuda_runtime
 	cuda -> cuda_other_packages

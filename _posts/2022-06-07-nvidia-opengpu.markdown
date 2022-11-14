@@ -92,13 +92,13 @@ Installing CUDA on Leap 15.x
 # if you have not added this repository yet
 zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
 # will install needed CUDA packages
-zypper in cuda-11-7
+zypper in cuda-11-8
 {% endhighlight %}
 
 Let's have a first test for using libcuda.
 
 {% highlight shell %}
-/usr/local/cuda-11.7/extras/demo_suite/deviceQuery
+/usr/local/cuda-11.8/extras/demo_suite/deviceQuery
 {% endhighlight %}
 
 ## CUDA Minimal Installation

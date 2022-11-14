@@ -137,7 +137,7 @@
 <text text-anchor="middle" x="544" y="-410.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 90 &lt;X11:Drivers:Video&gt; X11:Drivers:Video</text>
 <text text-anchor="middle" x="544" y="-395.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 99 &lt;Proprietary:X11:Drivers&gt; Proprietary:X11:Drivers</text>
 <text text-anchor="middle" x="544" y="-380.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 100 &lt;CUDA packages&gt; CUDA</text>
-<text text-anchor="middle" x="544" y="-365.28" font-family="Times,serif" font-size="14.00">zypper in cuda&#45;11&#45;7</text>
+<text text-anchor="middle" x="544" y="-365.28" font-family="Times,serif" font-size="14.00">zypper in cuda&#45;11&#45;8</text>
 </g>
 </g>
 </svg>
