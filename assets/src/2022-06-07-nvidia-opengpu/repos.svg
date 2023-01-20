@@ -18,7 +18,7 @@
 </g>
 <g id="clust3" class="cluster">
 <title>cluster_2</title>
-<polygon fill="none" stroke="black" points="277,-8 277,-150.74 711,-150.74 711,-8 277,-8"/>
+<polygon fill="none" stroke="black" points="236,-8 236,-150.74 752,-150.74 752,-8 236,-8"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_3</title>
@@ -68,16 +68,16 @@
 <path fill="none" stroke="black" d="M118.35,-284.26C117.03,-270.5 115.16,-250.95 113.63,-235.04"/>
 <polygon fill="black" stroke="black" points="117.08,-234.34 112.64,-224.72 110.11,-235.01 117.08,-234.34"/>
 </g>
-<!-- nvidia_computeG06 -->
+<!-- nvidia_compute_G06 -->
 <g id="node6" class="node">
-<title>nvidia_computeG06</title>
+<title>nvidia_compute_G06</title>
 <ellipse fill="yellow" stroke="black" cx="395" cy="-206.61" rx="102.56" ry="26.74"/>
-<text text-anchor="middle" x="395" y="-210.41" font-family="Times,serif" font-size="14.00">nvidia&#45;computeG06</text>
+<text text-anchor="middle" x="395" y="-210.41" font-family="Times,serif" font-size="14.00">nvidia&#45;compute&#45;G06</text>
 <text text-anchor="middle" x="395" y="-195.41" font-family="Times,serif" font-size="14.00">(Provides:cuda&#45;drivers)</text>
 </g>
-<!-- cuda_runtime&#45;&gt;nvidia_computeG06 -->
+<!-- cuda_runtime&#45;&gt;nvidia_compute_G06 -->
 <g id="edge3" class="edge">
-<title>cuda_runtime&#45;&gt;nvidia_computeG06</title>
+<title>cuda_runtime&#45;&gt;nvidia_compute_G06</title>
 <path fill="none" stroke="blue" d="M157.66,-288.62C200.52,-273.99 271.46,-249.78 324.64,-231.63"/>
 <polygon fill="blue" stroke="blue" points="326.02,-234.85 334.35,-228.31 323.76,-228.23 326.02,-234.85"/>
 <text text-anchor="middle" x="327" y="-255.28" font-family="Times,serif" font-size="14.00" fill="blue">Requires: cuda&#45;drivers</text>
@@ -90,36 +90,36 @@
 <text text-anchor="middle" x="606" y="-202.91" font-family="Times,serif" font-size="14.00">NVIDIA</text>
 <text text-anchor="middle" x="606" y="-187.91" font-family="Times,serif" font-size="14.00"> Prio 99</text>
 </g>
-<!-- nvidia_open_gfxG06_kmp -->
+<!-- nvidia_open_driver_G06_signed_kmp -->
 <g id="node8" class="node">
-<title>nvidia_open_gfxG06_kmp</title>
-<ellipse fill="yellow" stroke="black" cx="395" cy="-115.87" rx="109.7" ry="26.74"/>
-<text text-anchor="middle" x="395" y="-119.67" font-family="Times,serif" font-size="14.00">nvidia&#45;open&#45;gfxG06&#45;kmp</text>
+<title>nvidia_open_driver_G06_signed_kmp</title>
+<ellipse fill="yellow" stroke="black" cx="395" cy="-115.87" rx="151.14" ry="26.74"/>
+<text text-anchor="middle" x="395" y="-119.67" font-family="Times,serif" font-size="14.00">nvidia&#45;open&#45;driver&#45;G06&#45;signed&#45;kmp</text>
 <text text-anchor="middle" x="395" y="-104.67" font-family="Times,serif" font-size="14.00">(PCI Supplements)</text>
 </g>
-<!-- nvidia_computeG06&#45;&gt;nvidia_open_gfxG06_kmp -->
+<!-- nvidia_compute_G06&#45;&gt;nvidia_open_driver_G06_signed_kmp -->
 <g id="edge5" class="edge">
-<title>nvidia_computeG06&#45;&gt;nvidia_open_gfxG06_kmp</title>
+<title>nvidia_compute_G06&#45;&gt;nvidia_open_driver_G06_signed_kmp</title>
 <path fill="none" stroke="black" d="M395,-179.47C395,-171.16 395,-161.82 395,-152.95"/>
 <polygon fill="black" stroke="black" points="398.5,-152.83 395,-142.83 391.5,-152.83 398.5,-152.83"/>
 </g>
 <!-- repo_obs -->
 <g id="node7" class="node">
 <title>repo_obs</title>
-<polygon fill="aqua" stroke="black" points="703,-142.37 700,-146.37 679,-146.37 676,-142.37 523,-142.37 523,-89.37 703,-89.37 703,-142.37"/>
-<text text-anchor="middle" x="613" y="-127.17" font-family="Times,serif" font-size="14.00">X11:Drivers:Video</text>
-<text text-anchor="middle" x="613" y="-112.17" font-family="Times,serif" font-size="14.00"> openSUSE Build Service</text>
-<text text-anchor="middle" x="613" y="-97.17" font-family="Times,serif" font-size="14.00"> Prio 90</text>
+<polygon fill="aqua" stroke="black" points="744,-142.37 741,-146.37 720,-146.37 717,-142.37 564,-142.37 564,-89.37 744,-89.37 744,-142.37"/>
+<text text-anchor="middle" x="654" y="-127.17" font-family="Times,serif" font-size="14.00">X11:Drivers:Video:Redesign</text>
+<text text-anchor="middle" x="654" y="-112.17" font-family="Times,serif" font-size="14.00"> openSUSE Build Service</text>
+<text text-anchor="middle" x="654" y="-97.17" font-family="Times,serif" font-size="14.00"> Prio 90</text>
 </g>
-<!-- kernel_firmware_nvidia_gsp -->
+<!-- kernel_firmware_nvidia_gsp_G06 -->
 <g id="node9" class="node">
-<title>kernel_firmware_nvidia_gsp</title>
-<ellipse fill="yellow" stroke="black" cx="395" cy="-34" rx="108.58" ry="18"/>
-<text text-anchor="middle" x="395" y="-30.3" font-family="Times,serif" font-size="14.00">kernel&#45;firmware&#45;nvidia&#45;gsp</text>
+<title>kernel_firmware_nvidia_gsp_G06</title>
+<ellipse fill="yellow" stroke="black" cx="395" cy="-34" rx="126.18" ry="18"/>
+<text text-anchor="middle" x="395" y="-30.3" font-family="Times,serif" font-size="14.00">kernel&#45;firmware&#45;nvidia&#45;gsp&#45;G06</text>
 </g>
-<!-- nvidia_open_gfxG06_kmp&#45;&gt;kernel_firmware_nvidia_gsp -->
+<!-- nvidia_open_driver_G06_signed_kmp&#45;&gt;kernel_firmware_nvidia_gsp_G06 -->
 <g id="edge6" class="edge">
-<title>nvidia_open_gfxG06_kmp&#45;&gt;kernel_firmware_nvidia_gsp</title>
+<title>nvidia_open_driver_G06_signed_kmp&#45;&gt;kernel_firmware_nvidia_gsp_G06</title>
 <path fill="none" stroke="black" d="M395,-88.72C395,-80.27 395,-70.89 395,-62.36"/>
 <polygon fill="black" stroke="black" points="398.5,-62.15 395,-52.15 391.5,-62.15 398.5,-62.15"/>
 </g>
@@ -134,7 +134,7 @@
 <!-- command1 -->
 <g id="node11" class="node">
 <title>command1</title>
-<text text-anchor="middle" x="544" y="-410.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 90 &lt;X11:Drivers:Video&gt; X11:Drivers:Video</text>
+<text text-anchor="middle" x="544" y="-410.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 90 &lt;X11:Drivers:Video:Redesign&gt; X11:Drivers:Video:Redesign</text>
 <text text-anchor="middle" x="544" y="-395.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 99 &lt;Proprietary:X11:Drivers&gt; Proprietary:X11:Drivers</text>
 <text text-anchor="middle" x="544" y="-380.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 100 &lt;CUDA packages&gt; CUDA</text>
 <text text-anchor="middle" x="544" y="-365.28" font-family="Times,serif" font-size="14.00">zypper in cuda&#45;11&#45;8</text>

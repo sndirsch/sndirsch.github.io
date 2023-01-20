@@ -7,22 +7,22 @@ digraph {
 	}
 	subgraph cluster_1 {
 		repo_nvidia_gfx[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="Proprietary:X11:Drivers\nNVIDIA\n Prio 99"]
-		nvidia_computeG06[fillcolor=yellow,style=filled,label="nvidia-computeG06\n(Provides:cuda-drivers)"]
+		nvidia_compute_G06[fillcolor=yellow,style=filled,label="nvidia-compute-G06\n(Provides:cuda-drivers)"]
 	}
 	subgraph cluster_2 {
-		repo_obs[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="X11:Drivers:Video\n openSUSE Build Service\n Prio 90"]
-		nvidia_open_gfxG06_kmp[fillcolor=yellow,style=filled,label="nvidia-open-gfxG06-kmp\n(PCI Supplements)"]
-		kernel_firmware_nvidia_gsp[fillcolor=yellow,style=filled,label="kernel-firmware-nvidia-gsp"]
+		repo_obs[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="X11:Drivers:Video:Redesign\n openSUSE Build Service\n Prio 90"]
+		nvidia_open_driver_G06_signed_kmp[fillcolor=yellow,style=filled,label="nvidia-open-driver-G06-signed-kmp\n(PCI Supplements)"]
+		kernel_firmware_nvidia_gsp_G06[fillcolor=yellow,style=filled,label="kernel-firmware-nvidia-gsp-G06"]
 	}
 	subgraph cluster_3 {
 		bgcolor="lightgreen"
 		repo_install[fillcolor=green,style=filled,width=1.5,shape=component,label="Installation"]
-		command1[shape=none,width=7,label="zypper ar -p 90 <X11:Drivers:Video> X11:Drivers:Video\nzypper ar -p 99 <Proprietary:X11:Drivers> Proprietary:X11:Drivers\nzypper ar -p 100 <CUDA packages> CUDA\nzypper in cuda-11-8"]
+		command1[shape=none,width=7,label="zypper ar -p 90 <X11:Drivers:Video:Redesign> X11:Drivers:Video:Redesign\nzypper ar -p 99 <Proprietary:X11:Drivers> Proprietary:X11:Drivers\nzypper ar -p 100 <CUDA packages> CUDA\nzypper in cuda-11-8"]
 	}
 	cuda -> cuda_runtime
 	cuda -> cuda_other_packages
-	cuda_runtime -> nvidia_computeG06 [color="blue",fontcolor="blue",label="Requires: cuda-drivers"]
+	cuda_runtime -> nvidia_compute_G06 [color="blue",fontcolor="blue",label="Requires: cuda-drivers"]
 	cuda_runtime -> cuda_other_packages
-        nvidia_computeG06 -> nvidia_open_gfxG06_kmp
-	nvidia_open_gfxG06_kmp -> kernel_firmware_nvidia_gsp
+        nvidia_compute_G06 -> nvidia_open_driver_G06_signed_kmp
+	nvidia_open_driver_G06_signed_kmp -> kernel_firmware_nvidia_gsp_G06
 }

@@ -4,7 +4,7 @@ title:  "NVIDIA Open GPU kernel modules: openSUSE/SLE packages available"
 date:   2022-06-07
 categories: nvidia
 ---
-On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have openSUSE/SLE packages for simple testing available in the [X11:Drivers:Video][x11-drivers-video] project of our [openSUSE Build Service][obs]. If you want to give these a try you need to install [ nvidia-open-gfxG06 ][kmp] and [kernel-firmware-nvidia-gsp][firmware] packages.
+On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have openSUSE/SLE packages for simple testing available in the [X11:Drivers:Video:Redesign][x11-drivers-video-redesign] project of our [openSUSE Build Service][obs]. If you want to give these a try you need to install [nvidia-open-driver-G06-signed][kmp] and [kernel-firmware-nvidia-gsp-G06][firmware] packages.
 
 ## Installation
 
@@ -12,16 +12,16 @@ Installation instructions for Leap 15.4:
 
 {% highlight shell %}
 # if you have not added this repository yet
-zypper addrepo -p 90 https://download.opensuse.org/repositories/X11:/Drivers:/Video/openSUSE_Leap_15.4/   X11:Drivers:Video
+zypper addrepo -p 90 https://download.opensuse.org/repositories/X11:/Drivers:/Video:/Redesign/openSUSE_Leap_15.4/   X11:Drivers:Video:Redesign
 # will install needed packages
-zypper in nvidia-open-gfxG06-kmp-default kernel-firmware-nvidia-gsp
+zypper in nvidia-open-driver-G06-signed-kmp-default kernel-firmware-nvidia-gsp-G06
 {% endhighlight %}
 
 With that you can do a very simple test.
 
 {% highlight shell %}
-LD_LIBRARY_PATH=/usr/lib/kernel-firmware-nvidia-gsp \
-/usr/lib/kernel-firmware-nvidia-gsp/nvidia-smi --query
+LD_LIBRARY_PATH=/usr/lib/kernel-firmware-nvidia-gsp-G06 \
+/usr/lib/kernel-firmware-nvidia-gsp-G06/nvidia-smi --query
 {% endhighlight %}
 
 But unless you have access to one of these Turing or Ampere architecture GPUs (check with `inxi -aG`; use `hwinfo --gfxcard` on SLE):
@@ -68,10 +68,9 @@ Unfortunately the prebuilt kernel modules are not signed yet with the Secureboot
 
 ## Display Drivers
 
-I'm planning to have `x11-video-nvidiaG06`, `nvidia-glG06` and `nvidia-computeG06` packages available via NVIDIA's [openSUSE][opensuse]/[SLE][sle] repositories in week 24 (next week), which then can be used together with NVIDIA's Open GPU kernel modules above.
-
-
-> Update June 15, 2022: These are now availabe!
+`nvidia-video-G06`, `nvidia-gl-G06` and `nvidia-compute-G06` packages are
+available via NVIDIA's [openSUSE][opensuse]/[SLE][sle] repositories, which
+then can be used together with NVIDIA's Open GPU kernel modules above.
 
 Installing Display Drivers on Leap 15.4
 
@@ -79,12 +78,12 @@ Installing Display Drivers on Leap 15.4
 # if you have not added this repository yet
 zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.4/  nvidia
 # install all required packages
-zypper in x11-video-nvidiaG06 nvidia-glG06 nvidia-computeG06
+zypper in nvidia-video-G06 nvidia-gl-G06 nvidia-compute-G06
 {% endhighlight %}
 
 ## CUDA
 
-With that - after installing `nvidia-computeG06` (contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
+With that - after installing `nvidia-compute-G06` (contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
 
 Installing CUDA on Leap 15.x
 
@@ -109,11 +108,11 @@ Let's have a first test for using libcuda.
 
 # Explained in Detail
 
-These `CUDA Packages` and `Proprietary:X11:Drivers` repositories on the picture right above are hosted on the `NVIDIA` server, whereas the `X11:Drivers:Video` repository on the same picture is hosted on our `openSUSE Build Service`.
+These `CUDA Packages` and `Proprietary:X11:Drivers` repositories on the picture right above are hosted on the `NVIDIA` server, whereas the `X11:Drivers:Video:Redesign` repository on the same picture is hosted on our `openSUSE Build Service`.
 
-What happens is that package `cuda` requires package `cuda-runtime` (both on `CUDA packages` repo), which again requires `cuda-drivers`. The last one is provided by our `nvidia-computeG06` package on `Proprietary:X11:Drivers` repository. It has higher priority than the `cuda-drivers` meta package from `CUDA Packages` repository, which would require in addition the display driver packages `x11-video-nvidiaG06` and `nvidia-glG06` with all kind of dependancies we would like to avoid for a `CUDA Minimal Installation`. Our `nvidia-computeG06` package on `Proprietary:X11:Drivers` requires `nvidia-open-gfxG06-kmp` package on `openSUSE Build Service` or `nvidia-gfxG06-kmp` package on `Proprietary:X11:Drivers` repository. But the former has a higher priority than the latter because of the repository priorities. Last but not least `kernel-firmware-nvidia-gsp` package is required by `nvidia-open-gfxG06-kmp`.
+What happens is that package `cuda` requires package `cuda-runtime` (both on `CUDA packages` repo), which again requires `cuda-drivers`. The last one is provided by our `nvidia-compute-G06` package on `Proprietary:X11:Drivers` repository. It has higher priority than the `cuda-drivers` meta package from `CUDA Packages` repository, which would require in addition the display driver packages `nvidia-video-G06` and `nvidia-gl-G06` with all kind of dependancies we would like to avoid for a `CUDA Minimal Installation`. Our `nvidia-compute-G06` package on `Proprietary:X11:Drivers` requires `nvidia-open-driver-G06-signed-kmp` package on `openSUSE Build Service` or `nvidia-driver-G06-kmp` package on `Proprietary:X11:Drivers` repository. But the former has a higher priority than the latter because of the repository priorities. Last but not least `kernel-firmware-nvidia-gsp-G06` package is required by `nvidia-open-driver-G06-signed-kmp`.
 
-Example for installation on SLE-15-SP4:
+Example for installation on openSUSE Leap 15.4:
 
 ![Minimal CUDA: Zypper Install](/assets/2022-06-07-cuda-zypper-install-output.png)
 
@@ -123,11 +122,11 @@ If you have questions, comments and any kind of feedback regarding this topic, d
 
 [nvidia-release]: https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/
 [opengpu-github]: https://github.com/NVIDIA/open-gpu-kernel-modules
-[x11-drivers-video]: https://build.opensuse.org/project/monitor/X11:Drivers:Video
+[x11-drivers-video-redesign]: https://build.opensuse.org/project/monitor/X11:Drivers:Video:Redesign
 [obs]: https://build.opensuse.org/
-[kmp]: https://build.opensuse.org/package/show/X11:Drivers:Video/nvidia-open-gfxG06
-[firmware]: https://build.opensuse.org/package/show/X11:Drivers:Video/kernel-firmware-nvidia-gsp
-[pci_ids-unsupported]: https://build.opensuse.org/package/view_file/X11:Drivers:Video/nvidia-open-gfxG06/pci_ids-unsupported
+[kmp]: https://build.opensuse.org/package/show/X11:Drivers:Video:Redesign/nvidia-open-driver-G06-signed
+[firmware]: https://build.opensuse.org/package/show/X11:Drivers:Video:Redesign/kernel-firmware-nvidia-gsp-G06
+[pci_ids-unsupported]: https://build.opensuse.org/package/view_file/X11:Drivers:Video:Redesign/nvidia-open-driver-G06-signed/pci_ids-unsupported
 [opensuse]: https://download.nvidia.com/opensuse
 [sle]: https://download.nvidia.com/suse
 [cuda-stack]: https://developer.download.nvidia.com/compute/cuda/repos/
