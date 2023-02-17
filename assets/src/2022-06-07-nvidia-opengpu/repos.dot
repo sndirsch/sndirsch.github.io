@@ -7,7 +7,8 @@ digraph {
 	}
 	subgraph cluster_1 {
 		repo_nvidia_gfx[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="Proprietary:X11:Drivers\nNVIDIA\n Prio 99"]
-		nvidia_compute_G06[fillcolor=yellow,style=filled,label="nvidia-compute-G06\n(Provides:cuda-drivers)"]
+		nvidia_compute_utils_G06[fillcolor=yellow,style=filled,label="nvidia-compute-utils-G06\n(Provides:cuda-drivers)"]
+		nvidia_compute_G06[fillcolor=yellow,style=filled,label="nvidia-compute-G06"]
 	}
 	subgraph cluster_2 {
 		repo_obs[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="X11:Drivers:Video:Redesign\n openSUSE Build Service\n Prio 90"]
@@ -21,7 +22,8 @@ digraph {
 	}
 	cuda -> cuda_runtime
 	cuda -> cuda_other_packages
-	cuda_runtime -> nvidia_compute_G06 [color="blue",fontcolor="blue",label="Requires: cuda-drivers"]
+	cuda_runtime -> nvidia_compute_utils_G06 [color="blue",fontcolor="blue",label="Requires: cuda-drivers"]
+	nvidia_compute_utils_G06 -> nvidia_compute_G06
 	cuda_runtime -> cuda_other_packages
         nvidia_compute_G06 -> nvidia_open_driver_G06_signed_kmp
 	nvidia_open_driver_G06_signed_kmp -> kernel_firmware_nvidia_gsp_G06

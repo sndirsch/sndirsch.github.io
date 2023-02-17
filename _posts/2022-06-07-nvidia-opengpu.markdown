@@ -110,11 +110,11 @@ Let's have a first test for using libcuda.
 
 These `CUDA Packages` and `Proprietary:X11:Drivers` repositories on the picture right above are hosted on the `NVIDIA` server, whereas the `X11:Drivers:Video:Redesign` repository on the same picture is hosted on our `openSUSE Build Service`.
 
-What happens is that package `cuda` requires package `cuda-runtime` (both on `CUDA packages` repo), which again requires `cuda-drivers`. The last one is provided by our `nvidia-compute-G06` package on `Proprietary:X11:Drivers` repository. It has higher priority than the `cuda-drivers` meta package from `CUDA Packages` repository, which would require in addition the display driver packages `nvidia-video-G06` and `nvidia-gl-G06` with all kind of dependancies we would like to avoid for a `CUDA Minimal Installation`. Our `nvidia-compute-G06` package on `Proprietary:X11:Drivers` requires `nvidia-open-driver-G06-signed-kmp` package on `openSUSE Build Service` or `nvidia-driver-G06-kmp` package on `Proprietary:X11:Drivers` repository. But the former has a higher priority than the latter because of the repository priorities. Last but not least `kernel-firmware-nvidia-gsp-G06` package is required by `nvidia-open-driver-G06-signed-kmp`.
+What happens is that package `cuda` requires package `cuda-runtime` (both on `CUDA packages` repo), which again requires `cuda-drivers`. The last one is provided by our `nvidia-compute-utils-G06` package on `Proprietary:X11:Drivers` repository. It has higher priority than the `cuda-drivers` meta package from `CUDA Packages` repository, which would require in addition the display driver packages `nvidia-video-G06` and `nvidia-gl-G06` with all kind of dependancies we would like to avoid for a `CUDA Minimal Installation`. Our `nvidia-compute-utils-G06` package on `Proprietary:X11:Drivers` requires `nvidia-compute-G06` (same repository), which again requires `nvidia-open-driver-G06-signed-kmp` package on `openSUSE Build Service` or `nvidia-driver-G06-kmp` package on `Proprietary:X11:Drivers` repository. But the former has a higher priority than the latter because of the repository priorities. Last but not least `kernel-firmware-nvidia-gsp-G06` package is required by `nvidia-open-driver-G06-signed-kmp`.
 
 Example for installation on openSUSE Leap 15.4:
 
-![Minimal CUDA: Zypper Install](/assets/2022-06-07-cuda-zypper-install-output.png)
+![Minimal CUDA: Zypper Install](/assets/2022-06-07-cuda-zypper-install-output.jpg)
 
 ## Feedback
 
