@@ -17,13 +17,6 @@ zypper addrepo -p 90 https://download.opensuse.org/repositories/X11:/Drivers:/Vi
 zypper in nvidia-open-driver-G06-signed-kmp-default kernel-firmware-nvidia-gsp-G06
 {% endhighlight %}
 
-With that you can do a very simple test.
-
-{% highlight shell %}
-LD_LIBRARY_PATH=/usr/lib/kernel-firmware-nvidia-gsp-G06 \
-/usr/lib/kernel-firmware-nvidia-gsp-G06/nvidia-smi --query
-{% endhighlight %}
-
 But unless you have access to one of these Turing or Ampere architecture GPUs (check with `inxi -aG`; use `hwinfo --gfxcard` on SLE):
 
 | NVIDIA GPU product | Device PCI ID * |
