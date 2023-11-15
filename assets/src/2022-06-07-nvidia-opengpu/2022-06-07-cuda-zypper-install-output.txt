@@ -1,9 +1,8 @@
 # zypper repos -p
 #  | Alias                       | Name                        | Enabled | GPG Check | Refresh | Priority
 ---+-----------------------------+-----------------------------+---------+-----------+---------+---------
- 1 | X11:Drivers:Video:Redesign  | X11:Drivers:Video:Redesign  | Yes     | (r ) Yes  | No      |   90
- 2 | cuda                        | cuda                        | Yes     | (r ) Yes  | No      |  100
- 3 | nvidia                      | nvidia                      | Yes     | (r ) Yes  | No      |   99
+ 1 | cuda                        | cuda                        | Yes     | (r ) Yes  | No      |  100
+ 2 | nvidia                      | nvidia                      | Yes     | (r ) Yes  | No      |   99
  [...]
 
 # zypper in --no-recommends cuda-11-8 
@@ -12,7 +11,7 @@ Reading installed packages...
 Resolving package dependencies...
 
 The following 62 NEW packages are going to be installed:
-  cuda-11-8 [...] kernel-firmware-nvidia-gsp-G06 [...] nvidia-compute-G06 nvidia-compute-utils-G06
+  cuda-11-8 [...] kernel-firmware-nvidia-gspx-G06 [...] nvidia-compute-G06 nvidia-compute-utils-G06
   nvidia-open-driver-G06-signed-kmp-default
 
 62 new packages to install.
