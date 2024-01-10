@@ -8,7 +8,7 @@ On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kerne
 
 ## Installation
 
-Installation instructions since Leap 15.4:
+Installation instructions since Leap 15.4/SLE15-SP4 and Tumbleweed:
 
 {% highlight shell %}
 # will install needed packages
@@ -23,11 +23,25 @@ Find supported Turing/Ampere/Hopper GPUs [here][pci_ids-unsupported]. Check with
 available via NVIDIA's [openSUSE][opensuse]/[SLE][sle] repositories, which
 then can be used together with NVIDIA's Open GPU kernel modules above.
 
-Installing Display Drivers on Leap 15.4
+Installing Display Drivers on Leap 15.x/Tumbleweed/SLE15-SPx
 
 {% highlight shell %}
 # if you have not added this repository yet
+# Leap 15.4
 zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.4/  nvidia
+# Leap 15.5
+zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.5/  nvidia
+# Leap 15.6
+zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.6/  nvidia
+# Tumbleweed
+https://download.nvidia.com/opensuse/tumbleweed/
+# SLE15-SP4
+zypper addrepo -p 99 https://download.nvidia.com/suse/sle15sp4/  nvidia
+# SLE15-SP5
+zypper addrepo -p 99 https://download.nvidia.com/suse/sle15sp5/  nvidia
+# SLE15-SP6
+zypper addrepo -p 99 https://download.nvidia.com/suse/sle15sp6/  nvidia
+
 # install all required packages
 zypper in nvidia-video-G06 nvidia-gl-G06 nvidia-compute-G06
 {% endhighlight %}
@@ -36,19 +50,23 @@ zypper in nvidia-video-G06 nvidia-gl-G06 nvidia-compute-G06
 
 With that - after installing `nvidia-compute-G06` (contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
 
-Installing CUDA on Leap 15.x
+Installing CUDA on Leap 15.x/Tumbleweed/SLE15-SPx
 
 {% highlight shell %}
 # if you have not added this repository yet
+# Leap 15.x/Tumbleweed
 zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
+# SLE15-SPx
+zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
+
 # will install needed CUDA packages
-zypper in cuda-11-8
+zypper in cuda-12-3
 {% endhighlight %}
 
 Let's have a first test for using libcuda.
 
 {% highlight shell %}
-/usr/local/cuda-11.8/extras/demo_suite/deviceQuery
+/usr/local/cuda-12.3/extras/demo_suite/deviceQuery
 {% endhighlight %}
 
 ## CUDA Minimal Installation
