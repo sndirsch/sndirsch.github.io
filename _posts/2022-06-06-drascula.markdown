@@ -12,17 +12,20 @@ Recently I was packaging one of the [Retro freeware games][games], which are sup
 
 When testing the language support I noticed, that it has been originally developed by a company in Spain called `Alcachofa Soft S.L.`, so additional to English it also includes speech in Spanish. Subtitles are available in English, German , French, Italian and Spanish. Therefore I decided to try improving my Spanish language skills and began to play this Adventure. And although the game is from 1996 I enjoyed it a lot!
 
-I figured out that if you press `SPACE` while a character is speaking, the sentence will be interrupted (apart from the voice part). And by pressing `SPACE` again the game continues. Which was rather useful for me in order to have more time for reading and understanding the subtitles.
+I figured out that if you press `SPACE` while a character is speaking, the sentence will be interrupted (apart from the voice part). And by pressing `SPACE` again the game continues. Which was rather useful for me in order to have more time for reading and understanding the subtitles. Press `F7/F10` to load/save the game.
 
 ## Installation
 
 You can find [drascula][drascula-pkg] and [scummvm][scummvm-pkg] packages in the [games repository][games-repo] of the [openSUSE Build Service][obs].
 
-Installation instructions for openSUSE 15.3:
+Installation instructions for openSUSE Leap:
 
 {% highlight shell %}
 # if you don't have added the 'games' repository yet
-zypper addrepo https://download.opensuse.org/repositories/games/openSUSE_Leap_15.3/  games
+# Leap 15.4
+zypper addrepo https://download.opensuse.org/repositories/games/openSUSE_Leap_15.4/  games
+# Leap 15.5
+zypper addrepo https://download.opensuse.org/repositories/games/openSUSE_Leap_15.5/  games
 # will install 'scummvm' package and other dependancies automatically
 zypper in drascula
 {% endhighlight %}
