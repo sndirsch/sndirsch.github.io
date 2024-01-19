@@ -37,13 +37,16 @@ And in case you struggle - Walkthroughs are available on Youtube - also in Spani
 
 ## Running on Windows, MacOS, etc.
 
-In case you're using Windows, MacOS, etc. There are precompiled executables of the `ScummVM` program availabe for download on the [ScummVM Download Page][scummvm-downloads], which you can easily install on your machine. Don't forget to download also the [Drascula datafiles][drascula]. Install them to your favorite directory, then run `scummvm`, press `Add Game` and select the directory, into which you installed the `Drascula` datafiles right before. Then press `Start` to start the game. Have fun!
+In case you're using Windows, MacOS, etc. There are precompiled executables of the `ScummVM` program availabe for download on the [ScummVM Download Page][scummvm-downloads], which you can easily install on your machine. Don't forget to download also the [Drascula datafiles][drascula]. You will need: [Freeware Version (English)][drascula-english], [Freeware Version (Music Adon, OGG format)][drascula-music] and [Freeware Version (Updated Spanish, German, French and Italian AddOn)][drascula-spanish]. Extract all of them in your favorite directory (`readme.txt` can be overriden), then run `scummvm`, press `Add Game` and `Choose` the directory, into which you installed the `Drascula` datafiles right before. Now select `Graphics`, enable `Override global graphic setting`, set `Scaler` to `HQ` and `3x` and enable `Fullscreen mode`. Now select `Audio`, enable `Override global audio setting` and set `Text and speech` to `Both`. Press `Ok`. Then press `Start` to start the game. Have fun!
 
 [games]: https://www.scummvm.org/games/
 [scummvm]: https://www.scummvm.org
 [scummvm-downloads]: https://www.scummvm.org/downloads
-[drascula]: https://www.scummvm.org/games/#games-drascula
+[drascula]: https://www.scummvm.org/games/#games-drascula:drascula
 [drascula-pkg]: https://build.opensuse.org/package/show/games/drascula
+[drascula-english]: https://downloads.scummvm.org/frs/extras/Drascula_%20The%20Vampire%20Strikes%20Back/drascula-1.0.zip
+[drascula-music]: https://downloads.scummvm.org/frs/extras/Drascula_%20The%20Vampire%20Strikes%20Back/drascula-audio-2.0.zip
+[drascula-spanish]: https://downloads.scummvm.org/frs/extras/Drascula_%20The%20Vampire%20Strikes%20Back/drascula-int-1.1.zip
 [scummvm-pkg]: https://build.opensuse.org/package/show/games/scummvm
 [games-repo]: https://build.opensuse.org/project/show/games
 [obs]: https://build.opensuse.org
