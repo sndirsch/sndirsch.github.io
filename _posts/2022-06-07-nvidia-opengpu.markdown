@@ -8,7 +8,7 @@ On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kerne
 
 ## Installation
 
-Installation instructions since Leap 15.4/SLE15-SP4 and Tumbleweed:
+Installation instructions since Leap 15.5/SLE15-SP4 and Tumbleweed:
 
 {% highlight shell %}
 # will install needed packages
@@ -27,15 +27,13 @@ Installing Display Drivers on Leap 15.x/Tumbleweed/SLE15-SPx
 
 {% highlight shell %}
 # if you have not added this repository yet
-# Leap 15.4
-zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.4/  nvidia
 # Leap 15.5
 zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.5/  nvidia
 # Leap 15.6
 zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.6/  nvidia
 # Tumbleweed
 https://download.nvidia.com/opensuse/tumbleweed/
-# SLE15-SP4
+# SLE15-SP4 (only LTSS)
 zypper addrepo -p 99 https://download.nvidia.com/suse/sle15sp4/  nvidia
 # SLE15-SP5
 zypper addrepo -p 99 https://download.nvidia.com/suse/sle15sp5/  nvidia
@@ -81,7 +79,7 @@ These `CUDA Packages` and `Proprietary:X11:Drivers` repositories on the picture 
 
 What happens is that package `cuda` requires package `cuda-runtime` (both in `CUDA packages` repo), which again requires `cuda-drivers`. The last one is provided by our `nvidia-compute-utils-G06` package in `Proprietary:X11:Drivers` repository. It has higher priority than the `cuda-drivers` meta package from `CUDA Packages` repository, which would require in addition the display driver packages `nvidia-video-G06` and `nvidia-gl-G06` with all kind of dependancies we would like to avoid for a `CUDA Minimal Installation`. Our `nvidia-compute-utils-G06` package in `Proprietary:X11:Drivers` requires `nvidia-compute-G06` (same repository), which again requires `nvidia-open-driver-G06-signed-kmp` package included in our openSUSE/SLE distributions or `nvidia-driver-G06-kmp` package in `Proprietary:X11:Drivers` repository. Last but not least `kernel-firmware-nvidia-gspx-G06` package is required by `nvidia-open-driver-G06-signed-kmp`.
 
-Example for installation on openSUSE Leap 15.4:
+Example for installation on openSUSE Leap 15.5:
 
 ![Minimal CUDA: Zypper Install](/assets/2022-06-07-cuda-zypper-install-output.jpg)
 
