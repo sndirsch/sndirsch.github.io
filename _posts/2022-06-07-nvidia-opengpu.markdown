@@ -54,8 +54,10 @@ Installing CUDA on Leap 15.x/Tumbleweed/SLE15-SPx
 # if you have not added this repository yet
 # Leap 15.x/Tumbleweed
 zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
-# SLE15-SPx
+# SLE15-SPx (x86_64)
 zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
+# SLE15-SPx (aarch64)
+zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 
 # will install needed CUDA packages
 zypper in cuda-12-3
@@ -65,6 +67,8 @@ Let's have a first test for using libcuda.
 
 {% highlight shell %}
 /usr/local/cuda-12.3/extras/demo_suite/deviceQuery
+# Unfortunately this is not available for aarch64; but there are
+# other samples available below /usr/local/cuda-12.3/extras/ ...
 {% endhighlight %}
 
 ## CUDA Minimal Installation
