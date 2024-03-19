@@ -15,7 +15,7 @@ Installation instructions since Leap 15.5/SLE15-SP4 and Tumbleweed:
 zypper in nvidia-open-driver-G06-signed-kmp-default kernel-firmware-nvidia-gspx-G06
 {% endhighlight %}
 
-Find supported Turing/Ampere/Hopper GPUs [here][pci_ids-unsupported]. Check with `inxi -aG`. Use `hwinfo --gfxcard` on SLE.
+Find supported Turing/Ampere/Hopper GPUs [here][pci_ids-supported]. Check with `inxi -aG`. Use `hwinfo --gfxcard` on SLE.
 
 ## Display Drivers
 
@@ -93,7 +93,7 @@ If you have questions, comments and any kind of feedback regarding this topic, d
 
 [nvidia-release]: https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/
 [opengpu-github]: https://github.com/NVIDIA/open-gpu-kernel-modules
-[pci_ids-unsupported]: https://build.opensuse.org/package/view_file/X11:Drivers:Video:Redesign/nvidia-open-driver-G06-signed/pci_ids-unsupported
+[pci_ids-supported]: https://build.opensuse.org/package/view_file/X11:Drivers:Video:Redesign/nvidia-open-driver-G06-signed/pci_ids-supported
 [opensuse]: https://download.nvidia.com/opensuse
 [sle]: https://download.nvidia.com/suse
 [cuda-stack]: https://developer.download.nvidia.com/compute/cuda/repos/
