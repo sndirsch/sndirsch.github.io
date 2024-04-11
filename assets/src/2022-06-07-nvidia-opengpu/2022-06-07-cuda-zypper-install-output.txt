@@ -5,13 +5,13 @@
  2 | nvidia                      | nvidia                      | Yes     | (r ) Yes  | No      |   99
  [...]
 
-# zypper in --no-recommends cuda-12-3
+# zypper in --no-recommends cuda-12-4
 Loading repository data...
 Reading installed packages...
 Resolving package dependencies...
 
 The following 62 NEW packages are going to be installed:
-  cuda-12-3 [...] kernel-firmware-nvidia-gspx-G06 [...] nvidia-compute-G06 nvidia-compute-utils-G06
+  cuda-12-4 [...] kernel-firmware-nvidia-gspx-G06 [...] nvidia-compute-G06 nvidia-compute-utils-G06
   nvidia-open-driver-G06-signed-kmp-default
 
 62 new packages to install.

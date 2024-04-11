@@ -147,7 +147,7 @@
 <title>command1</title>
 <text text-anchor="middle" x="544" y="-468.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 99 &lt;Proprietary:X11:Drivers&gt; Proprietary:X11:Drivers</text>
 <text text-anchor="middle" x="544" y="-453.28" font-family="Times,serif" font-size="14.00">zypper ar &#45;p 100 &lt;CUDA packages&gt; CUDA</text>
-<text text-anchor="middle" x="544" y="-438.28" font-family="Times,serif" font-size="14.00">zypper in cuda&#45;12&#45;3</text>
+<text text-anchor="middle" x="544" y="-438.28" font-family="Times,serif" font-size="14.00">zypper in cuda&#45;12&#45;4</text>
 </g>
 </g>
 </svg>

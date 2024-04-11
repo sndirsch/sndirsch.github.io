@@ -60,15 +60,15 @@ zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/s
 zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 
 # will install needed CUDA packages
-zypper in cuda-12-3
+zypper in cuda-12-4
 {% endhighlight %}
 
 Let's have a first test for using libcuda.
 
 {% highlight shell %}
-/usr/local/cuda-12.3/extras/demo_suite/deviceQuery
+/usr/local/cuda-12.4/extras/demo_suite/deviceQuery
 # Unfortunately this is not available for aarch64; but there are
-# other samples available below /usr/local/cuda-12.3/extras/ ...
+# other samples available below /usr/local/cuda-12.4/extras/ ...
 {% endhighlight %}
 
 ## CUDA Minimal Installation
