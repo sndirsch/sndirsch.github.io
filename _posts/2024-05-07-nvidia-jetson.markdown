@@ -32,16 +32,16 @@ Now update kernel and install our KMP (kernel module package) for all nvidia ker
 We plan to make the KMP available as a driver kit via the SolidDriver Program. I’ve opened  SUSE bugzilla ticket [#1222604][boo1222604] for this. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (rebuilding can take a few hours!) from our open buildservice:
 
 {% highlight shell %}
-$ sudo zypper ar https://download.opensuse.org/repositories/home:/sndirsch:/sidecar/SLE_15_SP6/ home:sndirsch:sidecar
-$ sudo zypper ref
+sudo zypper ar https://download.opensuse.org/repositories/home:/sndirsch:/sidecar/SLE_15_SP6/ home:sndirsch:sidecar
+sudo zypper ref
 # flavor either default or 64kb (check with uname -r command)
-$ sudo zypper in -f -r home:sndirsch:sidecar kernel-<flavor>  nvidia-open-driver-G06-signed-sidecar-kmp-<flavor>
+sudo zypper in -f -r home:sndirsch:sidecar kernel-<flavor>  nvidia-open-driver-G06-signed-sidecar-kmp-<flavor>
 {% endhighlight %}
 
 Reboot with the updated kernel.
 
 {% highlight shell %}
-$ sudo reboot
+sudo reboot
 {% endhighlight %}
 
 In Mokmanager (`Perform MOK management`) select `Continue boot`. Although Secureboot is enabled by default in BIOS it seems it hasn’t been implemented yet (BIOS from 04/04/2024). Select first entry `SLES 15-SP6` for booting.
@@ -60,16 +60,16 @@ Download Jetpack 6 [Driver Package (BSP)][driver-pkg-bsp] from this [location]
 [jetpack6-website]. Extract `jetson_linux_r36.3.0_aarch64.tbz2`.
 
 {% highlight shell %}
-$ tar xf jetson_linux_r36.3.0_aarch64.tbz2
+tar xf jetson_linux_r36.3.0_aarch64.tbz2
 {% endhighlight %}
 
 Then you need to convert debian packages from this content into tarballs.
 
 {% highlight shell %}
-$ pushd Linux_for_Tegra
-$ sudo ln -snf bzip2 /usr/bin/lbzip2
-$ ./nv_tools/scripts/nv_repackager.sh -o ./nv_tegra/l4t_tar_packages --convert-all
-$ popd
+pushd Linux_for_Tegra
+sudo ln -snf bzip2 /usr/bin/lbzip2
+./nv_tools/scripts/nv_repackager.sh -o ./nv_tegra/l4t_tar_packages --convert-all
+popd
 {% endhighlight %}
 
 Details about the script mentioned above are described in chapter `4. Installing the Jet Pack 6 Userspace` of the PDF [Jetson-Linux - 3rd Party Distro Porting Guide - 20240201.pdf][porting-guide-pdf]. Unfortunately this PDF is not officially available.
@@ -128,8 +128,8 @@ usr/share/alsa/init/postinit/02-tegra-rt5640.conf
 So first let’s repackage `nvidia-l4t-init_36.3.0-20240404104251_arm64.tbz2`:
 
 {% highlight shell %}
-$ pushd Linux_for_Tegra/nv_tegra/l4t_tar_packages/
-$ cat > nvidia-l4t-init.txt << EOF
+pushd Linux_for_Tegra/nv_tegra/l4t_tar_packages/
+cat > nvidia-l4t-init.txt << EOF
 etc/asound.conf.tegra-ape
 etc/asound.conf.tegra-hda-jetson-agx
 etc/asound.conf.tegra-hda-jetson-xnx
@@ -154,17 +154,17 @@ usr/share/alsa/init/postinit/00-tegra.conf
 usr/share/alsa/init/postinit/01-tegra-rt565x.conf
 usr/share/alsa/init/postinit/02-tegra-rt5640.conf
 EOF
-$ tar xf nvidia-l4t-init_36.3.0-20240404104251_arm64.tbz2
-$ rm nvidia-l4t-init_36.3.0-20240404104251_arm64.tbz2
-$ tar cjf nvidia-l4t-init_36.3.0-20240404104251_arm64.tbz2 $(cat nvidia-l4t-init.txt)
-$ popd
+tar xf nvidia-l4t-init_36.3.0-20240404104251_arm64.tbz2
+rm nvidia-l4t-init_36.3.0-20240404104251_arm64.tbz2
+tar cjf nvidia-l4t-init_36.3.0-20240404104251_arm64.tbz2 $(cat nvidia-l4t-init.txt)
+popd
 {% endhighlight %}
 
 Then extract the generated tarballs to your system.
 
 {% highlight shell %}
-$ pushd Linux_for_Tegra/nv_tegra/l4t_tar_packages
-$ for i in \
+pushd Linux_for_Tegra/nv_tegra/l4t_tar_packages
+for i in \
 nvidia-l4t-core_36.3.0-20240404104251_arm64.tbz2 \
 nvidia-l4t-3d-core_36.3.0-20240404104251_arm64.tbz2 \
 nvidia-l4t-cuda_36.3.0-20240404104251_arm64.tbz2 \
@@ -185,7 +185,7 @@ nvidia-l4t-nvml_36.3.0-20240404104251_arm64.tbz2 \
 nvidia-l4t-init_36.3.0-20240404104251_arm64.tbz2; do
   sudo tar xjf $i -C /
 done
-$ popd
+popd
 {% endhighlight %}
 
 Then you still need to move
@@ -206,18 +206,18 @@ and add `/usr/lib/aarch64-linux-gnu` to `/etc/ld.so.conf.d/nvidia-tegra.conf`.
 
 
 {% highlight shell %}
-$ sudo mv /usr/lib/xorg/modules/drivers/nvidia_drv.so \
+sudo mv /usr/lib/xorg/modules/drivers/nvidia_drv.so \
           /usr/lib64/xorg/modules/drivers/
-$ sudo mv /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so \
+sudo mv /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so \
           /usr/lib64/xorg/modules/extensions/
-$ sudo rm -rf /usr/lib/xorg
-$ sudo echo /usr/lib/aarch64-linux-gnu >> /etc/ld.so.conf.d/nvidia-tegra.conf
+sudo rm -rf /usr/lib/xorg
+sudo echo /usr/lib/aarch64-linux-gnu >> /etc/ld.so.conf.d/nvidia-tegra.conf
 {% endhighlight %}
 
 Run ldconfig 
 
 {% highlight shell %}
-$ sudo ldconfig
+sudo ldconfig
 {% endhighlight %}
 
 #### Also needed when using the SUSE internal package
@@ -227,7 +227,7 @@ A regular user needs to be added to the group `video` to be able to log in to th
 #### Reboot the machine
 
 {% highlight shell %}
-$ sudo reboot
+sudo reboot
 {% endhighlight %}
 
 ### Basic testing
@@ -235,7 +235,7 @@ $ sudo reboot
 First basic testing will be running `nvidia-smi`. 
 
 {% highlight shell %}
-$ sudo nvidia-smi
+sudo nvidia-smi
 {% endhighlight %}
 
 Graphical desktop (GNOME) should work as well. Unfortunately Linux console is not available. Use either a serial console or a ssh connection if you don’t want to use the graphical desktop or need remote access to the system.
@@ -245,16 +245,16 @@ Graphical desktop (GNOME) should work as well. Unfortunately Linux console is no
 Install phoronix-test-suite
 
 {% highlight shell %}
-$ sudo zypper ar https://cdn.opensuse.org/distribution/leap/15.6/repo/oss/ repo-oss
-$ sudo zypper ref
-$ sudo zypper in phoronix-test-suite
+sudo zypper ar https://cdn.opensuse.org/distribution/leap/15.6/repo/oss/ repo-oss
+sudo zypper ref
+sudo zypper in phoronix-test-suite
 {% endhighlight %}
 
 Run phoronix-test-suite
 
 {% highlight shell %}
-$ sudo zypper in gcc gcc-c++
-$ phoronix-test-suite benchmark glmark2
+sudo zypper in gcc gcc-c++
+phoronix-test-suite benchmark glmark2
 {% endhighlight %}
 
 ### CUDA/Tensorflow
@@ -267,31 +267,31 @@ NVIDIA provides containers available for Jetson that include SDKs such as CUDA. 
 ##### 1. Install podman and nvidia-container-runtime
 
 {% highlight shell %}
-$ sudo zypper install podman
-$ sudo zypper ar https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo
-$ sudo zypper modifyrepo --enable nvidia-container-toolkit-experimental
-$ sudo zypper --gpg-auto-import-keys install -y nvidia-container-toolkit
-$ sudo nvidia-ctk cdi generate --mode=csv --output=/var/run/cdi/nvidia.yaml
-$ sudo nvidia-ctk cdi list
+sudo zypper install podman
+sudo zypper ar https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo
+sudo zypper modifyrepo --enable nvidia-container-toolkit-experimental
+sudo zypper --gpg-auto-import-keys install -y nvidia-container-toolkit
+sudo nvidia-ctk cdi generate --mode=csv --output=/var/run/cdi/nvidia.yaml
+sudo nvidia-ctk cdi list
 {% endhighlight %}
 
 ##### 2. Download the CUDA samples
 
 {% highlight shell %}
-$ sudo zypper install git
-$ cd
-$ git clone https://github.com/NVIDIA/cuda-samples.git
-$ cd cuda-samples
-$ git checkout v12.4
+sudo zypper install git
+cd
+git clone https://github.com/NVIDIA/cuda-samples.git
+cd cuda-samples
+git checkout v12.4
 {% endhighlight %}
 
 ##### 3. Start X
 
 {% highlight shell %}
-$ sudo rcxdm stop
-$ sudo Xorg -retro &> /tmp/log &
-$ export DISPLAY=:0
-$ xterm &
+sudo rcxdm stop
+sudo Xorg -retro &> /tmp/log &
+export DISPLAY=:0
+xterm &
 {% endhighlight %}
 
 Monitor should now show a Moiree pattern with an unframed xterm on it. Otherwise check /tmp/log.
@@ -299,7 +299,7 @@ Monitor should now show a Moiree pattern with an unframed xterm on it. Otherwise
 ##### 4. Download and run the JetPack6 container
 
 {% highlight shell %}
-$ sudo podman run --rm -it -e DISPLAY --net=host --device nvidia.com/gpu=all --group-add keep-groups --security-opt label=disable -v $HOME/cuda-samples:/cuda-samples nvcr.io/nvidia/l4t-jetpack:r36.2.0 /bin/bash
+sudo podman run --rm -it -e DISPLAY --net=host --device nvidia.com/gpu=all --group-add keep-groups --security-opt label=disable -v $HOME/cuda-samples:/cuda-samples nvcr.io/nvidia/l4t-jetpack:r36.2.0 /bin/bash
 {% endhighlight %}
 
 #### CUDA
@@ -307,13 +307,13 @@ $ sudo podman run --rm -it -e DISPLAY --net=host --device nvidia.com/gpu=all --g
 ##### 5. Build and run the samples in the container
 
 {% highlight shell %}
-$ cd /cuda-samples
-$ make -j$(nproc)
-$ pushd ./Samples/5_Domain_Specific/nbody
-$ make
-$ popd
-$ ./bin/aarch64/linux/release/deviceQuery
-$ ./bin/aarch64/linux/release/nbody
+cd /cuda-samples
+make -j$(nproc)
+pushd ./Samples/5_Domain_Specific/nbody
+make
+popd
+./bin/aarch64/linux/release/deviceQuery
+./bin/aarch64/linux/release/nbody
 {% endhighlight %}
 
 #### Tensorrt
@@ -322,13 +322,13 @@ $ ./bin/aarch64/linux/release/nbody
 This is both with the GPU and DLA (deep-learning accelerator).
 
 {% highlight shell %}
-$ cd /usr/src/tensorrt/samples/
-$ make -j$(nproc)
-$ cd ..
-$ ./bin/sample_algorithm_selector
-$ ./bin/sample_onnx_mnist
-$ ./bin/sample_onnx_mnist --useDLACore=0
-$ ./bin/sample_onnx_mnist --useDLACore=1
+cd /usr/src/tensorrt/samples/
+make -j$(nproc)
+cd ..
+./bin/sample_algorithm_selector
+./bin/sample_onnx_mnist
+./bin/sample_onnx_mnist --useDLACore=0
+./bin/sample_onnx_mnist --useDLACore=1
 {% endhighlight %}
 
 ### Misc
@@ -338,9 +338,9 @@ $ ./bin/sample_onnx_mnist --useDLACore=1
 You can improve the performance by giving the clock a boost. For best performance you can run `jetson_clocks` to set the device to max clock settings
 
 {% highlight shell %}
-$ sudo jetson_clocks --show
-$ sudo jetson_clocks
-$ sudo jetson_clocks --show
+sudo jetson_clocks --show
+sudo jetson_clocks
+sudo jetson_clocks --show
 {% endhighlight %}
 
 The 1st and 3rd command just prints the clock settings.
