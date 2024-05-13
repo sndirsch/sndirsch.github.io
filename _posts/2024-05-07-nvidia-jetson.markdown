@@ -214,7 +214,7 @@ Run ldconfig 
 sudo ldconfig
 {% endhighlight %}
 
-#### Also needed when using the SUSE internal package
+#### Video group for regular users
 
 A regular user needs to be added to the group `video` to be able to log in to the GNOME desktop as regular user. This can be achieved by using YaST, usermod or editing `/etc/group` manually.
 
