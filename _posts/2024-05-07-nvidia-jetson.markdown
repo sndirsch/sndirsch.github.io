@@ -29,7 +29,7 @@ Continue installation with serial console.
 
 Now update kernel and install our KMP (kernel module package) for all nvidia kernel modules.
 
-We plan to make the KMP available as a driver kit via the SolidDriver Program. I’ve opened  SUSE bugzilla ticket [#1222604][boo1222604] for this. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (rebuilding can take a few hours!) from our open buildservice:
+We plan to make the KMP available as a driver kit via the SolidDriver Program. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (rebuilding can take a few hours!) from our open buildservice:
 
 {% highlight shell %}
 sudo zypper ar https://download.opensuse.org/repositories/home:/sndirsch:/sidecar/SLE_15_SP6/ home:sndirsch:sidecar
@@ -50,11 +50,7 @@ In Mokmanager (`Perform MOK management`) select `Continue boot`. Although Secure
 
 Unfortunately installing the userspace is a non-trivial task.
 
-#### Internal SUSE package
-
-@sndirsch worked on a minimal userspace package internally available for SUSE employees. Check this out [here][userspace-package].
-
-#### Manual installation for regular customers
+#### Installation
 
 Download Jetpack 6 [Driver Package (BSP)][driver-pkg-bsp] from this [location]
 [jetpack6-website]. Extract `jetson_linux_r36.3.0_aarch64.tbz2`.
@@ -71,8 +67,6 @@ sudo ln -snf bzip2 /usr/bin/lbzip2
 ./nv_tools/scripts/nv_repackager.sh -o ./nv_tegra/l4t_tar_packages --convert-all
 popd
 {% endhighlight %}
-
-Details about the script mentioned above are described in chapter `4. Installing the Jet Pack 6 Userspace` of the PDF [Jetson-Linux - 3rd Party Distro Porting Guide - 20240201.pdf][porting-guide-pdf]. Unfortunately this PDF is not officially available.
 
 From the generated tarballs you only need these:
 
@@ -345,25 +339,9 @@ sudo jetson_clocks --show
 
 The 1st and 3rd command just prints the clock settings.
 
-### Known issues
-
-In some cases the machine locks up. In that case you see an error message like this
-
-{% highlight shell %}
-[...]
-[ 3511.532244][    C0] watchdog: BUG: soft lockup - CPU#0 stuck for 26s! [X:2935]
-[ 3564.031881][    C0] BUG: workqueue lockup - pool cpus=0 node=0 flags=0x0 nice=0 stuck for 76s!
-[...]
-{% endhighlight %}
-
-Unfortunately in that case you need to hard reboot the machine. This issue is tracked by NVIDIA and will hopefully be fixed soon.
-
 [image]: https://www.suse.com/download/sles/
-[boo1222604]: https://bugzilla.suse.com/show_bug.cgi?id=1222604
 [buildstatus]: https://build.opensuse.org/project/monitor/home:sndirsch:sidecar
-[userspace-package]: https://build.suse.de/project/show/home:sndirsch:sidecar
 [jetpack6-website]: https://developer.nvidia.com/embedded/jetson-linux-r363
 [driver-pkg-bsp]: https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v3.0/release/jetson_linux_r36.3.0_aarch64.tbz2
-[porting-guide-pdf]: https://drive.google.com/file/d/1_P7-hRNmCIVxK-rChw6kiIrSLYn-zBOt/view?usp=drive_link
 [container]: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack
 [container-toolkit]: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
