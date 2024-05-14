@@ -34,8 +34,9 @@ We plan to make the KMP available as a driver kit via the SolidDriver Program. F
 {% highlight shell %}
 sudo zypper ar https://download.opensuse.org/repositories/home:/sndirsch:/sidecar/SLE_15_SP6/ home:sndirsch:sidecar
 sudo zypper ref
-# flavor either default or 64kb (check with uname -r command)
-sudo zypper in -f -r home:sndirsch:sidecar kernel-<flavor>  nvidia-open-driver-G06-signed-sidecar-kmp-<flavor>
+# flavor either default or 64kb (check with `uname -r` command)
+sudo zypper up kernel-<flavor> kernel-<flavor>-extra
+sudo zypper in -r home:sndirsch:sidecar nvidia-open-driver-G06-signed-sidecar-kmp-<flavor>
 {% endhighlight %}
 
 Reboot with the updated kernel.
@@ -63,7 +64,7 @@ Then you need to convert debian packages from this content into tarballs.
 
 {% highlight shell %}
 pushd Linux_for_Tegra
-sed -i ‘s/lbzip2/bzip2/g’ nv_tools/scripts/nv_repackager.sh
+sed -i 's/lbzip2/bzip2/g' nv_tools/scripts/nv_repackager.sh
 ./nv_tools/scripts/nv_repackager.sh -o ./nv_tegra/l4t_tar_packages --convert-all
 popd
 {% endhighlight %}
