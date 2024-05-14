@@ -8,7 +8,7 @@ This covers the installation of updated Kernel, out-of-tree nvidia kernel module
 
 ### SP6
 
-Download [SLE-15-SP6 (Arm) installation image][image]. This you can put on a regular USB stick or on an SD card using `dd` command. Go into BIOS and change `SOC Display Hand-Off Mode` settings, i.e. `Device Manager -> NVIDIA Configuration -> Boot Configuration -> SOC Display Hand-Off Mode`, to `Never`.
+Download [SLE-15-SP6 (Arm) installation image][image]. This you can put on a regular USB stick or on an SD card using `dd` command. 
 
 Boot from the USB stick/SD card, that you wrote above and install SP6. You need to install via serial console, since the monitor won’t get any signal without the out-of-tree nvidia kernel modules, which are installed later in the process.
 
