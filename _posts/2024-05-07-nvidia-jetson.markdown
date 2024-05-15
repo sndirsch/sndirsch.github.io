@@ -340,6 +340,27 @@ sudo jetson_clocks --show
 
 The 1st and 3rd command just prints the clock settings.
 
+
+#### MaxN Power
+
+For maximum performance you also need to set MaxN Power. This can be done by running
+
+{% highlight shell %}
+sudo nvpmodel -m 0
+{% endhighlight %}
+
+Afterwards you need to reboot the system though.
+
+{% highlight shell %}
+sudo reboot
+{% endhighlight %}
+
+In order to check for the current value run
+
+{% highlight shell %}
+sudo nvpmodel -q
+{% endhighlight %}
+
 [image]: https://www.suse.com/download/sles/
 [buildstatus]: https://build.opensuse.org/project/monitor/home:sndirsch:sidecar
 [jetpack6-website]: https://developer.nvidia.com/embedded/jetson-linux-r363
