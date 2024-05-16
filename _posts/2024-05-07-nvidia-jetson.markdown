@@ -14,12 +14,10 @@ Boot from the USB stick/SD card, that you wrote above and install SP6. You need 
 
 Make sure you select the following modules during installation:
 
-* Basesystem
-* Containers
-* Desktop Applications
-* Development Tools
-* Python 3
-* Server Applications
+* Basesystem (enough for just installing the kernel driver)
+* Containers (needed for podman for CUDA libraries)
+* Desktop Applications (needed for running a desktop)
+* Development Tools (needed for git for CUDA samples)
 
 Select `SLES with GNOME` for installation.
 
