@@ -37,13 +37,6 @@ sudo zypper up kernel-<flavor> kernel-<flavor>-extra
 sudo zypper in -r home:sndirsch:sidecar nvidia-open-driver-G06-signed-sidecar-kmp-<flavor>
 {% endhighlight %}
 
-Reboot with the updated kernel.
-
-{% highlight shell %}
-sudo reboot
-{% endhighlight %}
-
-In Mokmanager (`Perform MOK management`) select `Continue boot`. Although Secureboot is enabled by default in BIOS it seems it hasn’t been implemented yet (BIOS from 04/04/2024). Select first entry `SLES 15-SP6` for booting.
 
 ### Userspace/Desktop
 
@@ -217,11 +210,13 @@ sudo ldconfig
 
 A regular user needs to be added to the group `video` to be able to log in to the GNOME desktop as regular user. This can be achieved by using YaST, usermod or editing `/etc/group` manually.
 
-#### Reboot the machine
+#### Reboot the machine with the previously updated kernel
 
 {% highlight shell %}
 sudo reboot
 {% endhighlight %}
+
+In Mokmanager (`Perform MOK management`) select `Continue boot`. Although Secureboot is enabled by default in BIOS it seems it hasn’t been implemented yet (BIOS from 04/04/2024). Select first entry `SLES 15-SP6` for booting.
 
 ### Basic testing
 
