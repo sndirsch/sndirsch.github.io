@@ -33,7 +33,7 @@ We plan to make the KMP available as a driver kit via the SolidDriver Program. F
 sudo zypper ar https://download.opensuse.org/repositories/home:/sndirsch:/sidecar/SLE_15_SP6/ home:sndirsch:sidecar
 sudo zypper ref
 # flavor either default or 64kb (check with `uname -r` command)
-sudo zypper up kernel-<flavor> kernel-<flavor>-extra
+sudo zypper up kernel-<flavor>
 sudo zypper in -r home:sndirsch:sidecar nvidia-open-driver-G06-signed-sidecar-kmp-<flavor>
 {% endhighlight %}
 
