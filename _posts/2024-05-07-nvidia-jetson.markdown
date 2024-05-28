@@ -67,7 +67,6 @@ nvidia-l4t-3d-core_36.3.0-20240404104251_arm64.tbz2
 nvidia-l4t-camera_36.3.0-20240404104251_arm64.tbz2
 nvidia-l4t-core_36.3.0-20240404104251_arm64.tbz2
 nvidia-l4t-cuda_36.3.0-20240404104251_arm64.tbz2
-nvidia-l4t-firmware_36.3.0-20240404104251_arm64.tbz2
 nvidia-l4t-gbm_36.3.0-20240404104251_arm64.tbz2
 nvidia-l4t-multimedia-utils_36.3.0-20240404104251_arm64.tbz2
 nvidia-l4t-multimedia_36.3.0-20240404104251_arm64.tbz2
@@ -154,7 +153,6 @@ for i in \
 nvidia-l4t-core_36.3.0-20240404104251_arm64.tbz2 \
 nvidia-l4t-3d-core_36.3.0-20240404104251_arm64.tbz2 \
 nvidia-l4t-cuda_36.3.0-20240404104251_arm64.tbz2 \
-nvidia-l4t-firmware_36.3.0-20240404104251_arm64.tbz2 \
 nvidia-l4t-gbm_36.3.0-20240404104251_arm64.tbz2 \
 nvidia-l4t-multimedia-utils_36.3.0-20240404104251_arm64.tbz2 \
 nvidia-l4t-multimedia_36.3.0-20240404104251_arm64.tbz2 \
