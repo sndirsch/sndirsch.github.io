@@ -34,7 +34,7 @@ sudo zypper ar https://download.opensuse.org/repositories/home:/sndirsch:/sideca
 sudo zypper ref
 # flavor either default or 64kb (check with `uname -r` command)
 sudo zypper up kernel-<flavor>
-sudo zypper in -r home:sndirsch:sidecar nvidia-open-driver-G06-signed-sidecar-kmp-<flavor>
+sudo zypper in -r home:sndirsch:sidecar nvidia-open-driver-jetson-kmp-<flavor>
 {% endhighlight %}
 
 
