@@ -144,6 +144,30 @@ tar cjf nvidia-l4t-init_36.3.1-20240516220919_arm64.tbz2 $(cat nvidia-l4t-init.t
 popd
 {% endhighlight %}
 
+On IGX Orin platform with dedicated graphics card (dGPU systems) you need to
+get rid of some files due to conflicts with dGPU userspace drivers.
+
+{% highlight shell %}
+# repackage nvidia-l4t-x11_ package
+tar tf nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2 | grep -v /usr/bin/nvidia-xconfig \
+  > nvidia-l4t-x11_36.3.1-20240516220919.txt
+tar xf  nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2
+rm      nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2
+tar cjf nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2 $(cat nvidia-l4t-x11_36.3.1-20240516220919.txt)
+
+# repackage nvidia-l4t-3d-core_ package
+tar tf nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2 | \
+  grep -v \
+       -e /etc/vulkan/icd.d/nvidia_icd.json \
+       -e /usr/lib/xorg/modules/drivers/nvidia_drv.so \
+       -e /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so \
+       -e /usr/share/glvnd/egl_vendor.d/10_nvidia.json \
+       > nvidia-l4t-3d-core_36.3.1-20240516220919.txt
+tar xf  nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2
+rm      nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2
+tar cjf nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2 $(cat nvidia-l4t-3d-core_36.3.1-20240516220919.txt)
+{% endhighlight %}
+
 Then extract the generated tarballs to your system.
 
 {% highlight shell %}
@@ -171,7 +195,8 @@ done
 popd
 {% endhighlight %}
 
-Then you still need to move
+On systems without dedicated graphics (internal GPU systems) card you still
+need to move
 
 {% highlight shell %}
 /usr/lib/xorg/modules/drivers/nvidia_drv.so
@@ -185,8 +210,7 @@ to
 /usr/lib64/xorg/modules/extensions/libglxserver_nvidia.so
 {% endhighlight %}
 
-and add `/usr/lib/aarch64-linux-gnu` to `/etc/ld.so.conf.d/nvidia-tegra.conf`.
-
+So let's do this.
 
 {% highlight shell %}
 sudo mv /usr/lib/xorg/modules/drivers/nvidia_drv.so \
@@ -194,7 +218,15 @@ sudo mv /usr/lib/xorg/modules/drivers/nvidia_drv.so \
 sudo mv /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so \
           /usr/lib64/xorg/modules/extensions/
 sudo rm -rf /usr/lib/xorg
+{% endhighlight %}
+
+Then add `/usr/lib/aarch64-linux-gnu` and
+`/usr/lib/aarch64-linux-gnu/tegra-egl` to
+`/etc/ld.so.conf.d/nvidia-tegra.conf`.
+
+{% highlight shell %}
 sudo echo /usr/lib/aarch64-linux-gnu >> /etc/ld.so.conf.d/nvidia-tegra.conf
+sudo echo /usr/lib/aarch64-linux-gnu/tegra-egl >> /etc/ld.so.conf.d/nvidia-tegra.conf
 {% endhighlight %}
 
 Run ldconfig 
