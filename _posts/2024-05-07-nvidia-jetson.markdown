@@ -225,8 +225,8 @@ Then add `/usr/lib/aarch64-linux-gnu` and
 `/etc/ld.so.conf.d/nvidia-tegra.conf`.
 
 {% highlight shell %}
-echo /usr/lib/aarch64-linux-gnu | sudo tee /etc/ld.so.conf.d/nvidia-tegra.conf
-echo /usr/lib/aarch64-linux-gnu/tegra-egl | sudo tee /etc/ld.so.conf.d/nvidia-tegra.conf
+echo /usr/lib/aarch64-linux-gnu | sudo tee -a /etc/ld.so.conf.d/nvidia-tegra.conf
+echo /usr/lib/aarch64-linux-gnu/tegra-egl | sudo tee -a /etc/ld.so.conf.d/nvidia-tegra.conf
 {% endhighlight %}
 
 Run ldconfig 
