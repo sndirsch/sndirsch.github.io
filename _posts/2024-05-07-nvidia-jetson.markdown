@@ -44,10 +44,10 @@ Unfortunately installing the userspace is a non-trivial task.
 
 #### Installation
 
-Download [Bootloader (QSPI) Package (insided of BSP) (to be used when updating using command line)][driver-pkg-bsp] from this [location][jetpack6-website] (IGX-SW 1.0 Production Release [IGX Orin Latest] Version 1.0, Release date 2024/05/30). Extract `Jetson_Linux_R36.3.1_aarch64.tbz2`.
+Download [Driver Package (BSP)][driver-pkg-bsp] from this [location][jetpack6-website]. Extract `Jetson_Linux_R36.4.0_aarch64.tbz2`.
 
 {% highlight shell %}
-tar xf Jetson_Linux_R36.3.1_aarch64.tbz2
+tar xf Jetson_Linux_R36.4.0_aarch64.tbz2
 {% endhighlight %}
 
 Then you need to convert debian packages from this content into tarballs.
@@ -62,26 +62,26 @@ popd
 From the generated tarballs you only need these:
 
 {% highlight shell %}
-nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-camera_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-core_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-cuda_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-gbm_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-multimedia-utils_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-multimedia_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-nvfancontrol_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-nvml_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-nvpmodel_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-nvsci_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-pva_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-tools_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-vulkan-sc-sdk_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-wayland_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2
-nvidia-l4t-nvml_36.3.1-20240516220919_arm64.tbz2
+nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-camera_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-core_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-cuda_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-gbm_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-multimedia-utils_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-multimedia_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-nvfancontrol_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-nvml_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-nvpmodel_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-nvsci_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-pva_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-tools_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-vulkan-sc-sdk_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-wayland_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-nvml_36.4.0-20240912212859_arm64.tbz2
 {% endhighlight %}
 
-And from this tarball `nvidia-l4t-init_36.3.1-20240516220919_arm64.tbz2` you only need these files:
+And from this tarball `nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2` you only need these files:
 
 {% highlight shell %}
 etc/asound.conf.tegra-ape
@@ -109,7 +109,7 @@ usr/share/alsa/init/postinit/01-tegra-rt565x.conf
 usr/share/alsa/init/postinit/02-tegra-rt5640.conf
 {% endhighlight %}
 
-So first let’s repackage `nvidia-l4t-init_36.3.1-20240516220919_arm64.tbz2`:
+So first let’s repackage `nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2`:
 
 {% highlight shell %}
 pushd Linux_for_Tegra/nv_tegra/l4t_tar_packages/
@@ -138,9 +138,9 @@ usr/share/alsa/init/postinit/00-tegra.conf
 usr/share/alsa/init/postinit/01-tegra-rt565x.conf
 usr/share/alsa/init/postinit/02-tegra-rt5640.conf
 EOF
-tar xf nvidia-l4t-init_36.3.1-20240516220919_arm64.tbz2
-rm nvidia-l4t-init_36.3.1-20240516220919_arm64.tbz2
-tar cjf nvidia-l4t-init_36.3.1-20240516220919_arm64.tbz2 $(cat nvidia-l4t-init.txt)
+tar xf nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2
+rm nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2
+tar cjf nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2 $(cat nvidia-l4t-init.txt)
 popd
 {% endhighlight %}
 
@@ -149,23 +149,23 @@ get rid of some files due to conflicts with dGPU userspace drivers.
 
 {% highlight shell %}
 # repackage nvidia-l4t-x11_ package
-tar tf nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2 | grep -v /usr/bin/nvidia-xconfig \
-  > nvidia-l4t-x11_36.3.1-20240516220919.txt
-tar xf  nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2
-rm      nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2
-tar cjf nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2 $(cat nvidia-l4t-x11_36.3.1-20240516220919.txt)
+tar tf nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2 | grep -v /usr/bin/nvidia-xconfig \
+  > nvidia-l4t-x11_36.4.0-20240912212859.txt
+tar xf  nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2
+rm      nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2
+tar cjf nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2 $(cat nvidia-l4t-x11_36.4.0-20240912212859.txt)
 
 # repackage nvidia-l4t-3d-core_ package
-tar tf nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2 | \
+tar tf nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2 | \
   grep -v \
        -e /etc/vulkan/icd.d/nvidia_icd.json \
        -e /usr/lib/xorg/modules/drivers/nvidia_drv.so \
        -e /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so \
        -e /usr/share/glvnd/egl_vendor.d/10_nvidia.json \
-       > nvidia-l4t-3d-core_36.3.1-20240516220919.txt
-tar xf  nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2
-rm      nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2
-tar cjf nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2 $(cat nvidia-l4t-3d-core_36.3.1-20240516220919.txt)
+       > nvidia-l4t-3d-core_36.4.0-20240912212859.txt
+tar xf  nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2
+rm      nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2
+tar cjf nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2 $(cat nvidia-l4t-3d-core_36.4.0-20240912212859.txt)
 {% endhighlight %}
 
 Then extract the generated tarballs to your system.
@@ -173,23 +173,23 @@ Then extract the generated tarballs to your system.
 {% highlight shell %}
 pushd Linux_for_Tegra/nv_tegra/l4t_tar_packages
 for i in \
-nvidia-l4t-core_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-3d-core_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-cuda_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-gbm_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-multimedia-utils_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-multimedia_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-nvfancontrol_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-nvpmodel_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-tools_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-x11_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-nvsci_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-pva_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-wayland_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-camera_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-vulkan-sc-sdk_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-nvml_36.3.1-20240516220919_arm64.tbz2 \
-nvidia-l4t-init_36.3.1-20240516220919_arm64.tbz2; do
+nvidia-l4t-core_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-cuda_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-gbm_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-multimedia-utils_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-multimedia_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-nvfancontrol_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-nvpmodel_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-tools_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-nvsci_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-pva_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-wayland_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-camera_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-vulkan-sc-sdk_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-nvml_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2; do
   sudo tar xjf $i -C /
 done
 popd
@@ -385,7 +385,7 @@ sudo nvpmodel -q
 
 [image]: https://www.suse.com/download/sles/
 [buildstatus]: https://build.opensuse.org/project/monitor/home:sndirsch:sidecar
-[jetpack6-website]: https://developer.nvidia.com/igx-downloads
-[driver-pkg-bsp]: https://developer.nvidia.com/downloads/igx/v1.0.0/jetson_linux_r36.3.1_aarch64.tbz2
+[jetpack6-website]: https://developer.nvidia.com/embedded/jetson-linux-r3640
+[driver-pkg-bsp]: https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.0/release/Jetson_Linux_R36.4.0_aarch64.tbz2
 [container]: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack
 [container-toolkit]: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
