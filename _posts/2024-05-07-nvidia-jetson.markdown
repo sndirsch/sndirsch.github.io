@@ -54,7 +54,7 @@ Then you need to convert debian packages from this content into tarballs.
 
 {% highlight shell %}
 pushd Linux_for_Tegra
-sed -i 's/lbzip2/bzip2/g' nv_tools/scripts/nv_repackager.sh
+sed -i -e 's/lbzip2/bzip2/g' -e 's/-I zstd //g' nv_tools/scripts/nv_repackager.sh
 ./nv_tools/scripts/nv_repackager.sh -o ./nv_tegra/l4t_tar_packages --convert-all
 popd
 {% endhighlight %}
