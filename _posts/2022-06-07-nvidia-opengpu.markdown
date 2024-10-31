@@ -12,7 +12,7 @@ Installation instructions since Leap 15.5/SLE15-SP4 and Tumbleweed:
 
 {% highlight shell %}
 # will install needed packages
-zypper in nvidia-open-driver-G06-signed-kmp-default kernel-firmware-nvidia-gspx-G06
+zypper in nvidia-open-driver-G06-signed-kmp-default
 {% endhighlight %}
 
 Find supported Turing/Ampere/Hopper GPUs [here][pci_ids-supported]. Check with `inxi -aG`. Use `hwinfo --gfxcard` on SLE.
