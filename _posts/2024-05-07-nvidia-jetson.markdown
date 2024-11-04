@@ -287,7 +287,7 @@ NVIDIA provides containers available for Jetson that include SDKs such as CUDA. 
 sudo zypper install podman
 sudo zypper ar https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo
 sudo zypper modifyrepo --enable nvidia-container-toolkit-experimental
-sudo zypper --gpg-auto-import-keys install -y nvidia-container-toolkit
+sudo zypper --gpg-auto-import-keys install -y libnvidia-container1=1.16.2 libnvidia-container-tools=1.16.2 nvidia-container-toolkit-base=1.16.2 nvidia-container-toolkit=1.16.2
 sudo nvidia-ctk cdi generate --mode=csv --output=/var/run/cdi/nvidia.yaml
 sudo nvidia-ctk cdi list
 {% endhighlight %}
