@@ -27,14 +27,14 @@ Continue installation with serial console.
 
 Now update kernel and install our KMP (kernel module package) for all nvidia kernel modules.
 
-We plan to make the KMP available as a driver kit via the SolidDriver Program. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (rebuilding can take a few hours!) from our open buildservice:
+We plan to make the KMP available as a driver kit via the SolidDriver Program. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (type 'jetson' in Search... field; rebuilding can take a few hours!) from our open buildservice:
 
 {% highlight shell %}
-sudo zypper ar https://download.opensuse.org/repositories/home:/sndirsch:/sidecar/SLE_15_SP6/ home:sndirsch:sidecar
+sudo zypper ar https://download.opensuse.org/repositories/X11:/XOrg/SLE_15_SP6/  jetson-kmp
 sudo zypper ref
 # flavor either default or 64kb (check with `uname -r` command)
 sudo zypper up kernel-<flavor>
-sudo zypper in -r home:sndirsch:sidecar nvidia-jetson-36_4-kmp-<flavor>
+sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor>
 {% endhighlight %}
 
 
@@ -384,7 +384,7 @@ sudo nvpmodel -q
 {% endhighlight %}
 
 [image]: https://www.suse.com/download/sles/
-[buildstatus]: https://build.opensuse.org/project/monitor/home:sndirsch:sidecar
+[buildstatus]: https://build.opensuse.org/project/monitor/X11:XOrg
 [jetpack6-website]: https://developer.nvidia.com/embedded/jetson-linux-r3640
 [driver-pkg-bsp]: https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.0/release/Jetson_Linux_R36.4.0_aarch64.tbz2
 [container]: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack
