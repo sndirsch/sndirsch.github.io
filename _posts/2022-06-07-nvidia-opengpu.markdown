@@ -4,11 +4,11 @@ title:  "NVIDIA Open GPU kernel modules: openSUSE/SLE packages available"
 date:   2022-06-07
 categories: nvidia
 ---
-On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install `nvidia-open-driver-G06-signed` and `kernel-firmware-nvidia-gspx-G06` packages.
+On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install `nvidia-open-driver-G06-signed` package.
 
 ## Installation
 
-Installation instructions since Leap 15.5/SLE15-SP4 and Tumbleweed:
+Installation instructions since Leap 15.6/SLE15-SP6 and Tumbleweed:
 
 {% highlight shell %}
 # will install needed packages
@@ -19,73 +19,61 @@ Find supported Turing/Ampere/Hopper GPUs [here][pci_ids-supported]. Check with `
 
 ## Display Drivers
 
-`nvidia-video-G06`, `nvidia-gl-G06` and `nvidia-compute-G06` packages are
+`nvidia-video-G06`, `nvidia-gl-G06` and `nvidia-compute-utils-G06` packages are
 available via NVIDIA's [openSUSE][opensuse]/[SLE][sle] repositories, which
 then can be used together with NVIDIA's Open GPU kernel modules above.
 
-Installing Display Drivers on Leap 15.x/Tumbleweed/SLE15-SPx
+Installing Display Drivers on Leap 15.6/Tumbleweed/SLE15-SPx
 
 {% highlight shell %}
 # if you have not added this repository yet
-# Leap 15.5
-zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.5/  nvidia
 # Leap 15.6
-zypper addrepo -p 99 https://download.nvidia.com/opensuse/leap/15.6/  nvidia
+zypper addrepo https://download.nvidia.com/opensuse/leap/15.6/  nvidia
 # Tumbleweed
-https://download.nvidia.com/opensuse/tumbleweed/
-# SLE15-SP4 (only LTSS)
-zypper addrepo -p 99 https://download.nvidia.com/suse/sle15sp4/  nvidia
-# SLE15-SP5
-zypper addrepo -p 99 https://download.nvidia.com/suse/sle15sp5/  nvidia
+zypper addrepo https://download.nvidia.com/opensuse/tumbleweed/  nvidia
 # SLE15-SP6
-zypper addrepo -p 99 https://download.nvidia.com/suse/sle15sp6/  nvidia
+zypper addrepo https://download.nvidia.com/suse/sle15sp6/  nvidia
+# SLE15-SP7 (Beta)
+zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
 
 # install all required packages
-zypper in nvidia-video-G06 nvidia-gl-G06 nvidia-compute-G06
+zypper in nvidia-video-G06 nvidia-gl-G06 nvidia-compute-utils-G06
 {% endhighlight %}
 
 ## CUDA
 
-With that - after installing `nvidia-compute-G06` (contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
+With that - after installing `nvidia-compute-utils-G06` (contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
 
-Installing CUDA on Leap 15.x/Tumbleweed/SLE15-SPx
+Installing CUDA on Leap 15.6/Tumbleweed/SLE15-SPx
 
 {% highlight shell %}
 # if you have not added this repository yet
-# Leap 15.x/Tumbleweed
-zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
+# Leap 15.6/Tumbleweed
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
 # SLE15-SPx (x86_64)
-zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
 # SLE15-SPx (aarch64)
-zypper addrepo -p 100 https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 
 # will install needed CUDA packages
-zypper in cuda-12-4
+zypper in cuda-12-8
 {% endhighlight %}
 
 Let's have a first test for using libcuda.
 
 {% highlight shell %}
-/usr/local/cuda-12.4/extras/demo_suite/deviceQuery
+/usr/local/cuda-12.8/extras/demo_suite/deviceQuery
 # Unfortunately this is not available for aarch64; but there are
 # other samples available below /usr/local/cuda-12.4/extras/ ...
 {% endhighlight %}
 
 ## CUDA Minimal Installation
 
-# Repository and Package Dependancies as Overview
+Users, who don't need a graphical desktop, can omit the installation of the display driver packages above and perform a `CUDA Minimal Installation` instead.
 
-![CUDA: Repository and Package Dependancies](/assets/2022-06-07-cuda-repos.svg)
-
-# Explained in Detail
-
-These `CUDA Packages` and `Proprietary:X11:Drivers` repositories on the picture right above are hosted on the `NVIDIA` server.
-
-What happens is that package `cuda` requires package `cuda-runtime` (both in `CUDA packages` repo), which again requires `cuda-drivers`. The last one is provided by our `nvidia-compute-utils-G06` package in `Proprietary:X11:Drivers` repository. It has higher priority than the `cuda-drivers` meta package from `CUDA Packages` repository, which would require in addition the display driver packages `nvidia-video-G06` and `nvidia-gl-G06` with all kind of dependancies we would like to avoid for a `CUDA Minimal Installation`. Our `nvidia-compute-utils-G06` package in `Proprietary:X11:Drivers` requires `nvidia-compute-G06` (same repository), which again requires `nvidia-open-driver-G06-signed-kmp` package included in our openSUSE/SLE distributions or `nvidia-driver-G06-kmp` package in `Proprietary:X11:Drivers` repository. Last but not least `kernel-firmware-nvidia-gspx-G06` package is required by `nvidia-open-driver-G06-signed-kmp`.
-
-Example for installation on openSUSE Leap 15.5:
-
-![Minimal CUDA: Zypper Install](/assets/2022-06-07-cuda-zypper-install-output.jpg)
+{% highlight shell %}
+zypper in nvidia-compute-G06 cuda-libraries-12-8
+{% endhighlight %}
 
 ## Feedback
 
