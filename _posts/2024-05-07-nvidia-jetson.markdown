@@ -10,7 +10,50 @@ This covers the installation of updated Kernel, out-of-tree nvidia kernel module
 
 Download [SLE-15-SP6 (Arm) installation image][image]. This you can put on a regular USB stick or on an SD card using `dd` command. 
 
-Boot from the USB stick/SD card, that you wrote above and install SP6. You need to install via serial console, since the monitor won’t get any signal without the out-of-tree nvidia kernel modules, which are installed later in the process.
+Boot from the USB stick/SD card, that you wrote above and install SP6. You can install via serial console or connect a monitor to the display port.
+
+#### When using a connected monitor for installation
+
+This needs for the installation a special setting in the Firmware of the machine.
+
+{% highlight shell %}
+--> UEFI Firmware Settings
+ --> Device Manager
+  --> NVIDIA Configuration
+   --> Boot Configuration
+    --> SOC Display Hand-Off Mode <Always>
+{% endhighlight %}
+
+This setting for `SOC Display Hand-Off Mode` will change automatically to `Never` later with the installation of the graphics driver.
+
+Once grub starts you need to edit the grub entry `Installation`. Press `e` for doing this and add `console=tty0` to the `linux [...]` line.
+
+{% highlight shell %}
+[...]
+linux /boot/aarch64/linux splash=silent console=tty0
+[...]
+{% endhighlight %}
+
+Then press `F10` to continue to boot.
+
+#### Installation
+
+Unfortunately the product registration fails with
+
+{% highlight shell %}
+[...]
+Certificate not yet valid.
+{% endhighlight %}
+
+The reason for this is that the machine is missing a battery-backed RTC (Real Time Clock) and therefore doesn't have the correct time set during installation.
+
+When installing with a connected monitor you can workaround this issue. For doing this you can start in that dialogue an xterm by pressing `Ctrl-Alt-Shift-x`. In this xterm run `date` to set the current date. It looks like this:
+
+{% highlight shell %}
+date -s '2025-01-23 21:00:00'
+{% endhighlight %}
+
+Then try again to register the product. When installing on a serial console you can register the product later after installation by running `yast2 registration`.
 
 Make sure you select the following modules during installation:
 
@@ -21,11 +64,23 @@ Make sure you select the following modules during installation:
 
 Select `SLES with GNOME` for installation.
 
+### Product registration and Time configuration
+
+After installation on a serial consle first register your product by running
+
+{% highlight shell %}
+yast2 registration
+{% endhighlight %}
+
+Then in both cases - no matter if you installed on a serial console or with a connected monitor - configure correct time using ntp.
+
+{% highlight shell %}
+yast2 ntp-client
+{% endhighlight %}
+
 ### Kernel + KMP drivers
 
-Continue installation with serial console.
-
-Now update kernel and install our KMP (kernel module package) for all nvidia kernel modules.
+Now Update kernel and install our KMP (kernel module package) for all nvidia kernel modules.
 
 We plan to make the KMP available as a driver kit via the SolidDriver Program. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (type 'jetson' in Search... field; rebuilding can take a few hours!) from our open buildservice:
 
