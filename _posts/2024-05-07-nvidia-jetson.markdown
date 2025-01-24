@@ -65,18 +65,18 @@ Make sure you select the following modules during installation:
 
 Select `SLES with GNOME` for installation.
 
-### Product registration and Time configuration
+### Time configuration and Product registration
 
-After installation on a serial consle first register your product by running
-
-{% highlight shell %}
-yast2 registration
-{% endhighlight %}
-
-Then in both cases - no matter if you installed on a serial console or with a connected monitor - configure correct time using ntp.
+Afer installation first configure correct time using ntp.
 
 {% highlight shell %}
 yast2 ntp-client
+{% endhighlight %}
+
+Then on a serial consle finally register your product by running
+
+{% highlight shell %}
+yast2 registration
 {% endhighlight %}
 
 ### Kernel + KMP drivers
