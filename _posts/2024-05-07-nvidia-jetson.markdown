@@ -42,12 +42,13 @@ Unfortunately the product registration fails with
 
 {% highlight shell %}
 [...]
-Certificate not yet valid.
+Error code: Curl error 60
+Error message: SSL certificate problem: certificate is not yet valid.
 {% endhighlight %}
 
 The reason for this is that the machine is missing a battery-backed RTC (Real Time Clock) and therefore doesn't have the correct time set during installation.
 
-When installing with a connected monitor you can workaround this issue. For doing this you can start in that dialogue an xterm by pressing `Ctrl-Alt-Shift-x`. In this xterm run `date` to set the current date. It looks like this:
+When installing with a connected monitor you can workaround this issue. For doing this you can start in that `Registration` dialogue an xterm by pressing `Ctrl-Alt-Shift-x`. In this xterm run `date` to set the current date. It looks like this:
 
 {% highlight shell %}
 date -s '2025-01-23 21:00:00'
