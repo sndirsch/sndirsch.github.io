@@ -73,7 +73,7 @@ Afer installation first configure correct time using ntp.
 yast2 ntp-client
 {% endhighlight %}
 
-Then on a serial consle finally register your product by running
+Then on a serial console finally register your product by running
 
 {% highlight shell %}
 yast2 registration
