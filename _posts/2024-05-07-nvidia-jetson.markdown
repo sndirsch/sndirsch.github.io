@@ -90,7 +90,7 @@ sudo zypper ar https://download.opensuse.org/repositories/X11:/XOrg/SLE_15_SP6/ 
 sudo zypper ref
 # flavor either default or 64kb (check with `uname -r` command)
 sudo zypper up kernel-<flavor>
-sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor>
+sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor> kernel-firmware-nvidia-jetson-36_4
 {% endhighlight %}
 
 
