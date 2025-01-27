@@ -26,35 +26,27 @@ This needs for the installation a special setting in the Firmware of the machine
 
 This setting for `SOC Display Hand-Off Mode` will change automatically to `Never` later with the installation of the graphics driver.
 
-Once grub starts you need to edit the grub entry `Installation`. Press `e` for doing this and add `console=tty0` to the `linux [...]` line.
-
-{% highlight shell %}
-[...]
-linux /boot/aarch64/linux splash=silent console=tty0
-[...]
-{% endhighlight %}
-
-Then press `F10` to continue to boot.
-
 #### Installation
 
-Unfortunately the product registration fails with
+Once grub starts you need to edit the grub entry `Installation`. Press `e` for doing this and add `console=tty0 exec="date -s 2025-01-27"` (when using a connected monitor for intallation) or `exec="date -s 2025-01-27"` (when installing on a serial console) to the `linux [...]` line. Replace `2025-01-27` with the current date.
 
 {% highlight shell %}
+### When using a connected monitor for intallation
 [...]
-Error code: Curl error 60
-Error message: SSL certificate problem: certificate is not yet valid.
+linux /boot/aarch64/linux splash=silent console=tty0 exec="date -s 2025-01-27"
+[...]
 {% endhighlight %}
-
-The reason for this is that during installation the driver (`nvvrs-pseq-rtc`) for the battery-backed RTC0 (Real Time Clock) is not yet available and therefore the non-battery-backed RTC1 is used, which doesn't have the correct time set during installation.
-
-When installing with a connected monitor you can workaround this issue. For doing this you can start in that `Registration` dialogue an xterm by pressing `Ctrl-Alt-Shift-x`. In this xterm run `date` to set the current date. It looks like this:
 
 {% highlight shell %}
-date -s '2025-01-23 21:00:00'
+### When installing on a serial console
+[...]
+linux /boot/aarch64/linux splash=silent exec="date -s 2025-01-27"
+[...]
 {% endhighlight %}
 
-Then try again to register the product. When installing on a serial console you can register the product later after installation by running `yast2 registration`.
+The reason for this is that during installation the driver `nvvrs-pseq-rtc` for the battery-backed RTC0 (Real Time Clock) is not yet available and therefore the non-battery-backed RTC1 is used, which doesn't have the correct time set during installation. So this is a workaround to avoid a product registration failure later due to a certificate, which is not valid yet.
+
+Then press `F10` to continue to boot.
 
 Make sure you select the following modules during installation:
 
@@ -65,31 +57,26 @@ Make sure you select the following modules during installation:
 
 Select `SLES with GNOME` for installation.
 
-### Time configuration and Product registration
-
-Afer installation first configure correct time using ntp.
+In `Clock and Time Zone` dialogue chose `Other Settings` to open `Change Date and Time` dialogue. There enable `Synchronize with NTP Server`.
 
 {% highlight shell %}
-yast2 ntp-client
-{% endhighlight %}
-
-Then on a serial console finally register your product by running
-
-{% highlight shell %}
-yast2 registration
+--> Clock and Time Zone dialogue
+ --> Other Settings
+  --> Change Date and Time dialogue
+   --> (x) Synchronize with NTP Server
 {% endhighlight %}
 
 ### Kernel + KMP drivers
 
-Now Update kernel and install our KMP (kernel module package) for all nvidia kernel modules.
+After installation update kernel and install our KMP (kernel module package) for all nvidia kernel modules.
 
 We plan to make the KMP available as a driver kit via the SolidDriver Program. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (type 'jetson' in Search... field; rebuilding can take a few hours!) from our open buildservice:
 
 {% highlight shell %}
-sudo zypper ar https://download.opensuse.org/repositories/X11:/XOrg/SLE_15_SP6/  jetson-kmp
-sudo zypper ref
 # flavor either default or 64kb (check with `uname -r` command)
 sudo zypper up kernel-<flavor>
+sudo zypper ar https://download.opensuse.org/repositories/X11:/XOrg/SLE_15_SP6/  jetson-kmp
+sudo zypper ref
 sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor> kernel-firmware-nvidia-jetson-36_4
 {% endhighlight %}
 
