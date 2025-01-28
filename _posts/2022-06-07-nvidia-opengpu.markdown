@@ -72,7 +72,7 @@ Let's have a first test for using libcuda.
 Users, who don't need a graphical desktop, can omit the installation of the display driver packages above and perform a `CUDA Minimal Installation` instead.
 
 {% highlight shell %}
-zypper in nvidia-compute-G06 cuda-libraries-12-8
+zypper in --no-recommends nvidia-compute-G06 cuda-libraries-12-8
 {% endhighlight %}
 
 ## Feedback
