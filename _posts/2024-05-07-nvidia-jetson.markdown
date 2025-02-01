@@ -68,24 +68,33 @@ In `Clock and Time Zone` dialogue chose `Other Settings` to open `Change Date an
 
 ### Kernel + KMP drivers
 
-After installation update kernel and install our KMP (kernel module package) for all nvidia kernel modules.
-
-We plan to make the KMP available as a driver kit via the SolidDriver Program. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (type 'jetson' in Search... field; rebuilding can take a few hours!) from our open buildservice:
+After installation update kernel and install our KMP (kernel module package) for all nvidia kernel modules. The KMP is available as a driver kit via the SolidDriver Program. For installation please use the following commands:
 
 {% highlight shell %}
 # flavor either default or 64kb (check with `uname -r` command)
 sudo zypper up kernel-<flavor>
-sudo zypper ar https://download.opensuse.org/repositories/X11:/XOrg/SLE_15_SP6/  jetson-kmp
+sudo zypper ar https://drivers.suse.com/nvidia/Jetson/Jetson_Linux_36.4/sle-15-sp6-aarch64/1.0/install jetson-kmp
+sudo zypper ar https://drivers.suse.com/nvidia/Jetson/Jetson_Linux_36.4/sle-15-sp6-aarch64/1.0/update  jetson-kmp-update
 sudo zypper ref
-sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor> kernel-firmware-nvidia-jetson-36_4
+sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor>
 {% endhighlight %}
 
 
 ### Userspace/Desktop
 
-Unfortunately installing the userspace is a non-trivial task.
+#### Installation on Jetson AGX
 
-#### Installation
+Please install userspace on Jetson AGX by using the following commands:
+
+{% highlight shell %}
+sudo zypper ar https://repo.download.nvidia.com/jetson/sle15-sp6/jp6.1/ jetson-userspace 
+sudo zypper ref 
+sudo zypper in nvidia-jetpack-all
+{% endhighlight %}
+
+#### Installation on Orin IGX
+
+Unfortunately installing the userspace on Orin IGX is still a non-trivial task.
 
 Download [Driver Package (BSP)][driver-pkg-bsp] from this [location][jetpack6-website]. Extract `Jetson_Linux_R36.4.0_aarch64.tbz2`.
 
@@ -109,6 +118,7 @@ nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2
 nvidia-l4t-camera_36.4.0-20240912212859_arm64.tbz2
 nvidia-l4t-core_36.4.0-20240912212859_arm64.tbz2
 nvidia-l4t-cuda_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-firmware_36.4.0-20240912212859_arm64.tbz2
 nvidia-l4t-gbm_36.4.0-20240912212859_arm64.tbz2
 nvidia-l4t-multimedia-utils_36.4.0-20240912212859_arm64.tbz2
 nvidia-l4t-multimedia_36.4.0-20240912212859_arm64.tbz2
@@ -219,6 +229,7 @@ for i in \
 nvidia-l4t-core_36.4.0-20240912212859_arm64.tbz2 \
 nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2 \
 nvidia-l4t-cuda_36.4.0-20240912212859_arm64.tbz2 \
+nvidia-l4t-firmware_36.4.0-20240912212859_arm64.tbz2 \
 nvidia-l4t-gbm_36.4.0-20240912212859_arm64.tbz2 \
 nvidia-l4t-multimedia-utils_36.4.0-20240912212859_arm64.tbz2 \
 nvidia-l4t-multimedia_36.4.0-20240912212859_arm64.tbz2 \
