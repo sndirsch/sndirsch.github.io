@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "How to install SLE-15-SP6 on NVIDIA Jetson platform (Jetson AGX Orin/IGX Orin)"
+title:  "How to install SLE-15-SP6 on NVIDIA's Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin"
 date:   2024-05-07
 categories: nvidia
 ---
@@ -82,9 +82,9 @@ sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor>
 
 ### Userspace/Desktop
 
-#### Installation on Jetson AGX
+#### Installation on NVIDIA's Jetson AGX Orin and Jetson Orin Nano/NX
 
-Please install userspace on Jetson AGX by using the following commands:
+Please install userspace on these devices by using the following commands:
 
 {% highlight shell %}
 sudo zypper ar https://repo.download.nvidia.com/jetson/sle15-sp6/jp6.1/ jetson-userspace 
@@ -92,9 +92,9 @@ sudo zypper ref
 sudo zypper in nvidia-jetpack-all
 {% endhighlight %}
 
-#### Installation on Orin IGX
+#### Installation on NVIDIA IGX Orin
 
-Unfortunately installing the userspace on Orin IGX is still a non-trivial task.
+Unfortunately installing the userspace on this device is still a non-trivial task.
 
 Download [Driver Package (BSP)][driver-pkg-bsp] from this [location][jetpack6-website]. Extract `Jetson_Linux_R36.4.0_aarch64.tbz2`.
 
@@ -197,8 +197,7 @@ tar cjf nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2 $(cat nvidia-l4t-init.t
 popd
 {% endhighlight %}
 
-On IGX Orin platform with dedicated graphics card (dGPU systems) you need to
-get rid of some files due to conflicts with dGPU userspace drivers.
+On NVIDIA IGX Orin with dedicated graphics card (dGPU systems) you need to get rid of some files due to conflicts with dGPU userspace drivers.
 
 {% highlight shell %}
 # repackage nvidia-l4t-x11_ package
