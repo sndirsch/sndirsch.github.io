@@ -68,7 +68,11 @@ In `Clock and Time Zone` dialogue chose `Other Settings` to open `Change Date an
 
 ### Kernel + KMP drivers
 
-After installation update kernel and install our KMP (kernel module package) for all nvidia kernel modules. The KMP is available as a driver kit via the SolidDriver Program. For installation please use the following commands:
+After installation update kernel and install our KMP (kernel module package) for all nvidia kernel modules.
+
+#### Installation on NVIDIA's Jetson AGX Orin and Jetson Orin Nano/NX
+
+The KMP is available as a driver kit via the SolidDriver Program. For installation please use the following commands:
 
 {% highlight shell %}
 # flavor either default or 64kb (check with `uname -r` command)
@@ -79,6 +83,17 @@ sudo zypper ref
 sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor>
 {% endhighlight %}
 
+#### Installation on NVIDIA IGX Orin
+
+We plan to make the KMP available as a driver kit via the SolidDriver Program. For now please install an updated kernel and the KMP after checking the [build status][buildstatus] (type 'igx' in Search... field; rebuilding can take a few hours!) from our open buildservice:
+
+{% highlight shell %}
+# flavor either default or 64kb (check with `uname -r` command)
+sudo zypper up kernel-<flavor>
+sudo zypper ar https://download.opensuse.org/repositories/X11:/XOrg/SLE_15_SP6/ igx-kmp
+sudo zypper ref
+sudo zypper in -r jetson-kmp nvidia-igx-36_4-kmp-<flavor>
+{% endhighlight %}
 
 ### Userspace/Desktop
 
@@ -96,10 +111,10 @@ sudo zypper in nvidia-jetpack-all
 
 Unfortunately installing the userspace on this device is still a non-trivial task.
 
-Download [Driver Package (BSP)][driver-pkg-bsp] from this [location][jetpack6-website]. Extract `Jetson_Linux_R36.4.0_aarch64.tbz2`.
+Download [Bootloader(QSPI) Package][driver-pkg-bsp] from this [location][jetpack6-website] (select `IGX-SW 1.1 Production Release`). Extract `Jetson_Linux_R36.4.1_aarch64.tbz2`.
 
 {% highlight shell %}
-tar xf Jetson_Linux_R36.4.0_aarch64.tbz2
+tar xf Jetson_Linux_R36.4.1_aarch64.tbz2
 {% endhighlight %}
 
 Then you need to convert debian packages from this content into tarballs.
@@ -114,27 +129,27 @@ popd
 From the generated tarballs you only need these:
 
 {% highlight shell %}
-nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-camera_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-core_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-cuda_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-firmware_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-gbm_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-multimedia-utils_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-multimedia_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-nvfancontrol_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-nvml_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-nvpmodel_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-nvsci_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-pva_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-tools_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-vulkan-sc-sdk_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-wayland_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2
-nvidia-l4t-nvml_36.4.0-20240912212859_arm64.tbz2
+nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-camera_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-core_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-cuda_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-firmware_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-gbm_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-multimedia-utils_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-multimedia_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvfancontrol_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvpmodel_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvsci_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-pva_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-tools_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-vulkan-sc-sdk_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-wayland_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2
 {% endhighlight %}
 
-And from this tarball `nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2` you only need these files:
+And from this tarball `nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2` you only need these files:
 
 {% highlight shell %}
 etc/asound.conf.tegra-ape
@@ -162,7 +177,7 @@ usr/share/alsa/init/postinit/01-tegra-rt565x.conf
 usr/share/alsa/init/postinit/02-tegra-rt5640.conf
 {% endhighlight %}
 
-So first let’s repackage `nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2`:
+So first let’s repackage `nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2`:
 
 {% highlight shell %}
 pushd Linux_for_Tegra/nv_tegra/l4t_tar_packages/
@@ -191,9 +206,9 @@ usr/share/alsa/init/postinit/00-tegra.conf
 usr/share/alsa/init/postinit/01-tegra-rt565x.conf
 usr/share/alsa/init/postinit/02-tegra-rt5640.conf
 EOF
-tar xf nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2
-rm nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2
-tar cjf nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2 $(cat nvidia-l4t-init.txt)
+tar xf nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2
+rm nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2
+tar cjf nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2 $(cat nvidia-l4t-init.txt)
 popd
 {% endhighlight %}
 
@@ -201,23 +216,23 @@ On NVIDIA IGX Orin with dedicated graphics card (dGPU systems) you need to get r
 
 {% highlight shell %}
 # repackage nvidia-l4t-x11_ package
-tar tf nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2 | grep -v /usr/bin/nvidia-xconfig \
-  > nvidia-l4t-x11_36.4.0-20240912212859.txt
-tar xf  nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2
-rm      nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2
-tar cjf nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2 $(cat nvidia-l4t-x11_36.4.0-20240912212859.txt)
+tar tf nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 | grep -v /usr/bin/nvidia-xconfig \
+  > nvidia-l4t-x11_36.4.1-20241119120551.txt
+tar xf  nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
+rm      nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
+tar cjf nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 $(cat nvidia-l4t-x11_36.4.1-20241119120551.txt)
 
 # repackage nvidia-l4t-3d-core_ package
-tar tf nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2 | \
+tar tf nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 | \
   grep -v \
        -e /etc/vulkan/icd.d/nvidia_icd.json \
        -e /usr/lib/xorg/modules/drivers/nvidia_drv.so \
        -e /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so \
        -e /usr/share/glvnd/egl_vendor.d/10_nvidia.json \
-       > nvidia-l4t-3d-core_36.4.0-20240912212859.txt
-tar xf  nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2
-rm      nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2
-tar cjf nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2 $(cat nvidia-l4t-3d-core_36.4.0-20240912212859.txt)
+       > nvidia-l4t-3d-core_36.4.1-20241119120551.txt
+tar xf  nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
+rm      nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
+tar cjf nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 $(cat nvidia-l4t-3d-core_36.4.1-20241119120551.txt)
 {% endhighlight %}
 
 Then extract the generated tarballs to your system.
@@ -225,24 +240,24 @@ Then extract the generated tarballs to your system.
 {% highlight shell %}
 pushd Linux_for_Tegra/nv_tegra/l4t_tar_packages
 for i in \
-nvidia-l4t-core_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-3d-core_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-cuda_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-firmware_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-gbm_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-multimedia-utils_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-multimedia_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-nvfancontrol_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-nvpmodel_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-tools_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-x11_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-nvsci_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-pva_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-wayland_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-camera_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-vulkan-sc-sdk_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-nvml_36.4.0-20240912212859_arm64.tbz2 \
-nvidia-l4t-init_36.4.0-20240912212859_arm64.tbz2; do
+nvidia-l4t-core_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-cuda_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-firmware_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-gbm_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-multimedia-utils_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-multimedia_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-nvfancontrol_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-nvpmodel_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-tools_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-nvsci_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-pva_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-wayland_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-camera_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-vulkan-sc-sdk_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2 \
+nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2; do
   sudo tar xjf $i -C /
 done
 popd
@@ -438,7 +453,7 @@ sudo nvpmodel -q
 
 [image]: https://www.suse.com/download/sles/
 [buildstatus]: https://build.opensuse.org/project/monitor/X11:XOrg
-[jetpack6-website]: https://developer.nvidia.com/embedded/jetson-linux-r3640
-[driver-pkg-bsp]: https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.0/release/Jetson_Linux_R36.4.0_aarch64.tbz2
+[jetpack6-website]: https://developer.nvidia.com/igx-downloads
+[driver-pkg-bsp]: https://developer.nvidia.com/downloads/igx/v1.1/Jetson_Linux_R36.4.1_aarch64.tbz2
 [container]: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack
 [container-toolkit]: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
