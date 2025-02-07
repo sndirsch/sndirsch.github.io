@@ -339,8 +339,14 @@ Run phoronix-test-suite
 
 {% highlight shell %}
 sudo zypper in gcc gcc-c++
+# Prepare for realistic numbers
+# 1. Logout from your GNOME session
+# 2. Login again, but select IceWM Session as desktop instead of GNOME
+# 3. Start xterm and run the following command
 phoronix-test-suite benchmark glmark2
 {% endhighlight %}
+
+This should give you an `average score` of about `4500` running in `1920x1080` resolution with `MaxN Power` and best performance setting (see `Misc/Performance` and `Misc/MaxN Power` below).
 
 ### CUDA/Tensorflow
 
