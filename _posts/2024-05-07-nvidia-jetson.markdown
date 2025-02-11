@@ -313,7 +313,7 @@ A regular user needs to be added to the group `video` to be able to log in to th
 sudo reboot
 {% endhighlight %}
 
-In Mokmanager (`Perform MOK management`) select `Continue boot`. Although Secureboot is enabled by default in BIOS it seems it hasn’t been implemented yet (BIOS from 04/04/2024). Select first entry `SLES 15-SP6` for booting.
+Select first entry `SLES 15-SP6` for booting.
 
 ### Basic testing
 
@@ -323,7 +323,7 @@ First basic testing will be running `nvidia-smi`. 
 sudo nvidia-smi
 {% endhighlight %}
 
-Graphical desktop (GNOME) should work as well. Unfortunately Linux console is not available. Use either a serial console or a ssh connection if you don’t want to use the graphical desktop or need remote access to the system.
+Graphical desktop (GNOME) should work as well. Linux console will also be available. Use either a serial console or a ssh connection if you don’t want to use the graphical desktop/Linux console or need remote access to the system.
 
 ### glmark2
 
@@ -346,7 +346,7 @@ sudo zypper in gcc gcc-c++
 phoronix-test-suite benchmark glmark2
 {% endhighlight %}
 
-This should give you an `average score` of about `4500` running in `1920x1080` resolution with `MaxN Power` and best performance setting (see `Misc/Performance` and `Misc/MaxN Power` below).
+This should give you an `average score` of about `4500` running in `1920x1080` resolution with `MaxN Power` and best performance setting (see `Misc/Performance` and `Misc/MaxN Power` below) on a `Jetson AGX Orin`.
 
 ### CUDA/Tensorflow
 
