@@ -325,6 +325,22 @@ sudo nvidia-smi
 
 Graphical desktop (GNOME) should work as well. Linux console will also be available. Use either a serial console or a ssh connection if you don’t want to use the graphical desktop/Linux console or need remote access to the system.
 
+### Wayland based Desktop
+
+In order to enable our `GNOME on Wayland` desktop you need to install two additional packages: `xwayland` and `gnome-session-wayland`.
+
+{% highlight shell %}
+sudo zypper in xwayland gnome-session-wayland
+{% endhighlight %}
+
+Afterwards restart GDM
+
+{% highlight shell %}
+sudo systemctl restart display-manager.service
+{% endhighlight %}
+
+or reboot your machine.
+
 ### glmark2
 
 Install phoronix-test-suite
