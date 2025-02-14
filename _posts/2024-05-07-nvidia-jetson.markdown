@@ -325,22 +325,6 @@ sudo nvidia-smi
 
 Graphical desktop (GNOME) should work as well. Linux console will also be available. Use either a serial console or a ssh connection if you don’t want to use the graphical desktop/Linux console or need remote access to the system.
 
-### Wayland based Desktop
-
-In order to enable our `GNOME on Wayland` desktop you need to install two additional packages: `xwayland` and `gnome-session-wayland`.
-
-{% highlight shell %}
-sudo zypper in xwayland gnome-session-wayland
-{% endhighlight %}
-
-Afterwards restart GDM
-
-{% highlight shell %}
-sudo systemctl restart display-manager.service
-{% endhighlight %}
-
-or reboot your machine.
-
 ### glmark2
 
 Install phoronix-test-suite
@@ -363,6 +347,22 @@ phoronix-test-suite benchmark glmark2
 {% endhighlight %}
 
 This should give you an `average score` of about `4500` running in `1920x1080` resolution with `MaxN Power` and best performance setting (see `Misc/Performance` and `Misc/MaxN Power` below) on a `Jetson AGX Orin`.
+
+### Wayland based Desktop
+
+In order to enable our `GNOME on Wayland` desktop you need to install two additional packages: `xwayland` and `gnome-session-wayland`.
+
+{% highlight shell %}
+sudo zypper in xwayland gnome-session-wayland
+{% endhighlight %}
+
+Afterwards restart GDM
+
+{% highlight shell %}
+sudo systemctl restart display-manager.service
+{% endhighlight %}
+
+or reboot your machine.
 
 ### CUDA/Tensorflow
 
