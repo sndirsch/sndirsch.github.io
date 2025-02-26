@@ -28,7 +28,7 @@ This setting for `SOC Display Hand-Off Mode` will change automatically to `Never
 
 #### Installation
 
-Once grub starts you need to edit the grub entry `Installation`. Press `e` for doing this and add `console=tty0 exec="date -s 2025-01-27"` (when using a connected monitor for intallation) or `exec="date -s 2025-01-27"` (when installing on a serial console) to the `linux [...]` line. Replace `2025-01-27` with the current date.
+Once grub starts you need to edit the grub entry `Installation`. Press `e` for doing this and add `console=tty0 exec="date -s 2025-01-27"` (when using a connected monitor for intallation) or `exec="date -s 2025-01-27"` (when installing on a serial console and add also `console=ttyTCU0,115200` on `Jetson Orin Nano`) to the `linux [...]` line. Replace `2025-01-27` with the current date.
 
 {% highlight shell %}
 ### When using a connected monitor for intallation
@@ -41,6 +41,8 @@ linux /boot/aarch64/linux splash=silent console=tty0 exec="date -s 2025-01-27"
 ### When installing on a serial console
 [...]
 linux /boot/aarch64/linux splash=silent exec="date -s 2025-01-27"
+# On Jetson Orin Nano
+linux /boot/aarch64/linux splash=silent console=ttyTCU0,115200 exec="date -s 2025-01-27"
 [...]
 {% endhighlight %}
 
@@ -346,7 +348,7 @@ sudo zypper in gcc gcc-c++
 phoronix-test-suite benchmark glmark2
 {% endhighlight %}
 
-This should give you an `average score` of about `4500` running in `1920x1080` resolution with `MaxN Power` and best performance setting (see `Misc/Performance` and `Misc/MaxN Power` below) on a `Jetson AGX Orin`.
+This should give you an `average score` of about `4500` running in `1920x1080` resolution with `MaxN Power` and best performance settings (see `Misc/Performance` and `Misc/MaxN/MaxN_Super Power` below) on `Jetson AGX Orin` and about `2500` on `Jetson Orin Nano` (also with best performance settings). 
 
 ### Wayland based Desktop
 
@@ -434,6 +436,7 @@ make -j$(nproc)
 cd ..
 ./bin/sample_algorithm_selector
 ./bin/sample_onnx_mnist
+# Fails on Jetson Orin Nano due to lacking Deep Learning Accelerator (DLA)
 ./bin/sample_onnx_mnist --useDLACore=0
 ./bin/sample_onnx_mnist --useDLACore=1
 {% endhighlight %}
@@ -453,15 +456,18 @@ sudo jetson_clocks --show
 The 1st and 3rd command just prints the clock settings.
 
 
-#### MaxN Power
+#### MaxN/MaxN_Super Power
 
-For maximum performance you also need to set MaxN Power. This can be done by running
+For maximum performance you also need to set `MaxN/MaxN_Super` Power. This can be done by running
 
 {% highlight shell %}
+# Jetson AGX Orin
 sudo nvpmodel -m 0
+# Jetson Orin Nano
+sudo nvpmodel -m 2
 {% endhighlight %}
 
-Afterwards you need to reboot the system though.
+Afterwards on `Jetson AGX Orin` you need to reboot the system though.
 
 {% highlight shell %}
 sudo reboot
