@@ -37,7 +37,8 @@ zypper addrepo https://download.nvidia.com/suse/sle15sp6/  nvidia
 zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
 
 # install all required packages
-zypper in nvidia-video-G06 nvidia-gl-G06 nvidia-compute-utils-G06
+version=$(rpm -qa --queryformat '%{VERSION}\n' nvidia-open-driver-G06-signed-kmp-default | cut -d "_" -f1 | sort -u | tail -n 1)
+zypper in nvidia-video-G06 == ${version} nvidia-compute-utils-G06 == ${version}
 {% endhighlight %}
 
 ## CUDA
@@ -72,7 +73,8 @@ Let's have a first test for using libcuda.
 Users, who don't need a graphical desktop, can omit the installation of the display driver packages above and perform a `CUDA Minimal Installation` instead.
 
 {% highlight shell %}
-zypper in --no-recommends nvidia-compute-utils-G06 cuda-libraries-12-8
+version=$(rpm -qa --queryformat '%{VERSION}\n' nvidia-open-driver-G06-signed-kmp-default | cut -d "_" -f1 | sort -u | tail -n 1)
+zypper in nvidia-compute-utils-G06 == ${version} cuda-libraries-12-8
 {% endhighlight %}
 
 ## Feedback
