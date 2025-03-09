@@ -94,7 +94,7 @@ We plan to make the KMP available as a driver kit via the SolidDriver Program. F
 sudo zypper up kernel-<flavor>
 sudo zypper ar https://download.opensuse.org/repositories/X11:/XOrg/SLE_15_SP6/ igx-kmp
 sudo zypper ref
-sudo zypper in -r jetson-kmp nvidia-igx-36_4-kmp-<flavor>
+sudo zypper in -r jetson-kmp nvidia-igx-kmp-<flavor>
 {% endhighlight %}
 
 ### Userspace/Desktop
