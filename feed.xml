@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-03-09T23:10:24+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-03-09T20:09:47+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running.</p>
+
+<h3 id="sp6">SP6</h3>
+
+<p>Download <a href="https://www.suse.com/download/sles/">SLE-15-SP6 (Arm) installation image</a>. This you can put on a regular USB stick or on an SD card using <code class="language-plaintext highlighter-rouge">dd</code> command.</p>
+
+<p>Boot from the USB stick/SD card, that you wrote above and install SP6. You can install via serial console or connect a monitor to the display port.</p>
+
+<h4 id="when-using-a-connected-monitor-for-installation">When using a connected monitor for installation</h4>
+
+<p>This needs for the installation a special setting in the Firmware of the machine.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nt">--</span><span class="o">&gt;</span> UEFI Firmware Settings
+ <span class="nt">--</span><span class="o">&gt;</span> Device Manager
+  <span class="nt">--</span><span class="o">&gt;</span> NVIDIA Configuration
+   <span class="nt">--</span><span class="o">&gt;</span> Boot Configuration
+    <span class="nt">--</span><span class="o">&gt;</span> SOC Display Hand-Off Mode &lt;Always&gt;</code></pre></figure>
+
+<p>This setting for <code class="language-plaintext highlighter-rouge">SOC Display Hand-Off Mode</code> will change automatically to <code class="language-plaintext highlighter-rouge">Never</code> later with the installation of the graphics driver.</p>
+
+<h4 id="installation">Installation</h4>
+
+<p>Once grub starts you need to edit the grub entry <code class="language-plaintext highlighter-rouge">Installation</code>. Press <code class="language-plaintext highlighter-rouge">e</code> for doing this and add <code class="language-plaintext highlighter-rouge">console=tty0 exec="date -s 2025-01-27"</code> (when using a connected monitor for intallation) or <code class="language-plaintext highlighter-rouge">exec="date -s 2025-01-27"</code> (when installing on a serial console and add also <code class="language-plaintext highlighter-rouge">console=ttyTCU0,115200</code> on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>) to the <code class="language-plaintext highlighter-rouge">linux [...]</code> line. Replace <code class="language-plaintext highlighter-rouge">2025-01-27</code> with the current date.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">### When using a connected monitor for intallation</span>
+<span class="o">[</span>...]
+linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nv">console</span><span class="o">=</span>tty0 <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2025-01-27"</span>
+<span class="o">[</span>...]</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">### When installing on a serial console</span>
+<span class="o">[</span>...]
+linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2025-01-27"</span>
+<span class="c"># On Jetson Orin Nano</span>
+linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nv">console</span><span class="o">=</span>ttyTCU0,115200 <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2025-01-27"</span>
+<span class="o">[</span>...]</code></pre></figure>
+
+<p>The reason for this is that during installation the driver <code class="language-plaintext highlighter-rouge">nvvrs-pseq-rtc</code> for the battery-backed RTC0 (Real Time Clock) is not yet available and therefore the non-battery-backed RTC1 is used, which doesn’t have the correct time set during installation. So this is a workaround to avoid a product registration failure later due to a certificate, which is not valid yet.</p>
+
+<p>Then press <code class="language-plaintext highlighter-rouge">F10</code> to continue to boot.</p>
+
+<p>Make sure you select the following modules during installation:</p>
+
+<ul>
+  <li>Basesystem (enough for just installing the kernel driver)</li>
+  <li>Containers (needed for podman for CUDA libraries)</li>
+  <li>Desktop Applications (needed for running a desktop)</li>
+  <li>Development Tools (needed for git for CUDA samples)</li>
+</ul>
+
+<p>Select <code class="language-plaintext highlighter-rouge">SLES with GNOME</code> for installation.</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">Clock and Time Zone</code> dialogue chose <code class="language-plaintext highlighter-rouge">Other Settings</code> to open <code class="language-plaintext highlighter-rouge">Change Date and Time</code> dialogue. There enable <code class="language-plaintext highlighter-rouge">Synchronize with NTP Server</code>.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nt">--</span><span class="o">&gt;</span> Clock and Time Zone dialogue
+ <span class="nt">--</span><span class="o">&gt;</span> Other Settings
+  <span class="nt">--</span><span class="o">&gt;</span> Change Date and Time dialogue
+   <span class="nt">--</span><span class="o">&gt;</span> <span class="o">(</span>x<span class="o">)</span> Synchronize with NTP Server</code></pre></figure>
+
+<h3 id="kernel--kmp-drivers">Kernel + KMP drivers</h3>
+
+<p>After installation update kernel and install our KMP (kernel module package) for all nvidia kernel modules.</p>
+
+<h4 id="installation-on-nvidias-jetson-agx-orin-and-jetson-orin-nanonx">Installation on NVIDIA’s Jetson AGX Orin and Jetson Orin Nano/NX</h4>
+
+<p>The KMP is available as a driver kit via the SolidDriver Program. For installation please use the following commands:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># flavor either default or 64kb (check with `uname -r` command)</span>
+<span class="nb">sudo </span>zypper up kernel-&lt;flavor&gt;
+<span class="nb">sudo </span>zypper ar https://drivers.suse.com/nvidia/Jetson/Jetson_Linux_36.4/sle-15-sp6-aarch64/1.0/install jetson-kmp
+<span class="nb">sudo </span>zypper ar https://drivers.suse.com/nvidia/Jetson/Jetson_Linux_36.4/sle-15-sp6-aarch64/1.0/update  jetson-kmp-update
+<span class="nb">sudo </span>zypper ref
+<span class="nb">sudo </span>zypper <span class="k">in</span> <span class="nt">-r</span> jetson-kmp nvidia-jetson-36_4-kmp-&lt;flavor&gt;</code></pre></figure>
+
+<h4 id="installation-on-nvidia-igx-orin">Installation on NVIDIA IGX Orin</h4>
+
+<p>We plan to make the KMP available as a driver kit via the SolidDriver Program. For now please install an updated kernel and the KMP after checking the <a href="https://build.opensuse.org/project/monitor/X11:XOrg">build status</a> (type ‘igx’ in Search… field; rebuilding can take a few hours!) from our open buildservice:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># flavor either default or 64kb (check with `uname -r` command)</span>
+<span class="nb">sudo </span>zypper up kernel-&lt;flavor&gt;
+<span class="nb">sudo </span>zypper ar https://download.opensuse.org/repositories/X11:/XOrg/SLE_15_SP6/ igx-kmp
+<span class="nb">sudo </span>zypper ref
+<span class="nb">sudo </span>zypper <span class="k">in</span> <span class="nt">-r</span> jetson-kmp nvidia-igx-kmp-&lt;flavor&gt;</code></pre></figure>
+
+<h3 id="userspacedesktop">Userspace/Desktop</h3>
+
+<h4 id="installation-on-nvidias-jetson-agx-orin-and-jetson-orin-nanonx-1">Installation on NVIDIA’s Jetson AGX Orin and Jetson Orin Nano/NX</h4>
+
+<p>Please install userspace on these devices by using the following commands:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>zypper ar https://repo.download.nvidia.com/jetson/sle15-sp6/jp6.1/ jetson-userspace 
+<span class="nb">sudo </span>zypper ref 
+<span class="nb">sudo </span>zypper <span class="k">in </span>nvidia-jetpack-all</code></pre></figure>
+
+<h4 id="installation-on-nvidia-igx-orin-1">Installation on NVIDIA IGX Orin</h4>
+
+<p>Unfortunately installing the userspace on this device is still a non-trivial task.</p>
+
+<p>Download <a href="https://developer.nvidia.com/downloads/igx/v1.1/Jetson_Linux_R36.4.1_aarch64.tbz2">Bootloader(QSPI) Package</a> from this <a href="https://developer.nvidia.com/igx-downloads">location</a> (select <code class="language-plaintext highlighter-rouge">IGX-SW 1.1 Production Release</code>). Extract <code class="language-plaintext highlighter-rouge">Jetson_Linux_R36.4.1_aarch64.tbz2</code>.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">tar </span>xf Jetson_Linux_R36.4.1_aarch64.tbz2</code></pre></figure>
+
+<p>Then you need to convert debian packages from this content into tarballs.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">pushd </span>Linux_for_Tegra
+<span class="nb">sed</span> <span class="nt">-i</span> <span class="nt">-e</span> <span class="s1">'s/lbzip2/bzip2/g'</span> <span class="nt">-e</span> <span class="s1">'s/-I zstd //g'</span> nv_tools/scripts/nv_repackager.sh
+./nv_tools/scripts/nv_repackager.sh <span class="nt">-o</span> ./nv_tegra/l4t_tar_packages <span class="nt">--convert-all</span>
+<span class="nb">popd</span></code></pre></figure>
+
+<p>From the generated tarballs you only need these:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-camera_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-core_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-cuda_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-firmware_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-gbm_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-multimedia-utils_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-multimedia_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvfancontrol_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvpmodel_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvsci_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-pva_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-tools_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-vulkan-sc-sdk_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-wayland_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
+nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2</code></pre></figure>
+
+<p>And from this tarball <code class="language-plaintext highlighter-rouge">nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2</code> you only need these files:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">etc/asound.conf.tegra-ape
+etc/asound.conf.tegra-hda-jetson-agx
+etc/asound.conf.tegra-hda-jetson-xnx
+etc/nvidia-container-runtime/host-files-for-container.d/devices.csv
+etc/nvidia-container-runtime/host-files-for-container.d/drivers.csv
+etc/nvsciipc.cfg
+etc/sysctl.d/60-nvsciipc.conf
+etc/systemd/nv_nvsciipc_init.sh
+etc/systemd/nvpower.sh
+etc/systemd/nv.sh
+etc/systemd/system.conf.d/watchdog.conf
+etc/systemd/system/multi-user.target.wants/nv_nvsciipc_init.service
+etc/systemd/system/multi-user.target.wants/nvpower.service
+etc/systemd/system/multi-user.target.wants/nv.service
+etc/systemd/system/nv_nvsciipc_init.service
+etc/systemd/system/nvpower.service
+etc/systemd/system/nv.service
+etc/udev/rules.d/99-tegra-devices.rules
+usr/share/alsa/cards/tegra-ape.conf
+usr/share/alsa/cards/tegra-hda.conf
+usr/share/alsa/init/postinit/00-tegra.conf
+usr/share/alsa/init/postinit/01-tegra-rt565x.conf
+usr/share/alsa/init/postinit/02-tegra-rt5640.conf</code></pre></figure>
+
+<p>So first let’s repackage <code class="language-plaintext highlighter-rouge">nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2</code>:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">pushd </span>Linux_for_Tegra/nv_tegra/l4t_tar_packages/
+<span class="nb">cat</span> <span class="o">&gt;</span> nvidia-l4t-init.txt <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+etc/asound.conf.tegra-ape
+etc/asound.conf.tegra-hda-jetson-agx
+etc/asound.conf.tegra-hda-jetson-xnx
+etc/nvidia-container-runtime/host-files-for-container.d/devices.csv
+etc/nvidia-container-runtime/host-files-for-container.d/drivers.csv
+etc/nvsciipc.cfg
+etc/sysctl.d/60-nvsciipc.conf
+etc/systemd/nv_nvsciipc_init.sh
+etc/systemd/nvpower.sh
+etc/systemd/nv.sh
+etc/systemd/system.conf.d/watchdog.conf
+etc/systemd/system/multi-user.target.wants/nv_nvsciipc_init.service
+etc/systemd/system/multi-user.target.wants/nvpower.service
+etc/systemd/system/multi-user.target.wants/nv.service
+etc/systemd/system/nv_nvsciipc_init.service
+etc/systemd/system/nvpower.service
+etc/systemd/system/nv.service
+etc/udev/rules.d/99-tegra-devices.rules
+usr/share/alsa/cards/tegra-ape.conf
+usr/share/alsa/cards/tegra-hda.conf
+usr/share/alsa/init/postinit/00-tegra.conf
+usr/share/alsa/init/postinit/01-tegra-rt565x.conf
+usr/share/alsa/init/postinit/02-tegra-rt5640.conf
+</span><span class="no">EOF
+</span><span class="nb">tar </span>xf nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2
+<span class="nb">rm </span>nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2
+<span class="nb">tar </span>cjf nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-init.txt<span class="si">)</span>
+<span class="nb">popd</span></code></pre></figure>
+
+<p>On NVIDIA IGX Orin with dedicated graphics card (dGPU systems) you need to get rid of some files due to conflicts with dGPU userspace drivers.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># repackage nvidia-l4t-x11_ package</span>
+<span class="nb">tar </span>tf nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 | <span class="nb">grep</span> <span class="nt">-v</span> /usr/bin/nvidia-xconfig <span class="se">\</span>
+  <span class="o">&gt;</span> nvidia-l4t-x11_36.4.1-20241119120551.txt
+<span class="nb">tar </span>xf  nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
+<span class="nb">rm      </span>nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
+<span class="nb">tar </span>cjf nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-x11_36.4.1-20241119120551.txt<span class="si">)</span>
+
+<span class="c"># repackage nvidia-l4t-3d-core_ package</span>
+<span class="nb">tar </span>tf nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 | <span class="se">\</span>
+  <span class="nb">grep</span> <span class="nt">-v</span> <span class="se">\</span>
+       <span class="nt">-e</span> /etc/vulkan/icd.d/nvidia_icd.json <span class="se">\</span>
+       <span class="nt">-e</span> /usr/lib/xorg/modules/drivers/nvidia_drv.so <span class="se">\</span>
+       <span class="nt">-e</span> /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so <span class="se">\</span>
+       <span class="nt">-e</span> /usr/share/glvnd/egl_vendor.d/10_nvidia.json <span class="se">\</span>
+       <span class="o">&gt;</span> nvidia-l4t-3d-core_36.4.1-20241119120551.txt
+<span class="nb">tar </span>xf  nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
+<span class="nb">rm      </span>nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
+<span class="nb">tar </span>cjf nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-3d-core_36.4.1-20241119120551.txt<span class="si">)</span></code></pre></figure>
+
+<p>Then extract the generated tarballs to your system.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">pushd </span>Linux_for_Tegra/nv_tegra/l4t_tar_packages
+<span class="k">for </span>i <span class="k">in</span> <span class="se">\</span>
+nvidia-l4t-core_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-cuda_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-firmware_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-gbm_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-multimedia-utils_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-multimedia_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-nvfancontrol_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-nvpmodel_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-tools_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-nvsci_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-pva_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-wayland_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-camera_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-vulkan-sc-sdk_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2<span class="p">;</span> <span class="k">do
+  </span><span class="nb">sudo tar </span>xjf <span class="nv">$i</span> <span class="nt">-C</span> /
+<span class="k">done
+</span><span class="nb">popd</span></code></pre></figure>
+
+<p>On systems without dedicated graphics (internal GPU systems) card you still
+need to move</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">/usr/lib/xorg/modules/drivers/nvidia_drv.so
+/usr/lib/xorg/modules/extensions/libglxserver_nvidia.so</code></pre></figure>
+
+<p>to</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">/usr/lib64/xorg/modules/drivers/nvidia_drv.so
+/usr/lib64/xorg/modules/extensions/libglxserver_nvidia.so</code></pre></figure>
+
+<p>So let’s do this.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo mv</span> /usr/lib/xorg/modules/drivers/nvidia_drv.so <span class="se">\</span>
+          /usr/lib64/xorg/modules/drivers/
+<span class="nb">sudo mv</span> /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so <span class="se">\</span>
+          /usr/lib64/xorg/modules/extensions/
+<span class="nb">sudo rm</span> <span class="nt">-rf</span> /usr/lib/xorg</code></pre></figure>
+
+<p>Then add <code class="language-plaintext highlighter-rouge">/usr/lib/aarch64-linux-gnu</code> and
+<code class="language-plaintext highlighter-rouge">/usr/lib/aarch64-linux-gnu/tegra-egl</code> to
+<code class="language-plaintext highlighter-rouge">/etc/ld.so.conf.d/nvidia-tegra.conf</code>.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">echo</span> /usr/lib/aarch64-linux-gnu | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/ld.so.conf.d/nvidia-tegra.conf
+<span class="nb">echo</span> /usr/lib/aarch64-linux-gnu/tegra-egl | <span class="nb">sudo tee</span> <span class="nt">-a</span> /etc/ld.so.conf.d/nvidia-tegra.conf</code></pre></figure>
+
+<p>Run ldconfig </p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>ldconfig</code></pre></figure>
+
+<h4 id="video-group-for-regular-users">Video group for regular users</h4>
+
+<p>A regular user needs to be added to the group <code class="language-plaintext highlighter-rouge">video</code> to be able to log in to the GNOME desktop as regular user. This can be achieved by using YaST, usermod or editing <code class="language-plaintext highlighter-rouge">/etc/group</code> manually.</p>
+
+<h4 id="reboot-the-machine-with-the-previously-updated-kernel">Reboot the machine with the previously updated kernel</h4>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>reboot</code></pre></figure>
+
+<p>Select first entry <code class="language-plaintext highlighter-rouge">SLES 15-SP6</code> for booting.</p>
+
+<h3 id="basic-testing">Basic testing</h3>
+
+<p>First basic testing will be running <code class="language-plaintext highlighter-rouge">nvidia-smi</code>. </p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nvidia-smi</code></pre></figure>
+
+<p>Graphical desktop (GNOME) should work as well. Linux console will also be available. Use either a serial console or a ssh connection if you don’t want to use the graphical desktop/Linux console or need remote access to the system.</p>
+
+<h3 id="glmark2">glmark2</h3>
+
+<p>Install phoronix-test-suite</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>zypper ar https://cdn.opensuse.org/distribution/leap/15.6/repo/oss/ repo-oss
+<span class="nb">sudo </span>zypper ref
+<span class="nb">sudo </span>zypper <span class="k">in </span>phoronix-test-suite</code></pre></figure>
+
+<p>Run phoronix-test-suite</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>zypper <span class="k">in </span>gcc gcc-c++
+<span class="c"># Prepare for realistic numbers</span>
+<span class="c"># 1. Logout from your GNOME session</span>
+<span class="c"># 2. Login again, but select IceWM Session as desktop instead of GNOME</span>
+<span class="c"># 3. Start xterm and run the following command</span>
+phoronix-test-suite benchmark glmark2</code></pre></figure>
+
+<p>This should give you an <code class="language-plaintext highlighter-rouge">average score</code> of about <code class="language-plaintext highlighter-rouge">4500</code> running in <code class="language-plaintext highlighter-rouge">1920x1080</code> resolution with <code class="language-plaintext highlighter-rouge">MaxN Power</code> and best performance settings (see <code class="language-plaintext highlighter-rouge">Misc/Performance</code> and <code class="language-plaintext highlighter-rouge">Misc/MaxN/MaxN_Super Power</code> below) on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and about <code class="language-plaintext highlighter-rouge">2500</code> on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> (also with best performance settings).</p>
+
+<h3 id="wayland-based-desktop">Wayland based Desktop</h3>
+
+<p>In order to enable our <code class="language-plaintext highlighter-rouge">GNOME on Wayland</code> desktop you need to install two additional packages: <code class="language-plaintext highlighter-rouge">xwayland</code> and <code class="language-plaintext highlighter-rouge">gnome-session-wayland</code>.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>zypper <span class="k">in </span>xwayland gnome-session-wayland</code></pre></figure>
+
+<p>Afterwards restart GDM</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>systemctl restart display-manager.service</code></pre></figure>
+
+<p>or reboot your machine.</p>
+
+<h3 id="cudatensorflow">CUDA/Tensorflow</h3>
+
+<h4 id="containers">Containers</h4>
+
+<p>NVIDIA provides containers available for Jetson that include SDKs such as CUDA. More details <a href="https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack">here</a>. These containers are Ubuntu based, but can be used from SLE as well. You need to install the NVIDIA container runtime for this. Detailed information <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html">here</a>.</p>
+
+<h5 id="1-install-podman-and-nvidia-container-runtime">1. Install podman and nvidia-container-runtime</h5>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>zypper <span class="nb">install </span>podman
+<span class="nb">sudo </span>zypper ar https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo
+<span class="nb">sudo </span>zypper modifyrepo <span class="nt">--enable</span> nvidia-container-toolkit-experimental
+<span class="nb">sudo </span>zypper <span class="nt">--gpg-auto-import-keys</span> <span class="nb">install</span> <span class="nt">-y</span> nvidia-container-toolkit
+<span class="nb">sudo </span>nvidia-ctk cdi generate <span class="nt">--mode</span><span class="o">=</span>csv <span class="nt">--output</span><span class="o">=</span>/var/run/cdi/nvidia.yaml
+<span class="nb">sudo </span>nvidia-ctk cdi list</code></pre></figure>
+
+<h5 id="2-download-the-cuda-samples">2. Download the CUDA samples</h5>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>zypper <span class="nb">install </span>git
+<span class="nb">cd
+</span>git clone https://github.com/NVIDIA/cuda-samples.git
+<span class="nb">cd </span>cuda-samples
+git checkout v12.4</code></pre></figure>
+
+<h5 id="3-start-x">3. Start X</h5>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>rcxdm stop
+<span class="nb">sudo </span>Xorg <span class="nt">-retro</span> &amp;&gt; /tmp/log &amp;
+<span class="nb">export </span><span class="nv">DISPLAY</span><span class="o">=</span>:0
+xterm &amp;</code></pre></figure>
+
+<p>Monitor should now show a Moiree pattern with an unframed xterm on it. Otherwise check /tmp/log.</p>
+
+<h5 id="4-download-and-run-the-jetpack6-container">4. Download and run the JetPack6 container</h5>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>podman run <span class="nt">--rm</span> <span class="nt">-it</span> <span class="nt">-e</span> DISPLAY <span class="nt">--net</span><span class="o">=</span>host <span class="nt">--device</span> nvidia.com/gpu<span class="o">=</span>all <span class="nt">--group-add</span> keep-groups <span class="nt">--security-opt</span> <span class="nv">label</span><span class="o">=</span>disable <span class="nt">-v</span> <span class="nv">$HOME</span>/cuda-samples:/cuda-samples nvcr.io/nvidia/l4t-jetpack:r36.2.0 /bin/bash</code></pre></figure>
+
+<h4 id="cuda">CUDA</h4>
+
+<h5 id="5-build-and-run-the-samples-in-the-container">5. Build and run the samples in the container</h5>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /cuda-samples
+make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span>
+<span class="nb">pushd</span> ./Samples/5_Domain_Specific/nbody
+make
+<span class="nb">popd</span>
+./bin/aarch64/linux/release/deviceQuery
+./bin/aarch64/linux/release/nbody</code></pre></figure>
+
+<h4 id="tensorrt">Tensorrt</h4>
+<h5 id="6-build-and-run-tensorrt-in-the-container">6. Build and run Tensorrt in the container</h5>
+
+<p>This is both with the GPU and DLA (deep-learning accelerator).</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /usr/src/tensorrt/samples/
+make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span>
+<span class="nb">cd</span> ..
+./bin/sample_algorithm_selector
+./bin/sample_onnx_mnist
+<span class="c"># Fails on Jetson Orin Nano due to lacking Deep Learning Accelerator (DLA)</span>
+./bin/sample_onnx_mnist <span class="nt">--useDLACore</span><span class="o">=</span>0
+./bin/sample_onnx_mnist <span class="nt">--useDLACore</span><span class="o">=</span>1</code></pre></figure>
+
+<h3 id="misc">Misc</h3>
+
+<h4 id="performance">Performance</h4>
+
+<p>You can improve the performance by giving the clock a boost. For best performance you can run <code class="language-plaintext highlighter-rouge">jetson_clocks</code> to set the device to max clock settings</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>jetson_clocks <span class="nt">--show</span>
+<span class="nb">sudo </span>jetson_clocks
+<span class="nb">sudo </span>jetson_clocks <span class="nt">--show</span></code></pre></figure>
+
+<p>The 1st and 3rd command just prints the clock settings.</p>
+
+<h4 id="maxnmaxn_super-power">MaxN/MaxN_Super Power</h4>
+
+<p>For maximum performance you also need to set <code class="language-plaintext highlighter-rouge">MaxN/MaxN_Super</code> Power. This can be done by running</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Jetson AGX Orin</span>
+<span class="nb">sudo </span>nvpmodel <span class="nt">-m</span> 0
+<span class="c"># Jetson Orin Nano</span>
+<span class="nb">sudo </span>nvpmodel <span class="nt">-m</span> 2</code></pre></figure>
+
+<p>Afterwards on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> you need to reboot the system though.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>reboot</code></pre></figure>
+
+<p>In order to check for the current value run</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nvpmodel <span class="nt">-q</span></code></pre></figure>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running.]]></summary></entry><entry><title type="html">Packages needed for Vulkan development on openSUSE</title><link href="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html" rel="alternate" type="text/html" title="Packages needed for Vulkan development on openSUSE" /><published>2022-10-20T00:00:00+00:00</published><updated>2022-10-20T13:27:07+00:00</updated><id>/vulkan/2022/10/20/vulkan-packages-on-opensuse</id><content type="html" xml:base="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html"><![CDATA[<p>Recently I had a first look into <code class="language-plaintext highlighter-rouge">Vulkan</code> development. So I started by reading
+a <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a>. It’s rather detailed and actually it takes a
+long time before you see your first shaded triangle (about 900 lines of
+code!). The <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a> has some software requirements on
+Linux, which are explained in detail in the <a href="https://vulkan-tutorial.com/Development_environment#page_Linux">Development environment for
+Linux</a>. In order to make things easier for openSUSE users here
+is the package list you need to have installed. Just install them via
+<code class="language-plaintext highlighter-rouge">zypper</code>.</p>
+
+<p>Since the tutorial is using C++ …</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># if you don't have the C++ compiler installed yet</span>
+zypper <span class="k">in </span>gcc-c++</code></pre></figure>
+
+<p>Vulkan packages</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper <span class="k">in </span>vulkan-tools vulkan-devel vulkan-validationlayers libvulkan_intel libvulkan_radeon</code></pre></figure>
+
+<p>Shader Compiler <code class="language-plaintext highlighter-rouge">glsc</code> for generating <code class="language-plaintext highlighter-rouge">SPIR-V</code> binaries</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper <span class="k">in </span>shaderc</code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">GLM</code> library needed for linear algebra operations (not included by Vulkan, but also popular on OpenGL)</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper <span class="k">in </span>glm-devel</code></pre></figure>
+
+<p><code class="language-plaintext highlighter-rouge">GLFW</code> library for window handling, etc. used by the Tutorial (Vulkan is platform-agnostic!)</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper <span class="k">in </span>libglfw-devel</code></pre></figure>
+
+<p>Other needed packages since mentioned in the sample Makefile of the Tutorial</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper <span class="k">in </span>libXi-devel libXxf86vm-devel</code></pre></figure>
+
+<p><img src="/assets/2022-10-20-vulkan-packages-on-opensuse.jpg" alt="Shaded Triangle" /></p>
+
+<p>And now have fun with the <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a> ! :-)</p>]]></content><author><name></name></author><category term="vulkan" /><summary type="html"><![CDATA[Recently I had a first look into Vulkan development. So I started by reading a Vulkan Tutorial. It’s rather detailed and actually it takes a long time before you see your first shaded triangle (about 900 lines of code!). The Vulkan Tutorial has some software requirements on Linux, which are explained in detail in the Development environment for Linux. In order to make things easier for openSUSE users here is the package list you need to have installed. Just install them via zypper.]]></summary></entry><entry><title type="html">NVIDIA Open GPU kernel modules: openSUSE/SLE packages available</title><link href="/nvidia/2022/06/07/nvidia-opengpu.html" rel="alternate" type="text/html" title="NVIDIA Open GPU kernel modules: openSUSE/SLE packages available" /><published>2022-06-07T00:00:00+00:00</published><updated>2025-03-02T22:27:07+00:00</updated><id>/nvidia/2022/06/07/nvidia-opengpu</id><content type="html" xml:base="/nvidia/2022/06/07/nvidia-opengpu.html"><![CDATA[<p>On May 19, 2022 NVIDIA made a <a href="https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/">release</a> of their <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">Open GPU kernel modules</a> for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install <code class="language-plaintext highlighter-rouge">nvidia-open-driver-G06-signed</code> package.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Installation instructions since Leap 15.6/SLE15-SP6 and Tumbleweed:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># will install needed packages</span>
+zypper <span class="k">in </span>nvidia-open-driver-G06-signed-kmp-default</code></pre></figure>
+
+<p>Find supported Turing/Ampere/Hopper GPUs <a href="https://build.opensuse.org/package/view_file/X11:Drivers:Video:Redesign/nvidia-open-driver-G06-signed/pci_ids-supported">here</a>. Check with <code class="language-plaintext highlighter-rouge">inxi -aG</code>. Use <code class="language-plaintext highlighter-rouge">hwinfo --gfxcard</code> on SLE.</p>
+
+<h2 id="display-drivers">Display Drivers</h2>
+
+<p><code class="language-plaintext highlighter-rouge">nvidia-video-G06</code>, <code class="language-plaintext highlighter-rouge">nvidia-gl-G06</code> and <code class="language-plaintext highlighter-rouge">nvidia-compute-utils-G06</code> packages are
+available via NVIDIA’s <a href="https://download.nvidia.com/opensuse">openSUSE</a>/<a href="https://download.nvidia.com/suse">SLE</a> repositories, which
+then can be used together with NVIDIA’s Open GPU kernel modules above.</p>
+
+<p>Installing Display Drivers on Leap 15.6/Tumbleweed/SLE15-SPx</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># if you have not added this repository yet</span>
+<span class="c"># Leap 15.6</span>
+zypper addrepo https://download.nvidia.com/opensuse/leap/15.6/  nvidia
+<span class="c"># Tumbleweed</span>
+zypper addrepo https://download.nvidia.com/opensuse/tumbleweed/  nvidia
+<span class="c"># SLE15-SP6</span>
+zypper addrepo https://download.nvidia.com/suse/sle15sp6/  nvidia
+<span class="c"># SLE15-SP7 (Beta)</span>
+zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
+
+<span class="c"># install all required packages</span>
+<span class="nv">version</span><span class="o">=</span><span class="si">$(</span>rpm <span class="nt">-qa</span> <span class="nt">--queryformat</span> <span class="s1">'%{VERSION}\n'</span> nvidia-open-driver-G06-signed-kmp-default | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"_"</span> <span class="nt">-f1</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="si">)</span>
+zypper <span class="k">in </span>nvidia-video-G06 <span class="o">==</span> <span class="k">${</span><span class="nv">version</span><span class="k">}</span> nvidia-compute-utils-G06 <span class="o">==</span> <span class="k">${</span><span class="nv">version</span><span class="k">}</span></code></pre></figure>
+
+<h2 id="cuda">CUDA</h2>
+
+<p>With that - after installing <code class="language-plaintext highlighter-rouge">nvidia-compute-utils-G06</code> (contains libcuda) - you can experiment with CUDA. Install <a href="https://developer.download.nvidia.com/compute/cuda/repos/">CUDA stack</a> from NVIDIA’s webserver.</p>
+
+<p>Installing CUDA on Leap 15.6/Tumbleweed/SLE15-SPx</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># if you have not added this repository yet</span>
+<span class="c"># Leap 15.6/Tumbleweed</span>
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
+<span class="c"># SLE15-SPx (x86_64)</span>
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
+<span class="c"># SLE15-SPx (aarch64)</span>
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
+
+<span class="c"># will install needed CUDA packages</span>
+zypper <span class="k">in </span>cuda-12-8</code></pre></figure>
+
+<p>Let’s have a first test for using libcuda.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">/usr/local/cuda-12.8/extras/demo_suite/deviceQuery
+<span class="c"># Unfortunately this is not available for aarch64; but there are</span>
+<span class="c"># other samples available below /usr/local/cuda-12.4/extras/ ...</span></code></pre></figure>
+
+<h2 id="cuda-minimal-installation">CUDA Minimal Installation</h2>
+
+<p>Users, who don’t need a graphical desktop, can omit the installation of the display driver packages above and perform a <code class="language-plaintext highlighter-rouge">CUDA Minimal Installation</code> instead.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">version</span><span class="o">=</span><span class="si">$(</span>rpm <span class="nt">-qa</span> <span class="nt">--queryformat</span> <span class="s1">'%{VERSION}\n'</span> nvidia-open-driver-G06-signed-kmp-default | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"_"</span> <span class="nt">-f1</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="si">)</span>
+zypper <span class="k">in </span>nvidia-compute-utils-G06 <span class="o">==</span> <span class="k">${</span><span class="nv">version</span><span class="k">}</span> cuda-libraries-12-8</code></pre></figure>
+
+<h2 id="feedback">Feedback</h2>
+
+<p>If you have questions, comments and any kind of feedback regarding this topic, don’t hesitate to contact me via email. Thanks!</p>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.]]></summary></entry><entry><title type="html">Drascula: Improving your Spanish language skills by playing an Adventure Game</title><link href="/scummvm/2022/06/06/drascula.html" rel="alternate" type="text/html" title="Drascula: Improving your Spanish language skills by playing an Adventure Game" /><published>2022-06-06T00:00:00+00:00</published><updated>2024-01-19T13:28:10+00:00</updated><id>/scummvm/2022/06/06/drascula</id><content type="html" xml:base="/scummvm/2022/06/06/drascula.html"><![CDATA[<p>Recently I was packaging one of the <a href="https://www.scummvm.org/games/">Retro freeware games</a>, which are supported by the <a href="https://www.scummvm.org">ScummVm project</a>. It’s called <a href="https://www.scummvm.org/games/#games-drascula:drascula">Drascula: The Vampire Strikes Back</a> and the story is some kind of strange mixture between <code class="language-plaintext highlighter-rouge">Dracula</code> and <code class="language-plaintext highlighter-rouge">Frankenstein</code>.</p>
+
+<p><img src="/assets/2022-06-06-drascula.jpg" alt="Drascula: The Vampire Strikes Back" /></p>
+
+<h2 id="language-support">Language Support</h2>
+
+<p>When testing the language support I noticed, that it has been originally developed by a company in Spain called <code class="language-plaintext highlighter-rouge">Alcachofa Soft S.L.</code>, so additional to English it also includes speech in Spanish. Subtitles are available in English, German , French, Italian and Spanish. Therefore I decided to try improving my Spanish language skills and began to play this Adventure. And although the game is from 1996 I enjoyed it a lot!</p>
+
+<p>I figured out that if you press <code class="language-plaintext highlighter-rouge">SPACE</code> while a character is speaking, the sentence will be interrupted (apart from the voice part). And by pressing <code class="language-plaintext highlighter-rouge">SPACE</code> again the game continues. Which was rather useful for me in order to have more time for reading and understanding the subtitles. Press <code class="language-plaintext highlighter-rouge">F7/F10</code> to load/save the game.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>You can find <a href="https://build.opensuse.org/package/show/games/drascula">drascula</a> and <a href="https://build.opensuse.org/package/show/games/scummvm">scummvm</a> packages in the <a href="https://build.opensuse.org/project/show/games">games repository</a> of the <a href="https://build.opensuse.org">openSUSE Build Service</a>.</p>
+
+<p>Installation instructions for openSUSE Leap:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># if you don't have added the 'games' repository yet</span>
+<span class="c"># Leap 15.4</span>
+zypper addrepo https://download.opensuse.org/repositories/games/openSUSE_Leap_15.4/  games
+<span class="c"># Leap 15.5</span>
+zypper addrepo https://download.opensuse.org/repositories/games/openSUSE_Leap_15.5/  games
+<span class="c"># will install 'scummvm' package and other dependancies automatically</span>
+zypper <span class="k">in </span>drascula</code></pre></figure>
+
+<p>Then just run the command <code class="language-plaintext highlighter-rouge">drascula</code>, select your language (via <code class="language-plaintext highlighter-rouge">xmessage</code> - isn’t this retro?) and enjoy!</p>
+
+<h2 id="need-help">Need help?</h2>
+
+<p>And in case you struggle - Walkthroughs are available on Youtube - also in Spanish. :-)</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YuzG8GA0nNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="running-on-windows-macos-etc">Running on Windows, MacOS, etc.</h2>
+
+<p>In case you’re using Windows, MacOS, etc. There are precompiled executables of the <code class="language-plaintext highlighter-rouge">ScummVM</code> program availabe for download on the <a href="https://www.scummvm.org/downloads">ScummVM Download Page</a>, which you can easily install on your machine. Don’t forget to download also the <a href="https://www.scummvm.org/games/#games-drascula:drascula">Drascula datafiles</a>. You will need: <a href="https://downloads.scummvm.org/frs/extras/Drascula_%20The%20Vampire%20Strikes%20Back/drascula-1.0.zip">Freeware Version (English)</a>, <a href="https://downloads.scummvm.org/frs/extras/Drascula_%20The%20Vampire%20Strikes%20Back/drascula-audio-2.0.zip">Freeware Version (Music Adon, OGG format)</a> and <a href="https://downloads.scummvm.org/frs/extras/Drascula_%20The%20Vampire%20Strikes%20Back/drascula-int-1.1.zip">Freeware Version (Updated Spanish, German, French and Italian AddOn)</a>. Extract all of them in your favorite directory (<code class="language-plaintext highlighter-rouge">readme.txt</code> can be overriden), then run <code class="language-plaintext highlighter-rouge">scummvm</code>, press <code class="language-plaintext highlighter-rouge">Add Game</code> and <code class="language-plaintext highlighter-rouge">Choose</code> the directory, into which you installed the <code class="language-plaintext highlighter-rouge">Drascula</code> datafiles right before. Now select <code class="language-plaintext highlighter-rouge">Graphics</code>, enable <code class="language-plaintext highlighter-rouge">Override global graphic setting</code>, set <code class="language-plaintext highlighter-rouge">Scaler</code> to <code class="language-plaintext highlighter-rouge">HQ</code> and <code class="language-plaintext highlighter-rouge">3x</code> and enable <code class="language-plaintext highlighter-rouge">Fullscreen mode</code>. Now select <code class="language-plaintext highlighter-rouge">Audio</code>, enable <code class="language-plaintext highlighter-rouge">Override global audio setting</code> and set <code class="language-plaintext highlighter-rouge">Text and speech</code> to <code class="language-plaintext highlighter-rouge">Both</code>. Press <code class="language-plaintext highlighter-rouge">Ok</code>. Then press <code class="language-plaintext highlighter-rouge">Start</code> to start the game. Have fun!</p>]]></content><author><name></name></author><category term="scummvm" /><summary type="html"><![CDATA[Recently I was packaging one of the Retro freeware games, which are supported by the ScummVm project. It’s called Drascula: The Vampire Strikes Back and the story is some kind of strange mixture between Dracula and Frankenstein.]]></summary></entry></feed>

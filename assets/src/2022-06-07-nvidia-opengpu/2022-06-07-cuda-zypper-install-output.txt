@@ -1,0 +1,23 @@
+# zypper repos -p
+#  | Alias                       | Name                        | Enabled | GPG Check | Refresh | Priority
+---+-----------------------------+-----------------------------+---------+-----------+---------+---------
+ 1 | cuda                        | cuda                        | Yes     | (r ) Yes  | No      |  100
+ 2 | nvidia                      | nvidia                      | Yes     | (r ) Yes  | No      |   99
+ [...]
+
+# zypper in --no-recommends cuda-12-4
+Loading repository data...
+Reading installed packages...
+Resolving package dependencies...
+
+The following 62 NEW packages are going to be installed:
+  cuda-12-4 [...] kernel-firmware-nvidia-gspx-G06 [...] nvidia-compute-G06 nvidia-compute-utils-G06
+  nvidia-open-driver-G06-signed-kmp-default
+
+62 new packages to install.
+Overall download size: 3,91 GiB. Already cached: 0 B. After the operation, additional 7,5 GiB will be used.
+Continue? [y/n/v/...? shows all options] (y): 
+
+
+
+
