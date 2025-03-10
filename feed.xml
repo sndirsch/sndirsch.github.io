@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-03-09T23:10:24+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-03-09T20:09:47+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-03-10T23:01:37+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-03-10T22:59:56+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code>.</p>
+
+<h3 id="firmware-update-on-jetson-agx-orin">Firmware Update on Jetson AGX Orin</h3>
+
+<p>On <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> first update the firmware to Jetpack 6.1/36.4.0.</p>
+
+<p>Download <a href="https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.0/release/Jetson_Linux_R36.4.0_aarch64.tbz2">Driver Package (BSP)</a> from this <a href="https://developer.nvidia.com/embedded/jetson-linux-r3640">location</a>. Extract <code class="language-plaintext highlighter-rouge">Jetson_Linux_R36.4.0_aarch64.tbz2</code>.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">tar </span>xf Jetson_Linux_R36.4.0_aarch64.tbz2</code></pre></figure>
+
+<p>Then connect with two cables your computer to the Micro-USB port and Type-C port (next to the 40pin connector) of <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code>.
+Now switch <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> to recovery mode (using your Micro-USB cable).</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cd </span>Linux_for_Tegra
+<span class="nb">sudo</span> ./tools/board_automation/boardctl <span class="nt">-t</span> topo recovery</code></pre></figure>
+
+<p>Check that <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> is now in recovery mode.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">lsusb
+<span class="o">[</span>...]
+Bus 003 Device 099: ID 0955:7023 NVIDIA Corp. APX
+<span class="o">[</span>...]</code></pre></figure>
+
+<p>Now flash your firmware (using the Type-C cable). Make sure you have package <code class="language-plaintext highlighter-rouge">dtc</code> installed, because the tool <code class="language-plaintext highlighter-rouge">fdtoverlay</code> is needed.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo</span> ./flash.sh p3737-0000-p3701-0000-qspi external</code></pre></figure>
+
+<p>Reboot <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code>.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo</span> ./tools/board_automation/boardctl <span class="nt">-t</span> topo power_on</code></pre></figure>
+
+<p>After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version <code class="language-plaintext highlighter-rouge">36.4.0-gcid-XXXXXXXX</code>.</p>
 
 <h3 id="sp6">SP6</h3>
 
@@ -401,7 +432,7 @@ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc<
 
 <p>In order to check for the current value run</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nvpmodel <span class="nt">-q</span></code></pre></figure>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running.]]></summary></entry><entry><title type="html">Packages needed for Vulkan development on openSUSE</title><link href="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html" rel="alternate" type="text/html" title="Packages needed for Vulkan development on openSUSE" /><published>2022-10-20T00:00:00+00:00</published><updated>2022-10-20T13:27:07+00:00</updated><id>/vulkan/2022/10/20/vulkan-packages-on-opensuse</id><content type="html" xml:base="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html"><![CDATA[<p>Recently I had a first look into <code class="language-plaintext highlighter-rouge">Vulkan</code> development. So I started by reading
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nvpmodel <span class="nt">-q</span></code></pre></figure>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin.]]></summary></entry><entry><title type="html">Packages needed for Vulkan development on openSUSE</title><link href="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html" rel="alternate" type="text/html" title="Packages needed for Vulkan development on openSUSE" /><published>2022-10-20T00:00:00+00:00</published><updated>2022-10-20T13:27:07+00:00</updated><id>/vulkan/2022/10/20/vulkan-packages-on-opensuse</id><content type="html" xml:base="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html"><![CDATA[<p>Recently I had a first look into <code class="language-plaintext highlighter-rouge">Vulkan</code> development. So I started by reading
 a <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a>. It’s rather detailed and actually it takes a
 long time before you see your first shaded triangle (about 900 lines of
 code!). The <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a> has some software requirements on
