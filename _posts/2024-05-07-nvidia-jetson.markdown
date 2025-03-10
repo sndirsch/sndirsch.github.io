@@ -4,7 +4,48 @@ title:  "How to install SLE-15-SP6 on NVIDIA's Jetson AGX Orin, Jetson Orin Nano
 date:   2024-05-07
 categories: nvidia
 ---
-This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running.
+This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on `Jetson AGX Orin`.
+
+### Firmware Update on Jetson AGX Orin
+
+On `Jetson AGX Orin` first update the firmware to Jetpack 6.1/36.4.0.
+
+Download [Driver Package (BSP)][driver-pkg-bsp-jetson] from this [location][jetpack6-website-jetson]. Extract `Jetson_Linux_R36.4.0_aarch64.tbz2`.
+
+{% highlight shell %}
+tar xf Jetson_Linux_R36.4.0_aarch64.tbz2
+{% endhighlight %}
+
+Then connect with two cables your computer to the Micro-USB port and Type-C port (next to the 40pin connector) of `Jetson AGX Orin`.
+Now switch `Jetson AGX Orin` to recovery mode (using your Micro-USB cable).
+
+{% highlight shell %}
+cd Linux_for_Tegra
+sudo ./tools/board_automation/boardctl -t topo recovery
+{% endhighlight %}
+
+Check that `Jetson AGX Orin` is now in recovery mode.
+
+{% highlight shell %}
+lsusb
+[...]
+Bus 003 Device 099: ID 0955:7023 NVIDIA Corp. APX
+[...]
+{% endhighlight %}
+
+Now flash your firmware (using the Type-C cable). Make sure you have package `dtc` installed, because the tool `fdtoverlay` is needed.
+
+{% highlight shell %}
+sudo ./flash.sh p3737-0000-p3701-0000-qspi external
+{% endhighlight %}
+
+Reboot `Jetson AGX Orin`.
+
+{% highlight shell %}
+sudo ./tools/board_automation/boardctl -t topo power_on
+{% endhighlight %}
+
+After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.4.0-gcid-XXXXXXXX`.
 
 ### SP6
 
@@ -481,7 +522,9 @@ sudo nvpmodel -q
 
 [image]: https://www.suse.com/download/sles/
 [buildstatus]: https://build.opensuse.org/project/monitor/X11:XOrg
+[jetpack6-website-jetson]: https://developer.nvidia.com/embedded/jetson-linux-r3640
 [jetpack6-website]: https://developer.nvidia.com/igx-downloads
+[driver-pkg-bsp-jetson]: https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.0/release/Jetson_Linux_R36.4.0_aarch64.tbz2
 [driver-pkg-bsp]: https://developer.nvidia.com/downloads/igx/v1.1/Jetson_Linux_R36.4.1_aarch64.tbz2
 [container]: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack
 [container-toolkit]: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
