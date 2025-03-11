@@ -47,6 +47,29 @@ sudo ./tools/board_automation/boardctl -t topo power_on
 
 After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.4.0-gcid-XXXXXXXX`.
 
+### Firmware Update on Jetson Orin Nano
+
+Updating the firmware on `Jetson Orin Nano` is similar to the process above for `Jetson AGX Orin`. 
+
+Unfortunately the board automation tools do not support `Jetson Orin Nano`. Therefore for switching this device in recovery mode instead of running `boardctl` you need to connect two pins or put a jumper on both respectively. These are PIN 9/10 (GND/FC REC) on the 12pin row below the fan next to the SD card slot. 
+
+So disconnect `Jetson AGX Orin` from power, then connect these pins and then reconnect power. With that the device should be in Recovery mode. Connect an USB cable to the Type-C port of `Jetson AGX Orin` and check if it is now in Recovery mode.
+
+{% highlight shell %}
+lsusb
+[...]
+Bus 003 Device 105: ID 0955:7523 NVIDIA Corp. APX
+[...]
+{% endhighlight %}
+
+Now flash your firmware. Make sure you have package `dtc` installed, because the tool `fdtoverlay` is needed.
+
+{% highlight shell %}
+sudo ./flash.sh p3768-0000-p3767-0000-a0-qspi external
+{% endhighlight %}
+
+Disconnect `Jetson AGX Orin` from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.4.0-gcid-XXXXXXXX`.
+
 ### SP6
 
 Download [SLE-15-SP6 (Arm) installation image][image]. This you can put on a regular USB stick or on an SD card using `dd` command. 
