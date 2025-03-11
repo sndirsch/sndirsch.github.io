@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-11T14:55:21+00:00","datePublished":"2024-05-07T00:00:00+00:00","description":"This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano.","headline":"How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2024/05/07/nvidia-jetson.html"},"url":"/nvidia/2024/05/07/nvidia-jetson.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-11T19:11:38+00:00","datePublished":"2024-05-07T00:00:00+00:00","description":"This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano.","headline":"How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2024/05/07/nvidia-jetson.html"},"url":"/nvidia/2024/05/07/nvidia-jetson.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -84,7 +84,7 @@ Bus 003 Device 099: ID 0955:7023 NVIDIA Corp. APX
 
 <p>Updating the firmware on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> is similar to the process above for <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code>.</p>
 
-<p>Unfortunately the board automation tools do not support <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>. Therefore for switching this device in recovery mode instead of running <code class="language-plaintext highlighter-rouge">boardctl</code> you need to connect two pins or put a jumper on both respectively. These are PIN 9/10 (GND/FC REC) on the 12pin row below the fan next to the SD card slot.</p>
+<p>Unfortunately the board automation tools do not support <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>. Therefore for switching this device in recovery mode instead of running <code class="language-plaintext highlighter-rouge">boardctl</code> you need to connect two pins or put a jumper on both respectively. These are the pins 9/10 (GND/FC REC) of the 12-pin <code class="language-plaintext highlighter-rouge">J14</code> “button” header of carrier board located under the Jetson module (right below the fan next to the SD card slot).</p>
 
 <p>So disconnect <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> from power, then connect these pins and then reconnect power. With that the device should be in Recovery mode. Connect an USB cable to the Type-C port of <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and check if it is now in Recovery mode.</p>
 
@@ -101,7 +101,7 @@ Bus 003 Device 105: ID 0955:7523 NVIDIA Corp. APX
 
 <h3 id="serial-console-on-jetson-orin-nano">Serial Console on Jetson Orin Nano</h3>
 
-<p>In order to have a serial console on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> you need an 3.3.V USB-UART adapter/cable. Connect it to PINs 3/4/7 (RX/TX/GND) of the 12pin row below the fan next to the SD card slot.</p>
+<p>In order to have a serial console on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> you need a 3.3.V USB-UART adapter/cable. Connect it to the pins 3/4/7 (RXD/TXD/GrouND) of the 12-pin <code class="language-plaintext highlighter-rouge">J14</code> “button” header of carrier board located under the Jetson module (right below the fan next to the SD card slot).</p>
 
 <h3 id="sp6">SP6</h3>
 
