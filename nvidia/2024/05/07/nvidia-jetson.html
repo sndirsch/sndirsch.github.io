@@ -7,8 +7,8 @@
 <meta name="generator" content="Jekyll v4.2.2" />
 <meta property="og:title" content="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano." />
-<meta property="og:description" content="This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano." />
+<meta name="description" content="This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano." />
+<meta property="og:description" content="This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano." />
 <link rel="canonical" href="/nvidia/2024/05/07/nvidia-jetson.html" />
 <meta property="og:url" content="/nvidia/2024/05/07/nvidia-jetson.html" />
 <meta property="og:site_name" content="Stefan’s openSUSE Blog" />
@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-11T14:43:55+00:00","datePublished":"2024-05-07T00:00:00+00:00","description":"This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano.","headline":"How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2024/05/07/nvidia-jetson.html"},"url":"/nvidia/2024/05/07/nvidia-jetson.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-11T14:55:21+00:00","datePublished":"2024-05-07T00:00:00+00:00","description":"This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano.","headline":"How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2024/05/07/nvidia-jetson.html"},"url":"/nvidia/2024/05/07/nvidia-jetson.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -47,7 +47,7 @@
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
+    <p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
 
 <h3 id="firmware-update-on-jetson-agx-orin">Firmware Update on Jetson AGX Orin</h3>
 
@@ -98,6 +98,10 @@ Bus 003 Device 105: ID 0955:7523 NVIDIA Corp. APX
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo</span> ./flash.sh p3768-0000-p3767-0000-a0-qspi external</code></pre></figure>
 
 <p>Disconnect <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version <code class="language-plaintext highlighter-rouge">36.4.0-gcid-XXXXXXXX</code>.</p>
+
+<h3 id="serial-console-on-jetson-orin-nano">Serial Console on Jetson Orin Nano</h3>
+
+<p>In order to have a serial console on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> you need an 3.3.V USB-UART adapter/cable. Connect it to PINs 3/4/7 (RX/TX/GND) of the 12pin row below the fan next to the SD card slot.</p>
 
 <h3 id="sp6">SP6</h3>
 
