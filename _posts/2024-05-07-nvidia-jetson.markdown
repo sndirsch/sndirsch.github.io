@@ -51,7 +51,7 @@ After reboot you should see in the Firmware setup - shown on your monitor or on 
 
 Updating the firmware on `Jetson Orin Nano` is similar to the process above for `Jetson AGX Orin`. 
 
-Unfortunately the board automation tools do not support `Jetson Orin Nano`. Therefore for switching this device in recovery mode instead of running `boardctl` you need to connect two pins or put a jumper on both respectively. These are PIN 9/10 (GND/FC REC) on the 12pin row below the fan next to the SD card slot. 
+Unfortunately the board automation tools do not support `Jetson Orin Nano`. Therefore for switching this device in recovery mode instead of running `boardctl` you need to connect two pins or put a jumper on both respectively. These are the pins 9/10 (GND/FC REC) of the 12-pin `J14` "button" header of carrier board located under the Jetson module (right below the fan next to the SD card slot).
 
 So disconnect `Jetson AGX Orin` from power, then connect these pins and then reconnect power. With that the device should be in Recovery mode. Connect an USB cable to the Type-C port of `Jetson AGX Orin` and check if it is now in Recovery mode.
 
@@ -72,7 +72,7 @@ Disconnect `Jetson AGX Orin` from power and reconnect it to power. After reboot 
 
 ### Serial Console on Jetson Orin Nano
 
-In order to have a serial console on `Jetson Orin Nano` you need an 3.3.V USB-UART adapter/cable. Connect it to PINs 3/4/7 (RX/TX/GND) of the 12pin row below the fan next to the SD card slot.
+In order to have a serial console on `Jetson Orin Nano` you need a 3.3.V USB-UART adapter/cable. Connect it to the pins 3/4/7 (RXD/TXD/GrouND) of the 12-pin `J14` "button" header of carrier board located under the Jetson module (right below the fan next to the SD card slot).
 
 ### SP6
 
