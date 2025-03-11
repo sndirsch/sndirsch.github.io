@@ -4,7 +4,7 @@ title:  "How to install SLE-15-SP6 on NVIDIA's Jetson AGX Orin, Jetson Orin Nano
 date:   2024-05-07
 categories: nvidia
 ---
-This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on `Jetson AGX Orin` and `Jetson Orin Nano`.
+This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on `Jetson AGX Orin` and `Jetson Orin Nano` and how to connect a serial console to `Jetson Orin Nano`.
 
 ### Firmware Update on Jetson AGX Orin
 
@@ -69,6 +69,10 @@ sudo ./flash.sh p3768-0000-p3767-0000-a0-qspi external
 {% endhighlight %}
 
 Disconnect `Jetson AGX Orin` from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.4.0-gcid-XXXXXXXX`.
+
+### Serial Console on Jetson Orin Nano
+
+In order to have a serial console on `Jetson Orin Nano` you need an 3.3.V USB-UART adapter/cable. Connect it to PINs 3/4/7 (RX/TX/GND) of the 12pin row below the fan next to the SD card slot.
 
 ### SP6
 
