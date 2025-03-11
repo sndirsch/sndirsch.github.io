@@ -4,7 +4,7 @@ title:  "How to install SLE-15-SP6 on NVIDIA's Jetson AGX Orin, Jetson Orin Nano
 date:   2024-05-07
 categories: nvidia
 ---
-This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on `Jetson AGX Orin`.
+This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on `Jetson AGX Orin` and `Jetson Orin Nano`.
 
 ### Firmware Update on Jetson AGX Orin
 
