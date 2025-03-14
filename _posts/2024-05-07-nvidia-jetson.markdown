@@ -147,10 +147,10 @@ The KMP is available as a driver kit via the SolidDriver Program. For installati
 {% highlight shell %}
 # flavor either default or 64kb (check with `uname -r` command)
 sudo zypper up kernel-<flavor>
-sudo zypper ar https://drivers.suse.com/nvidia/Jetson/Jetson_Linux_36.4/sle-15-sp6-aarch64/1.0/install jetson-kmp
-sudo zypper ar https://drivers.suse.com/nvidia/Jetson/Jetson_Linux_36.4/sle-15-sp6-aarch64/1.0/update  jetson-kmp-update
+sudo zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.1/sle-15-sp6-aarch64/1.0/install jetson-kmp
+sudo zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.1/sle-15-sp6-aarch64/1.0/update  jetson-kmp-update
 sudo zypper ref
-sudo zypper in -r jetson-kmp nvidia-jetson-36_4-kmp-<flavor>
+sudo zypper in -r jetson-kmp nvidia-jetson-kmp-<flavor>
 {% endhighlight %}
 
 #### Installation on NVIDIA IGX Orin
