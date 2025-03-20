@@ -547,6 +547,18 @@ In order to check for the current value run
 sudo nvpmodel -q
 {% endhighlight %}
 
+### Known Issues
+
+####  Jetson Orin Nano: Super Mode
+
+Unfortunately `Super` mode of `Jetson Orin Nano` needs Jetpack 6.2/36.4.3 for Firmware, KMP drivers and userspace. We're currently working on providing these as easily installable packages in addition to our packages for Jetpack 6.1/36.4.0. This document will be updated accordingly once these are available. Therefore currently when trying to switch Jetson Orin Nano into `Super` mode with 
+
+{% highlight shell %}
+sudo nvpmodel -m 2
+{% endhighlight %}
+
+you'll get an error message. Of course the other non-`Super` modes on `Jetson Orin Nano` are still available and working.
+
 [image]: https://www.suse.com/download/sles/
 [buildstatus]: https://build.opensuse.org/project/monitor/X11:XOrg
 [jetpack6-website-jetson]: https://developer.nvidia.com/embedded/jetson-linux-r3640
