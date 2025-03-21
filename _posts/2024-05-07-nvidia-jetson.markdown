@@ -72,7 +72,7 @@ Disconnect `Jetson AGX Orin` from power and reconnect it to power. After reboot 
 
 ### Serial Console on Jetson Orin Nano
 
-In order to have a serial console on `Jetson Orin Nano` you need a 3.3.V USB-UART adapter/cable. Connect it to the pins 3/4/7 (RXD/TXD/GrouND) of the 12-pin `J14` "button" header of carrier board located under the Jetson module (right below the fan next to the SD card slot).
+In order to have a serial console on `Jetson Orin Nano` you need a 3.3.V USB-UART adapter/cable. Connect it to the pins 3/4/7 (RXD/TXD/GND) of the 12-pin `J14` "button" header of carrier board located under the Jetson module (right below the fan next to the SD card slot).
 
 ### SP6
 
