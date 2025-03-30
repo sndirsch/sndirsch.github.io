@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-03-21T14:27:11+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-03-21T14:25:06+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-03-30T10:08:07+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-03-30T10:02:04+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
 
 <h3 id="firmware-update-on-jetson-agx-orin">Firmware Update on Jetson AGX Orin</h3>
 
@@ -387,7 +387,7 @@ phoronix-test-suite benchmark glmark2</code></pre></figure>
 <span class="nb">cd
 </span>git clone https://github.com/NVIDIA/cuda-samples.git
 <span class="nb">cd </span>cuda-samples
-git checkout v12.4</code></pre></figure>
+git checkout v12.5</code></pre></figure>
 
 <h5 id="3-start-x">3. Start X</h5>
 
@@ -400,7 +400,10 @@ xterm &amp;</code></pre></figure>
 
 <h5 id="4-download-and-run-the-jetpack6-container">4. Download and run the JetPack6 container</h5>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>podman run <span class="nt">--rm</span> <span class="nt">-it</span> <span class="nt">-e</span> DISPLAY <span class="nt">--net</span><span class="o">=</span>host <span class="nt">--device</span> nvidia.com/gpu<span class="o">=</span>all <span class="nt">--group-add</span> keep-groups <span class="nt">--security-opt</span> <span class="nv">label</span><span class="o">=</span>disable <span class="nt">-v</span> <span class="nv">$HOME</span>/cuda-samples:/cuda-samples nvcr.io/nvidia/l4t-jetpack:r36.2.0 /bin/bash</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>podman run <span class="nt">--rm</span> <span class="nt">-it</span> <span class="nt">-e</span> DISPLAY <span class="nt">--net</span><span class="o">=</span>host <span class="nt">--device</span> nvidia.com/gpu<span class="o">=</span>all <span class="nt">--group-add</span> keep-groups <span class="nt">--security-opt</span> <span class="nv">label</span><span class="o">=</span>disable <span class="nt">-v</span> <span class="nv">$HOME</span>/cuda-samples:/cuda-samples nvcr.io/nvidia/l4t-jetpack:r36.4.0 /bin/bash
+<span class="c"># needed in container for nbody</span>
+apt-get <span class="nb">install </span>libglu1-mesa freeglut3
+apt-get <span class="nb">install</span> <span class="nt">--fix-missing</span> libglu1-mesa-dev freeglut3-dev</code></pre></figure>
 
 <h4 id="cuda">CUDA</h4>
 
@@ -408,9 +411,6 @@ xterm &amp;</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">cd</span> /cuda-samples
 make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span>
-<span class="nb">pushd</span> ./Samples/5_Domain_Specific/nbody
-make
-<span class="nb">popd</span>
 ./bin/aarch64/linux/release/deviceQuery
 ./bin/aarch64/linux/release/nbody</code></pre></figure>
 
@@ -424,7 +424,7 @@ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc<
 <span class="nb">cd</span> ..
 ./bin/sample_algorithm_selector
 ./bin/sample_onnx_mnist
-<span class="c"># Fails on Jetson Orin Nano due to lacking Deep Learning Accelerator (DLA)</span>
+<span class="c"># Fails on Jetson Orin Nano due to lack of Deep Learning Accelerator(s) (DLA)</span>
 ./bin/sample_onnx_mnist <span class="nt">--useDLACore</span><span class="o">=</span>0
 ./bin/sample_onnx_mnist <span class="nt">--useDLACore</span><span class="o">=</span>1</code></pre></figure>
 
