@@ -459,7 +459,7 @@ sudo zypper install git
 cd
 git clone https://github.com/NVIDIA/cuda-samples.git
 cd cuda-samples
-git checkout v12.4
+git checkout v12.5
 {% endhighlight %}
 
 ##### 3. Start X
@@ -476,7 +476,10 @@ Monitor should now show a Moiree pattern with an unframed xterm on it. Otherwise
 ##### 4. Download and run the JetPack6 container
 
 {% highlight shell %}
-sudo podman run --rm -it -e DISPLAY --net=host --device nvidia.com/gpu=all --group-add keep-groups --security-opt label=disable -v $HOME/cuda-samples:/cuda-samples nvcr.io/nvidia/l4t-jetpack:r36.2.0 /bin/bash
+sudo podman run --rm -it -e DISPLAY --net=host --device nvidia.com/gpu=all --group-add keep-groups --security-opt label=disable -v $HOME/cuda-samples:/cuda-samples nvcr.io/nvidia/l4t-jetpack:r36.4.0 /bin/bash
+# needed in container for nbody
+apt-get install libglu1-mesa freeglut3
+apt-get install --fix-missing libglu1-mesa-dev freeglut3-dev
 {% endhighlight %}
 
 #### CUDA
@@ -486,9 +489,6 @@ sudo podman run --rm -it -e DISPLAY --net=host --device nvidia.com/gpu=all --gro
 {% highlight shell %}
 cd /cuda-samples
 make -j$(nproc)
-pushd ./Samples/5_Domain_Specific/nbody
-make
-popd
 ./bin/aarch64/linux/release/deviceQuery
 ./bin/aarch64/linux/release/nbody
 {% endhighlight %}
@@ -504,7 +504,7 @@ make -j$(nproc)
 cd ..
 ./bin/sample_algorithm_selector
 ./bin/sample_onnx_mnist
-# Fails on Jetson Orin Nano due to lacking Deep Learning Accelerator (DLA)
+# Fails on Jetson Orin Nano due to lack of Deep Learning Accelerator(s) (DLA)
 ./bin/sample_onnx_mnist --useDLACore=0
 ./bin/sample_onnx_mnist --useDLACore=1
 {% endhighlight %}
