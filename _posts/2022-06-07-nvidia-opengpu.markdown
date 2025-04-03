@@ -15,7 +15,7 @@ Installation instructions since Leap 15.6/SLE15-SP6 and Tumbleweed:
 zypper in nvidia-open-driver-G06-signed-kmp-default
 {% endhighlight %}
 
-Find supported Turing/Ampere/Hopper GPUs [here][pci_ids-supported]. Check with `inxi -aG`. Use `hwinfo --gfxcard` on SLE.
+Find supported Turing/Ampere/Hopper/Ada/Blackwell GPUs [here][pci_ids-supported]. Check with `inxi -aG`. Use `hwinfo --gfxcard` on SLE.
 
 ## Display Drivers
 
@@ -43,7 +43,7 @@ zypper in nvidia-video-G06 == ${version} nvidia-compute-utils-G06 == ${version}
 
 ## CUDA
 
-With that - after installing `nvidia-compute-utils-G06` (contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
+With that - after installing `nvidia-compute-utils-G06` (which requires `nvidia-compute-G06`, which contains libcuda) - you can experiment with CUDA. Install [CUDA stack][cuda-stack] from NVIDIA's webserver.
 
 Installing CUDA on Leap 15.6/Tumbleweed/SLE15-SPx
 
@@ -60,12 +60,10 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/s
 zypper in cuda-12-8
 {% endhighlight %}
 
-Let's have a first test for using libcuda.
+CUDA samples are available on GitHub.
 
 {% highlight shell %}
-/usr/local/cuda-12.8/extras/demo_suite/deviceQuery
-# Unfortunately this is not available for aarch64; but there are
-# other samples available below /usr/local/cuda-12.4/extras/ ...
+https://github.com/nvidia/cuda-samples
 {% endhighlight %}
 
 ## CUDA Minimal Installation
