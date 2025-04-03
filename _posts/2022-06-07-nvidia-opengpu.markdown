@@ -57,13 +57,18 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 
 # will install needed CUDA packages
-zypper in cuda-12-8
+zypper in cuda-toolkit-12-8
+
+# Unfortunately the following package is not available for aarch64,
+# but there are CUDA samples available on GitHub, which can be
+# compiled from source: https://github.com/nvidia/cuda-samples
+zypper in cuda-demo-suite-12-8
 {% endhighlight %}
 
-CUDA samples are available on GitHub.
+Let's have a first test for using libcuda (only available on x86_64).
 
 {% highlight shell %}
-https://github.com/nvidia/cuda-samples
+/usr/local/cuda-12.8/extras/demo_suite/deviceQuery
 {% endhighlight %}
 
 ## CUDA Minimal Installation
