@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="NVIDIA Open GPU kernel modules: openSUSE/SLE packages available" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-03T02:12:46+00:00","datePublished":"2022-06-07T00:00:00+00:00","description":"On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.","headline":"NVIDIA Open GPU kernel modules: openSUSE/SLE packages available","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2022/06/07/nvidia-opengpu.html"},"url":"/nvidia/2022/06/07/nvidia-opengpu.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-03T09:54:31+00:00","datePublished":"2022-06-07T00:00:00+00:00","description":"On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.","headline":"NVIDIA Open GPU kernel modules: openSUSE/SLE packages available","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2022/06/07/nvidia-opengpu.html"},"url":"/nvidia/2022/06/07/nvidia-opengpu.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -95,11 +95,16 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 
 <span class="c"># will install needed CUDA packages</span>
-zypper <span class="k">in </span>cuda-12-8</code></pre></figure>
+zypper <span class="k">in </span>cuda-toolkit-12-8
 
-<p>CUDA samples are available on GitHub.</p>
+<span class="c"># Unfortunately the following package is not available for aarch64,</span>
+<span class="c"># but there are CUDA samples available on GitHub, which can be</span>
+<span class="c"># compiled from source: https://github.com/nvidia/cuda-samples</span>
+zypper <span class="k">in </span>cuda-demo-suite-12-8</code></pre></figure>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">https://github.com/nvidia/cuda-samples</code></pre></figure>
+<p>Let’s have a first test for using libcuda (only available on x86_64).</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">/usr/local/cuda-12.8/extras/demo_suite/deviceQuery</code></pre></figure>
 
 <h2 id="cuda-minimal-installation">CUDA Minimal Installation</h2>
 
