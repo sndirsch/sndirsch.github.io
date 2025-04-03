@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="NVIDIA Open GPU kernel modules: openSUSE/SLE packages available" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-03-02T22:27:07+00:00","datePublished":"2022-06-07T00:00:00+00:00","description":"On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.","headline":"NVIDIA Open GPU kernel modules: openSUSE/SLE packages available","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2022/06/07/nvidia-opengpu.html"},"url":"/nvidia/2022/06/07/nvidia-opengpu.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-03T02:12:46+00:00","datePublished":"2022-06-07T00:00:00+00:00","description":"On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.","headline":"NVIDIA Open GPU kernel modules: openSUSE/SLE packages available","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2022/06/07/nvidia-opengpu.html"},"url":"/nvidia/2022/06/07/nvidia-opengpu.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -43,7 +43,7 @@
     <h1 class="post-title p-name" itemprop="name headline">NVIDIA Open GPU kernel modules: openSUSE/SLE packages available</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2022-06-07T00:00:00+00:00" itemprop="datePublished">Jun 7, 2022
-      </time>• <span class="dt-modified">Last updated on Mar 2, 2025</span></p>
+      </time>• <span class="dt-modified">Last updated on Apr 3, 2025</span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -56,7 +56,7 @@
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># will install needed packages</span>
 zypper <span class="k">in </span>nvidia-open-driver-G06-signed-kmp-default</code></pre></figure>
 
-<p>Find supported Turing/Ampere/Hopper GPUs <a href="https://build.opensuse.org/package/view_file/X11:Drivers:Video:Redesign/nvidia-open-driver-G06-signed/pci_ids-supported">here</a>. Check with <code class="language-plaintext highlighter-rouge">inxi -aG</code>. Use <code class="language-plaintext highlighter-rouge">hwinfo --gfxcard</code> on SLE.</p>
+<p>Find supported Turing/Ampere/Hopper/Ada/Blackwell GPUs <a href="https://build.opensuse.org/package/view_file/X11:Drivers:Video:Redesign/nvidia-open-driver-G06-signed/pci_ids-supported">here</a>. Check with <code class="language-plaintext highlighter-rouge">inxi -aG</code>. Use <code class="language-plaintext highlighter-rouge">hwinfo --gfxcard</code> on SLE.</p>
 
 <h2 id="display-drivers">Display Drivers</h2>
 
@@ -82,7 +82,7 @@ zypper <span class="k">in </span>nvidia-video-G06 <span class="o">==</span> <spa
 
 <h2 id="cuda">CUDA</h2>
 
-<p>With that - after installing <code class="language-plaintext highlighter-rouge">nvidia-compute-utils-G06</code> (contains libcuda) - you can experiment with CUDA. Install <a href="https://developer.download.nvidia.com/compute/cuda/repos/">CUDA stack</a> from NVIDIA’s webserver.</p>
+<p>With that - after installing <code class="language-plaintext highlighter-rouge">nvidia-compute-utils-G06</code> (which requires <code class="language-plaintext highlighter-rouge">nvidia-compute-G06</code>, which contains libcuda) - you can experiment with CUDA. Install <a href="https://developer.download.nvidia.com/compute/cuda/repos/">CUDA stack</a> from NVIDIA’s webserver.</p>
 
 <p>Installing CUDA on Leap 15.6/Tumbleweed/SLE15-SPx</p>
 
@@ -97,11 +97,9 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/s
 <span class="c"># will install needed CUDA packages</span>
 zypper <span class="k">in </span>cuda-12-8</code></pre></figure>
 
-<p>Let’s have a first test for using libcuda.</p>
+<p>CUDA samples are available on GitHub.</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">/usr/local/cuda-12.8/extras/demo_suite/deviceQuery
-<span class="c"># Unfortunately this is not available for aarch64; but there are</span>
-<span class="c"># other samples available below /usr/local/cuda-12.4/extras/ ...</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">https://github.com/nvidia/cuda-samples</code></pre></figure>
 
 <h2 id="cuda-minimal-installation">CUDA Minimal Installation</h2>
 
