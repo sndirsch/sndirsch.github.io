@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="NVIDIA Open GPU kernel modules: openSUSE/SLE packages available" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-03T09:54:31+00:00","datePublished":"2022-06-07T00:00:00+00:00","description":"On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.","headline":"NVIDIA Open GPU kernel modules: openSUSE/SLE packages available","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2022/06/07/nvidia-opengpu.html"},"url":"/nvidia/2022/06/07/nvidia-opengpu.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-03T11:34:42+00:00","datePublished":"2022-06-07T00:00:00+00:00","description":"On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.","headline":"NVIDIA Open GPU kernel modules: openSUSE/SLE packages available","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2022/06/07/nvidia-opengpu.html"},"url":"/nvidia/2022/06/07/nvidia-opengpu.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -112,6 +112,16 @@ zypper <span class="k">in </span>cuda-demo-suite-12-8</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nv">version</span><span class="o">=</span><span class="si">$(</span>rpm <span class="nt">-qa</span> <span class="nt">--queryformat</span> <span class="s1">'%{VERSION}\n'</span> nvidia-open-driver-G06-signed-kmp-default | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"_"</span> <span class="nt">-f1</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="si">)</span>
 zypper <span class="k">in </span>nvidia-compute-utils-G06 <span class="o">==</span> <span class="k">${</span><span class="nv">version</span><span class="k">}</span> cuda-libraries-12-8</code></pre></figure>
+
+<h2 id="longterm-kernel-on-tumbleweed">Longterm Kernel on Tumbleweed</h2>
+
+<p>In case you’re using Tumbleweed’s longterm Kernel (<code class="language-plaintext highlighter-rouge">kernel-longterm</code>), please replace <code class="language-plaintext highlighter-rouge">default</code> with <code class="language-plaintext highlighter-rouge">longterm</code> in the commands above, i.e.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Installation</span>
+zypper <span class="k">in </span>nvidia-open-driver-G06-signed-kmp-longterm
+<span class="o">[</span>...]
+<span class="c"># Display Drivers / CUDA Minimal Installation</span>
+<span class="nv">version</span><span class="o">=</span><span class="si">$(</span>rpm <span class="nt">-qa</span> <span class="nt">--queryformat</span> <span class="s1">'%{VERSION}\n'</span> nvidia-open-driver-G06-signed-kmp-longterm | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"_"</span> <span class="nt">-f1</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="si">)</span></code></pre></figure>
 
 <h2 id="feedback">Feedback</h2>
 
