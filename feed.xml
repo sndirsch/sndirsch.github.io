@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-04-03T11:36:40+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-03-30T10:02:04+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-04-16T15:00:38+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-04-16T14:58:44+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
 
 <h3 id="firmware-update-on-jetson-agx-orin">Firmware Update on Jetson AGX Orin</h3>
 
@@ -149,9 +149,9 @@ linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>
 
 <p>Unfortunately installing the userspace on this device is still a non-trivial task.</p>
 
-<p>Download <a href="https://developer.nvidia.com/downloads/igx/v1.1/Jetson_Linux_R36.4.1_aarch64.tbz2">Bootloader(QSPI) Package</a> from this <a href="https://developer.nvidia.com/igx-downloads">location</a> (select <code class="language-plaintext highlighter-rouge">IGX-SW 1.1 Production Release</code>). Extract <code class="language-plaintext highlighter-rouge">Jetson_Linux_R36.4.1_aarch64.tbz2</code>.</p>
+<p>Download <a href="https://developer.nvidia.com/downloads/igx/v1.1.1/Jetson_Linux_R36.4.5_aarch64.tbz2">Bootloader(QSPI) Package</a> from this <a href="https://developer.nvidia.com/igx-downloads">location</a> (select <code class="language-plaintext highlighter-rouge">IGX-SW 1.1.1 Production Release</code>). Extract <code class="language-plaintext highlighter-rouge">Jetson_Linux_R36.4.5_aarch64.tbz2</code>.</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">tar </span>xf Jetson_Linux_R36.4.1_aarch64.tbz2</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">tar </span>xf Jetson_Linux_R36.4.5_aarch64.tbz2</code></pre></figure>
 
 <p>Then you need to convert debian packages from this content into tarballs.</p>
 
@@ -162,26 +162,26 @@ linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>
 
 <p>From the generated tarballs you only need these:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-camera_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-core_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-cuda_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-firmware_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-gbm_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-multimedia-utils_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-multimedia_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-nvfancontrol_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-nvpmodel_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-nvsci_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-pva_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-tools_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-vulkan-sc-sdk_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-wayland_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
-nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">nvidia-l4t-3d-core_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-camera_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-core_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-cuda_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-firmware_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-gbm_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-multimedia-utils_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-multimedia_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-nvfancontrol_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-nvml_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-nvpmodel_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-nvsci_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-pva_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-tools_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-vulkan-sc-sdk_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-wayland_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-x11_36.4.5-20250205154014_arm64.tbz2
+nvidia-l4t-nvml_36.4.5-20250205154014_arm64.tbz2</code></pre></figure>
 
-<p>And from this tarball <code class="language-plaintext highlighter-rouge">nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2</code> you only need these files:</p>
+<p>And from this tarball <code class="language-plaintext highlighter-rouge">nvidia-l4t-init_36.4.5-20250205154014_arm64.tbz2</code> you only need these files:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">etc/asound.conf.tegra-ape
 etc/asound.conf.tegra-hda-jetson-agx
@@ -207,7 +207,7 @@ usr/share/alsa/init/postinit/00-tegra.conf
 usr/share/alsa/init/postinit/01-tegra-rt565x.conf
 usr/share/alsa/init/postinit/02-tegra-rt5640.conf</code></pre></figure>
 
-<p>So first let’s repackage <code class="language-plaintext highlighter-rouge">nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2</code>:</p>
+<p>So first let’s repackage <code class="language-plaintext highlighter-rouge">nvidia-l4t-init_36.4.5-20250205154014_arm64.tbz2</code>:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">pushd </span>Linux_for_Tegra/nv_tegra/l4t_tar_packages/
 <span class="nb">cat</span> <span class="o">&gt;</span> nvidia-l4t-init.txt <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
@@ -235,54 +235,54 @@ usr/share/alsa/init/postinit/00-tegra.conf
 usr/share/alsa/init/postinit/01-tegra-rt565x.conf
 usr/share/alsa/init/postinit/02-tegra-rt5640.conf
 </span><span class="no">EOF
-</span><span class="nb">tar </span>xf nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2
-<span class="nb">rm </span>nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2
-<span class="nb">tar </span>cjf nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-init.txt<span class="si">)</span>
+</span><span class="nb">tar </span>xf nvidia-l4t-init_36.4.5-20250205154014_arm64.tbz2
+<span class="nb">rm </span>nvidia-l4t-init_36.4.5-20250205154014_arm64.tbz2
+<span class="nb">tar </span>cjf nvidia-l4t-init_36.4.5-20250205154014_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-init.txt<span class="si">)</span>
 <span class="nb">popd</span></code></pre></figure>
 
 <p>On NVIDIA IGX Orin with dedicated graphics card (dGPU systems) you need to get rid of some files due to conflicts with dGPU userspace drivers.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># repackage nvidia-l4t-x11_ package</span>
-<span class="nb">tar </span>tf nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 | <span class="nb">grep</span> <span class="nt">-v</span> /usr/bin/nvidia-xconfig <span class="se">\</span>
-  <span class="o">&gt;</span> nvidia-l4t-x11_36.4.1-20241119120551.txt
-<span class="nb">tar </span>xf  nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
-<span class="nb">rm      </span>nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2
-<span class="nb">tar </span>cjf nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-x11_36.4.1-20241119120551.txt<span class="si">)</span>
+<span class="nb">tar </span>tf nvidia-l4t-x11_36.4.5-20250205154014_arm64.tbz2 | <span class="nb">grep</span> <span class="nt">-v</span> /usr/bin/nvidia-xconfig <span class="se">\</span>
+  <span class="o">&gt;</span> nvidia-l4t-x11_36.4.5-20250205154014.txt
+<span class="nb">tar </span>xf  nvidia-l4t-x11_36.4.5-20250205154014_arm64.tbz2
+<span class="nb">rm      </span>nvidia-l4t-x11_36.4.5-20250205154014_arm64.tbz2
+<span class="nb">tar </span>cjf nvidia-l4t-x11_36.4.5-20250205154014_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-x11_36.4.5-20250205154014.txt<span class="si">)</span>
 
 <span class="c"># repackage nvidia-l4t-3d-core_ package</span>
-<span class="nb">tar </span>tf nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 | <span class="se">\</span>
+<span class="nb">tar </span>tf nvidia-l4t-3d-core_36.4.5-20250205154014_arm64.tbz2 | <span class="se">\</span>
   <span class="nb">grep</span> <span class="nt">-v</span> <span class="se">\</span>
        <span class="nt">-e</span> /etc/vulkan/icd.d/nvidia_icd.json <span class="se">\</span>
        <span class="nt">-e</span> /usr/lib/xorg/modules/drivers/nvidia_drv.so <span class="se">\</span>
        <span class="nt">-e</span> /usr/lib/xorg/modules/extensions/libglxserver_nvidia.so <span class="se">\</span>
        <span class="nt">-e</span> /usr/share/glvnd/egl_vendor.d/10_nvidia.json <span class="se">\</span>
-       <span class="o">&gt;</span> nvidia-l4t-3d-core_36.4.1-20241119120551.txt
-<span class="nb">tar </span>xf  nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
-<span class="nb">rm      </span>nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2
-<span class="nb">tar </span>cjf nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-3d-core_36.4.1-20241119120551.txt<span class="si">)</span></code></pre></figure>
+       <span class="o">&gt;</span> nvidia-l4t-3d-core_36.4.5-20250205154014.txt
+<span class="nb">tar </span>xf  nvidia-l4t-3d-core_36.4.5-20250205154014_arm64.tbz2
+<span class="nb">rm      </span>nvidia-l4t-3d-core_36.4.5-20250205154014_arm64.tbz2
+<span class="nb">tar </span>cjf nvidia-l4t-3d-core_36.4.5-20250205154014_arm64.tbz2 <span class="si">$(</span><span class="nb">cat </span>nvidia-l4t-3d-core_36.4.5-20250205154014.txt<span class="si">)</span></code></pre></figure>
 
 <p>Then extract the generated tarballs to your system.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">pushd </span>Linux_for_Tegra/nv_tegra/l4t_tar_packages
 <span class="k">for </span>i <span class="k">in</span> <span class="se">\</span>
-nvidia-l4t-core_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-3d-core_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-cuda_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-firmware_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-gbm_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-multimedia-utils_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-multimedia_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-nvfancontrol_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-nvpmodel_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-tools_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-x11_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-nvsci_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-pva_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-wayland_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-camera_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-vulkan-sc-sdk_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-nvml_36.4.1-20241119120551_arm64.tbz2 <span class="se">\</span>
-nvidia-l4t-init_36.4.1-20241119120551_arm64.tbz2<span class="p">;</span> <span class="k">do
+nvidia-l4t-core_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-3d-core_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-cuda_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-firmware_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-gbm_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-multimedia-utils_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-multimedia_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-nvfancontrol_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-nvpmodel_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-tools_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-x11_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-nvsci_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-pva_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-wayland_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-camera_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-vulkan-sc-sdk_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-nvml_36.4.5-20250205154014_arm64.tbz2 <span class="se">\</span>
+nvidia-l4t-init_36.4.5-20250205154014_arm64.tbz2<span class="p">;</span> <span class="k">do
   </span><span class="nb">sudo tar </span>xjf <span class="nv">$i</span> <span class="nt">-C</span> /
 <span class="k">done
 </span><span class="nb">popd</span></code></pre></figure>
