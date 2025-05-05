@@ -85,11 +85,13 @@ zypper in nvidia-compute-utils-G06 == ${version} cuda-libraries-12-8
 In case you're using Tumbleweed's longterm Kernel (`kernel-longterm`), please replace `default` with `longterm` in the commands above, i.e.
 
 {% highlight shell %}
+[...]
 # Installation
 zypper in nvidia-open-driver-G06-signed-kmp-longterm
 [...]
 # Display Drivers / CUDA Minimal Installation
 version=$(rpm -qa --queryformat '%{VERSION}\n' nvidia-open-driver-G06-signed-kmp-longterm | cut -d "_" -f1 | sort -u | tail -n 1)
+[...]
 {% endhighlight %}
 
 ## Feedback
