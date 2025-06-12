@@ -29,12 +29,16 @@ Installing Display Drivers on Leap 15.6/Tumbleweed/SLE15-SPx
 # if you have not added this repository yet
 # Leap 15.6
 zypper addrepo https://download.nvidia.com/opensuse/leap/15.6/  nvidia
+# Leap 16.0 (Beta)
+zypper addrepo https://download.nvidia.com/opensuse/leap/16.0/  nvidia
 # Tumbleweed
 zypper addrepo https://download.nvidia.com/opensuse/tumbleweed/  nvidia
 # SLE15-SP6
 zypper addrepo https://download.nvidia.com/suse/sle15sp6/  nvidia
-# SLE15-SP7 (Beta)
+# SLE15-SP7
 zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
+# SLE16 (Beta)
+zypper addrepo https://download.nvidia.com/suse/sle16/  nvidia
 
 # install all required packages
 version=$(rpm -qa --queryformat '%{VERSION}\n' nvidia-open-driver-G06-signed-kmp-default | cut -d "_" -f1 | sort -u | tail -n 1)
@@ -49,11 +53,11 @@ Installing CUDA on Leap 15.6/Tumbleweed/SLE15-SPx
 
 {% highlight shell %}
 # if you have not added this repository yet
-# Leap 15.6/Tumbleweed
+# Leap 15.6/16.0(Beta)/Tumbleweed
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
-# SLE15-SPx (x86_64)
+# SLE15-SPx/SLE16(Beta) (x86_64)
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
-# SLE15-SPx (aarch64)
+# SLE15-SPx/SLE16(Beta) (aarch64)
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 
 # will install needed CUDA packages
