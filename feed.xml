@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-05-05T14:22:32+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-04-16T14:58:44+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-06-12T12:53:29+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-04-16T14:58:44+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
 
 <h3 id="firmware-update-on-jetson-agx-orin">Firmware Update on Jetson AGX Orin</h3>
 
@@ -501,7 +501,7 @@ zypper <span class="k">in </span>gcc-c++</code></pre></figure>
 
 <p><img src="/assets/2022-10-20-vulkan-packages-on-opensuse.jpg" alt="Shaded Triangle" /></p>
 
-<p>And now have fun with the <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a> ! :-)</p>]]></content><author><name></name></author><category term="vulkan" /><summary type="html"><![CDATA[Recently I had a first look into Vulkan development. So I started by reading a Vulkan Tutorial. It’s rather detailed and actually it takes a long time before you see your first shaded triangle (about 900 lines of code!). The Vulkan Tutorial has some software requirements on Linux, which are explained in detail in the Development environment for Linux. In order to make things easier for openSUSE users here is the package list you need to have installed. Just install them via zypper.]]></summary></entry><entry><title type="html">NVIDIA Open GPU kernel modules: openSUSE/SLE packages available</title><link href="/nvidia/2022/06/07/nvidia-opengpu.html" rel="alternate" type="text/html" title="NVIDIA Open GPU kernel modules: openSUSE/SLE packages available" /><published>2022-06-07T00:00:00+00:00</published><updated>2025-05-05T14:20:25+00:00</updated><id>/nvidia/2022/06/07/nvidia-opengpu</id><content type="html" xml:base="/nvidia/2022/06/07/nvidia-opengpu.html"><![CDATA[<p>On May 19, 2022 NVIDIA made a <a href="https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/">release</a> of their <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">Open GPU kernel modules</a> for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install <code class="language-plaintext highlighter-rouge">nvidia-open-driver-G06-signed</code> package.</p>
+<p>And now have fun with the <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a> ! :-)</p>]]></content><author><name></name></author><category term="vulkan" /><summary type="html"><![CDATA[Recently I had a first look into Vulkan development. So I started by reading a Vulkan Tutorial. It’s rather detailed and actually it takes a long time before you see your first shaded triangle (about 900 lines of code!). The Vulkan Tutorial has some software requirements on Linux, which are explained in detail in the Development environment for Linux. In order to make things easier for openSUSE users here is the package list you need to have installed. Just install them via zypper.]]></summary></entry><entry><title type="html">NVIDIA Open GPU kernel modules: openSUSE/SLE packages available</title><link href="/nvidia/2022/06/07/nvidia-opengpu.html" rel="alternate" type="text/html" title="NVIDIA Open GPU kernel modules: openSUSE/SLE packages available" /><published>2022-06-07T00:00:00+00:00</published><updated>2025-06-12T12:51:49+00:00</updated><id>/nvidia/2022/06/07/nvidia-opengpu</id><content type="html" xml:base="/nvidia/2022/06/07/nvidia-opengpu.html"><![CDATA[<p>On May 19, 2022 NVIDIA made a <a href="https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/">release</a> of their <a href="https://github.com/NVIDIA/open-gpu-kernel-modules">Open GPU kernel modules</a> for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install <code class="language-plaintext highlighter-rouge">nvidia-open-driver-G06-signed</code> package.</p>
 
 <h2 id="installation">Installation</h2>
 
@@ -523,12 +523,16 @@ then can be used together with NVIDIA’s Open GPU kernel modules above.</p>
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># if you have not added this repository yet</span>
 <span class="c"># Leap 15.6</span>
 zypper addrepo https://download.nvidia.com/opensuse/leap/15.6/  nvidia
+<span class="c"># Leap 16.0 (Beta)</span>
+zypper addrepo https://download.nvidia.com/opensuse/leap/16.0/  nvidia
 <span class="c"># Tumbleweed</span>
 zypper addrepo https://download.nvidia.com/opensuse/tumbleweed/  nvidia
 <span class="c"># SLE15-SP6</span>
 zypper addrepo https://download.nvidia.com/suse/sle15sp6/  nvidia
-<span class="c"># SLE15-SP7 (Beta)</span>
+<span class="c"># SLE15-SP7</span>
 zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
+<span class="c"># SLE16 (Beta)</span>
+zypper addrepo https://download.nvidia.com/suse/sle16/  nvidia
 
 <span class="c"># install all required packages</span>
 <span class="nv">version</span><span class="o">=</span><span class="si">$(</span>rpm <span class="nt">-qa</span> <span class="nt">--queryformat</span> <span class="s1">'%{VERSION}\n'</span> nvidia-open-driver-G06-signed-kmp-default | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"_"</span> <span class="nt">-f1</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="si">)</span>
@@ -541,11 +545,11 @@ zypper <span class="k">in </span>nvidia-video-G06 <span class="o">==</span> <spa
 <p>Installing CUDA on Leap 15.6/Tumbleweed/SLE15-SPx</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># if you have not added this repository yet</span>
-<span class="c"># Leap 15.6/Tumbleweed</span>
+<span class="c"># Leap 15.6/16.0(Beta)/Tumbleweed</span>
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
-<span class="c"># SLE15-SPx (x86_64)</span>
+<span class="c"># SLE15-SPx/SLE16(Beta) (x86_64)</span>
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
-<span class="c"># SLE15-SPx (aarch64)</span>
+<span class="c"># SLE15-SPx/SLE16(Beta) (aarch64)</span>
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 
 <span class="c"># will install needed CUDA packages</span>

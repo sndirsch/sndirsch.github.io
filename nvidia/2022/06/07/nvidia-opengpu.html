@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="NVIDIA Open GPU kernel modules: openSUSE/SLE packages available" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-05-05T14:20:25+00:00","datePublished":"2022-06-07T00:00:00+00:00","description":"On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.","headline":"NVIDIA Open GPU kernel modules: openSUSE/SLE packages available","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2022/06/07/nvidia-opengpu.html"},"url":"/nvidia/2022/06/07/nvidia-opengpu.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-06-12T12:51:49+00:00","datePublished":"2022-06-07T00:00:00+00:00","description":"On May 19, 2022 NVIDIA made a release of their Open GPU kernel modules for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install nvidia-open-driver-G06-signed package.","headline":"NVIDIA Open GPU kernel modules: openSUSE/SLE packages available","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2022/06/07/nvidia-opengpu.html"},"url":"/nvidia/2022/06/07/nvidia-opengpu.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -43,7 +43,7 @@
     <h1 class="post-title p-name" itemprop="name headline">NVIDIA Open GPU kernel modules: openSUSE/SLE packages available</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2022-06-07T00:00:00+00:00" itemprop="datePublished">Jun 7, 2022
-      </time>• <span class="dt-modified">Last updated on May 5, 2025</span></p>
+      </time>• <span class="dt-modified">Last updated on Jun 12, 2025</span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -69,12 +69,16 @@ then can be used together with NVIDIA’s Open GPU kernel modules above.</p>
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># if you have not added this repository yet</span>
 <span class="c"># Leap 15.6</span>
 zypper addrepo https://download.nvidia.com/opensuse/leap/15.6/  nvidia
+<span class="c"># Leap 16.0 (Beta)</span>
+zypper addrepo https://download.nvidia.com/opensuse/leap/16.0/  nvidia
 <span class="c"># Tumbleweed</span>
 zypper addrepo https://download.nvidia.com/opensuse/tumbleweed/  nvidia
 <span class="c"># SLE15-SP6</span>
 zypper addrepo https://download.nvidia.com/suse/sle15sp6/  nvidia
-<span class="c"># SLE15-SP7 (Beta)</span>
+<span class="c"># SLE15-SP7</span>
 zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
+<span class="c"># SLE16 (Beta)</span>
+zypper addrepo https://download.nvidia.com/suse/sle16/  nvidia
 
 <span class="c"># install all required packages</span>
 <span class="nv">version</span><span class="o">=</span><span class="si">$(</span>rpm <span class="nt">-qa</span> <span class="nt">--queryformat</span> <span class="s1">'%{VERSION}\n'</span> nvidia-open-driver-G06-signed-kmp-default | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"_"</span> <span class="nt">-f1</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="si">)</span>
@@ -87,11 +91,11 @@ zypper <span class="k">in </span>nvidia-video-G06 <span class="o">==</span> <spa
 <p>Installing CUDA on Leap 15.6/Tumbleweed/SLE15-SPx</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># if you have not added this repository yet</span>
-<span class="c"># Leap 15.6/Tumbleweed</span>
+<span class="c"># Leap 15.6/16.0(Beta)/Tumbleweed</span>
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
-<span class="c"># SLE15-SPx (x86_64)</span>
+<span class="c"># SLE15-SPx/SLE16(Beta) (x86_64)</span>
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
-<span class="c"># SLE15-SPx (aarch64)</span>
+<span class="c"># SLE15-SPx/SLE16(Beta) (aarch64)</span>
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 
 <span class="c"># will install needed CUDA packages</span>
