@@ -1,0 +1,47 @@
+digraph {
+	rankdir=TB;
+
+	// Dummy nodes to enforce vertical order
+        cluster0_anchor [style=invisible];
+        cluster1_anchor [style=invisible];
+        cluster2_anchor [style=invisible];
+
+	// force vertical order
+        cluster0_anchor -> cluster1_anchor [style=invis];
+        cluster1_anchor -> cluster2_anchor [style=invis];
+	
+        subgraph cluster_2 {
+		cluster2_anchor; // Dummy node inside cluster
+                repo_nvidia[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="NVIDIA GFX Repository"]
+                proprietary_meta[fillcolor=red,style=filled,label="nvidia-driver-G06-kmp-meta\n(latest)\n[via HW Supplements]"]
+                open_meta[fillcolor=red,style=filled,label="nvidia-open-driver-G06-signed-kmp-meta\n(in-sync)\n[via HW Supplements]"]
+                proprietary[fillcolor=yellow,style=filled,label="nvidia-driver-G06-kmp-<flavor>\n(latest)"]
+                userspace_meta_latest[fillcolor=lightgreen,style=filled,label="nvidia-userspace-meta-G06\n(latest)"]
+                userspace_meta_insync[fillcolor=lightgreen,style=filled,label="nvidia-userspace-meta-G06\n(in-sync)"]
+                compute_latest[fillcolor=lightblue,style=filled,label="nvidia-compute-utils-G06\n(latest)"]
+                compute_insync[fillcolor=lightblue,style=filled,label="nvidia-compute-utils-G06\n(in-sync)"]
+                video_latest[fillcolor=lightblue,style=filled,label="nvidia-video-G06\n(latest)"]
+                video_insync[fillcolor=lightblue,style=filled,label="nvidia-video-G06\n(in-sync)"]
+        }
+        subgraph cluster_1 {
+		cluster1_anchor; // Dummy node inside cluster
+                repo_suse[fillcolor=aqua,style=filled,width=2.5,shape=folder,label="SUSE Product"]
+                open[fillcolor=yellow,style=filled,label="nvidia-open-driver-G06-kmp-<flavor>\n(in-sync)"]
+        }
+        subgraph cluster_0{
+		cluster0_anchor; // Dummy node inside cluster
+                bgcolor="lightgreen"
+                repo_install[fillcolor=green,style=filled,width=2.5,shape=component,label="Installation"]
+                command1[shape=none,width=7,label="zypper ar <NVIDIA GFX Repository>  nvidia-gfx\nzypper ref\nzypper inr --no-recommends"]
+        }
+
+        proprietary_meta -> proprietary
+        proprietary_meta -> userspace_meta_latest
+        open_meta -> open
+        open_meta -> userspace_meta_insync
+        userspace_meta_latest -> compute_latest
+        userspace_meta_latest -> video_latest [color="blue",fontcolor="blue",label="if libglvnd"]
+        userspace_meta_insync -> compute_insync
+        userspace_meta_insync -> video_insync [color="blue",fontcolor="blue",label="if libglvnd"]
+}
+

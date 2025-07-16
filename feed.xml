@@ -1,4 +1,135 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-06-12T12:53:29+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-04-16T14:58:44+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-16T15:00:52+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-16T14:57:56+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.</p>
+
+<ul>
+  <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-570.169?expand=1">Maxwell, Pascal, Volta</a> (proprietary kernel driver)</li>
+  <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-open-driver-G06-signed/files/pci_ids-supported?expand=1">Turing and higher</a> (open kernel driver)</li>
+</ul>
+
+<p>Check with <code class="language-plaintext highlighter-rouge">inxi -aG</code> on openSUSE Leap/Tumbleweed if you have such a GPU. Use <code class="language-plaintext highlighter-rouge">hwinfo --gfxcard</code> on SLE. Use <a href="https://en.opensuse.org/SDB:NVIDIA_drivers">G04/G05</a> legacy drivers (both proprietary driver) for older
+NVIDIA GPUs.</p>
+
+<p>There are two different ways to install NVIDIA drivers. Either use <code class="language-plaintext highlighter-rouge">GFX Repository</code> or use <code class="language-plaintext highlighter-rouge">CUDA Repository</code>.</p>
+
+<h3 id="gfx-repository">GFX Repository</h3>
+
+<p>First add the repository if it has not been added yet. On openSUSE Leap/Tumbleweed and SLE 15 Desktop and SLE 15 Workstation Extension it is been added by default. So check first, if it has already been added.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># openSUSE Leap/Tumbleweed</span>
+zypper repos <span class="nt">-u</span> | <span class="nb">grep </span>https://download.nvidia.com/opensuse/
+<span class="c"># SLE</span>
+zypper repos <span class="nt">-u</span> | <span class="nb">grep </span>https://download.nvidia.com/suse</code></pre></figure>
+
+<p>If the output is empty add the repository now:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Leap 15.6</span>
+zypper addrepo https://download.nvidia.com/opensuse/leap/15.6/  nvidia
+<span class="c"># Leap 16.0 (Beta)</span>
+zypper addrepo https://download.nvidia.com/opensuse/leap/16.0/  nvidia
+<span class="c"># Tumbleweed</span>
+zypper addrepo https://download.nvidia.com/opensuse/tumbleweed/  nvidia
+<span class="c"># SLE15-SP6</span>
+zypper addrepo https://download.nvidia.com/suse/sle15sp6/  nvidia
+<span class="c"># SLE15-SP7</span>
+zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
+<span class="c"># SLE16 (Beta)</span>
+zypper addrepo https://download.nvidia.com/suse/sle16/  nvidia</code></pre></figure>
+
+<p>With the following command the appropriate driver (proprietary or open kernel driver) will be installed depending on the GPU on your system. In addition the CUDA and Desktop drivers are installed according to the software packages which are currently installed (Desktop driver trigger: libglvnd package). </p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper inr</code></pre></figure>
+
+<p>The following graphics explains the installation and package dependancies.</p>
+
+<p><img src="/assets/2025-07-16-gfx-repo.svg" alt="gfx-repo" /></p>
+
+<h3 id="cuda-repository">CUDA Repository</h3>
+
+<p>Add the repository if it hasn’t been added yet. On SLE15 it might have already been added as a module. So check first:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># openSUSE Leap/Tumbleweed</span>
+zypper repos <span class="nt">-u</span> | <span class="nb">grep </span>https://developer.download.nvidia.com/compute/cuda/repos/opensuse15
+<span class="c"># SLE</span>
+zypper repos <span class="nt">-u</span> | <span class="nb">grep </span>https://developer.download.nvidia.com/compute/cuda/repos/sles15</code></pre></figure>
+
+<p>If the output is empty add the repository now:</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Leap 15.6/16.0(Beta)/Tumbleweed</span>
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
+<span class="c"># SLE15-SPx/SLE16(Beta) (x86_64)</span>
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
+<span class="c"># SLE15-SPx/SLE16(Beta) (aarch64)</span>
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda</code></pre></figure>
+
+<h4 id="use-open-prebuiltsecureboot-signed-kernel-driver-gpu--turing">Use Open prebuilt/secureboot-signed kernel driver (GPU &gt;= Turing)</h4>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Install open prebuilt/secureboot-signed Kernel driver</span>
+zypper <span class="k">in </span>nvidia-open-driver-G06-signed-cuda-kmp-default
+
+<span class="c"># Make sure userspace CUDA/Desktop drivers will be in sync with just installed open prebuilt/secureboot-signed Kernel driver</span>
+<span class="nv">version</span><span class="o">=</span><span class="si">$(</span>rpm <span class="nt">-qa</span> <span class="nt">--queryformat</span> <span class="s1">'%{VERSION}\n'</span> nvidia-open-driver-G06-signed-cuda-kmp-default | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">"_"</span> <span class="nt">-f1</span> | <span class="nb">sort</span> <span class="nt">-u</span> | <span class="nb">tail</span> <span class="nt">-n</span> 1<span class="si">)</span>
+
+<span class="c"># Install CUDA drivers</span>
+zypper <span class="k">in </span>nvidia-compute-utils-G06 <span class="o">==</span> <span class="k">${</span><span class="nv">version</span><span class="k">}</span> 
+<span class="c"># Install Desktop drivers</span>
+zypper <span class="k">in </span>nvidia-video-G06 <span class="o">==</span> <span class="k">${</span><span class="nv">version</span><span class="k">}</span></code></pre></figure>
+
+<h4 id="use-open-dkms-kernel-driver-on-gpus--turing-latest-driver-available">Use Open DKMS Kernel driver on GPUs &gt;= Turing (latest driver available)</h4>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Install latest Open DKMS Kernel driver </span>
+zypper <span class="k">in </span>nvidia-open-driver-G06
+
+<span class="c"># Install CUDA drivers</span>
+zypper <span class="k">in </span>nvidia-compute-utils-G06
+
+<span class="c"># Install Desktop drivers</span>
+zypper <span class="k">in </span>nvidia-video-G06</code></pre></figure>
+
+<h4 id="use-proprietary-dkms-kernel-driver-on-maxwell--gpu--turing">Use Proprietary DKMS Kernel driver on Maxwell &gt;= GPU &lt; Turing</h4>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Install proprietary DKMS Kernel driver</span>
+zypper <span class="k">in </span>nvidia-driver-G06
+
+<span class="c"># Install CUDA drivers</span>
+zypper <span class="k">in </span>nvidia-compute-utils-G06
+
+<span class="c"># Install Desktop drivers</span>
+zypper <span class="k">in </span>nvidia-video-G06</code></pre></figure>
+
+<h3 id="installation-of-cuda">Installation of CUDA</h3>
+
+<p>In case you used <code class="language-plaintext highlighter-rouge">GFX Repository</code> for installing NVIDIA drivers before, first add the CUDA repository as outlined above in <code class="language-plaintext highlighter-rouge">CUDA Repository</code> chapter.</p>
+
+<p>The following commands will install CUDA itself. It describes a regular and minimal installation. In addition it makes it easy to do first tests with CUDA. Depending on which Kernel driver is being used it may be needed to install different CUDA versions.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Kernel driver being installed via GFX Repo</span>
+<span class="c"># Regular installation</span>
+zypper <span class="k">in </span>cuda-toolkit-12-8
+<span class="c"># Minimal installation</span>
+zypper <span class="k">in </span>cuda-libraries-12-8
+
+<span class="c"># Kernel driver being installed via CUDA Repo</span>
+<span class="c"># Regular installation</span>
+zypper <span class="k">in </span>cuda-toolkit-12-9
+<span class="c"># Minimal installation</span>
+zypper <span class="k">in </span>cuda-libraries-12-9
+
+<span class="c"># Unfortunately the following package is not available for aarch64,</span>
+<span class="c"># but there are CUDA samples available on GitHub, which can be</span>
+<span class="c"># compiled from source: https://github.com/nvidia/cuda-samples</span>
+zypper <span class="k">in </span>cuda-demo-suite-12-8</code></pre></figure>
+
+<p>Let’s have a first test for using libcuda (only available on x86_64).</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Kernel driver being installed via GFX Repo</span>
+/usr/local/cuda-12.8/extras/demo_suite/deviceQuery
+
+<span class="c"># Kernel driver being installed via CUDA Repo:</span>
+/usr/local/cuda-12.9/extras/demo_suite/deviceQuery</code></pre></figure>
+
+<h3 id="which-one-to-choose-for-nvidia-driver-installation-gfx-or-cuda-repository">Which one to choose for NVIDIA driver installation: GFX or CUDA Repository?</h3>
+<p>Good question! Not so easy to answer. If you rely on support from NVIDIA (especially when using SLE), for Compute Usage we strongly recommend to use the <code class="language-plaintext highlighter-rouge">CUDA Repository</code> for NVIDIA driver installation. Even if you use NVIDIA Desktop drivers as well.</p>
+
+<p>For others - usually running openSUSE Leap/Tumbleweed - it’s fine to use <code class="language-plaintext highlighter-rouge">GFX Repository</code> for NVIDIA driver installation and adding <code class="language-plaintext highlighter-rouge">CUDA Repository</code> for adding CUDA packages.</p>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.]]></summary></entry><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-04-16T14:58:44+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
 
 <h3 id="firmware-update-on-jetson-agx-orin">Firmware Update on Jetson AGX Orin</h3>
 
