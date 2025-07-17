@@ -125,31 +125,25 @@ The following commands will install CUDA itself. It describes a regular and mini
 
 {% highlight shell %}
 # Kernel driver being installed via GFX Repo
-# Regular installation
-zypper in cuda-toolkit-12-8
-# Minimal installation
-zypper in cuda-libraries-12-8
-
+cuda_version=12-8
 # Kernel driver being installed via CUDA Repo
+cuad_version=12-9
+
 # Regular installation
-zypper in cuda-toolkit-12-9
+zypper in cuda-toolkit-${cuda_version}
 # Minimal installation
-zypper in cuda-libraries-12-9
+zypper in cuda-libraries-${cuda_version}
 
 # Unfortunately the following package is not available for aarch64,
 # but there are CUDA samples available on GitHub, which can be
 # compiled from source: https://github.com/nvidia/cuda-samples
-zypper in cuda-demo-suite-12-8
+zypper in cuda-demo-suite-${cuda_version}
 {% endhighlight %}
 
 Let’s have a first test for using libcuda (only available on x86_64).
 
 {% highlight shell %}
-# Kernel driver being installed via GFX Repo
-/usr/local/cuda-12.8/extras/demo_suite/deviceQuery
-
-# Kernel driver being installed via CUDA Repo:
-/usr/local/cuda-12.9/extras/demo_suite/deviceQuery
+/usr/local/cuda-*/extras/demo_suite/deviceQuery
 {% endhighlight %}
 
 ### Which one to choose for NVIDIA driver installation: GFX or CUDA Repository?
