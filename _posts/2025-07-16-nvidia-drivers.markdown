@@ -127,7 +127,7 @@ The following commands will install CUDA itself. It describes a regular and mini
 # Kernel driver being installed via GFX Repo
 cuda_version=12-8
 # Kernel driver being installed via CUDA Repo
-cuad_version=12-9
+cuda_version=12-9
 
 # Regular installation
 zypper in cuda-toolkit-${cuda_version}
