@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-16T15:00:52+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-16T14:57:56+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-17T12:56:26+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-17T12:54:28+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.</p>
 
 <ul>
   <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-570.169?expand=1">Maxwell, Pascal, Volta</a> (proprietary kernel driver)</li>
@@ -102,29 +102,23 @@ zypper <span class="k">in </span>nvidia-video-G06</code></pre></figure>
 <p>The following commands will install CUDA itself. It describes a regular and minimal installation. In addition it makes it easy to do first tests with CUDA. Depending on which Kernel driver is being used it may be needed to install different CUDA versions.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Kernel driver being installed via GFX Repo</span>
-<span class="c"># Regular installation</span>
-zypper <span class="k">in </span>cuda-toolkit-12-8
-<span class="c"># Minimal installation</span>
-zypper <span class="k">in </span>cuda-libraries-12-8
-
+<span class="nv">cuda_version</span><span class="o">=</span>12-8
 <span class="c"># Kernel driver being installed via CUDA Repo</span>
+<span class="nv">cuad_version</span><span class="o">=</span>12-9
+
 <span class="c"># Regular installation</span>
-zypper <span class="k">in </span>cuda-toolkit-12-9
+zypper <span class="k">in </span>cuda-toolkit-<span class="k">${</span><span class="nv">cuda_version</span><span class="k">}</span>
 <span class="c"># Minimal installation</span>
-zypper <span class="k">in </span>cuda-libraries-12-9
+zypper <span class="k">in </span>cuda-libraries-<span class="k">${</span><span class="nv">cuda_version</span><span class="k">}</span>
 
 <span class="c"># Unfortunately the following package is not available for aarch64,</span>
 <span class="c"># but there are CUDA samples available on GitHub, which can be</span>
 <span class="c"># compiled from source: https://github.com/nvidia/cuda-samples</span>
-zypper <span class="k">in </span>cuda-demo-suite-12-8</code></pre></figure>
+zypper <span class="k">in </span>cuda-demo-suite-<span class="k">${</span><span class="nv">cuda_version</span><span class="k">}</span></code></pre></figure>
 
 <p>Let’s have a first test for using libcuda (only available on x86_64).</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Kernel driver being installed via GFX Repo</span>
-/usr/local/cuda-12.8/extras/demo_suite/deviceQuery
-
-<span class="c"># Kernel driver being installed via CUDA Repo:</span>
-/usr/local/cuda-12.9/extras/demo_suite/deviceQuery</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">/usr/local/cuda-<span class="k">*</span>/extras/demo_suite/deviceQuery</code></pre></figure>
 
 <h3 id="which-one-to-choose-for-nvidia-driver-installation-gfx-or-cuda-repository">Which one to choose for NVIDIA driver installation: GFX or CUDA Repository?</h3>
 <p>Good question! Not so easy to answer. If you rely on support from NVIDIA (especially when using SLE), for Compute Usage we strongly recommend to use the <code class="language-plaintext highlighter-rouge">CUDA Repository</code> for NVIDIA driver installation. Even if you use NVIDIA Desktop drivers as well.</p>
