@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Installation of NVIDIA drivers on openSUSE and SLE" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-07-17T12:54:28+00:00","datePublished":"2025-07-16T00:00:00+00:00","description":"This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.","headline":"Installation of NVIDIA drivers on openSUSE and SLE","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2025/07/16/nvidia-drivers.html"},"url":"/nvidia/2025/07/16/nvidia-drivers.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-07-17T13:40:15+00:00","datePublished":"2025-07-16T00:00:00+00:00","description":"This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.","headline":"Installation of NVIDIA drivers on openSUSE and SLE","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2025/07/16/nvidia-drivers.html"},"url":"/nvidia/2025/07/16/nvidia-drivers.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -153,7 +153,7 @@ zypper <span class="k">in </span>nvidia-video-G06</code></pre></figure>
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Kernel driver being installed via GFX Repo</span>
 <span class="nv">cuda_version</span><span class="o">=</span>12-8
 <span class="c"># Kernel driver being installed via CUDA Repo</span>
-<span class="nv">cuad_version</span><span class="o">=</span>12-9
+<span class="nv">cuda_version</span><span class="o">=</span>12-9
 
 <span class="c"># Regular installation</span>
 zypper <span class="k">in </span>cuda-toolkit-<span class="k">${</span><span class="nv">cuda_version</span><span class="k">}</span>

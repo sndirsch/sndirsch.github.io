@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-17T12:56:26+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-17T12:54:28+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-17T13:41:52+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-17T13:40:15+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.</p>
 
 <ul>
   <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-570.169?expand=1">Maxwell, Pascal, Volta</a> (proprietary kernel driver)</li>
@@ -104,7 +104,7 @@ zypper <span class="k">in </span>nvidia-video-G06</code></pre></figure>
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Kernel driver being installed via GFX Repo</span>
 <span class="nv">cuda_version</span><span class="o">=</span>12-8
 <span class="c"># Kernel driver being installed via CUDA Repo</span>
-<span class="nv">cuad_version</span><span class="o">=</span>12-9
+<span class="nv">cuda_version</span><span class="o">=</span>12-9
 
 <span class="c"># Regular installation</span>
 zypper <span class="k">in </span>cuda-toolkit-<span class="k">${</span><span class="nv">cuda_version</span><span class="k">}</span>
