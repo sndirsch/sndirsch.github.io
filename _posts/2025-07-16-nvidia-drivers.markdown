@@ -5,19 +5,18 @@ date:   2025-07-16
 categories: nvidia
 ---
 
-This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs >= Maxwell, i.e.
+This blogpost covers only installation of `G06` drivers, i.e. drivers for GPUs >= `Maxwell`, i.e.
 
-* [Maxwell, Pascal, Volta][pci_ids-proprietary] (proprietary kernel driver)
-* [Turing and higher][pci_ids-open] (open kernel driver)
+* [Maxwell, Pascal, Volta][pci_ids-proprietary] (`Proprietary` Kernel driver)
+* [Turing and higher][pci_ids-open] (`Open` Kernel driver)
 
-Check with `inxi -aG` on openSUSE Leap/Tumbleweed if you have such a GPU. Use `hwinfo --gfxcard` on SLE. Use [G04/G05][legacy] legacy drivers (both proprietary driver) for older
-NVIDIA GPUs.
+Check with `inxi -aG` on `openSUSE Leap/Tumbleweed` if you have such a GPU. Use `hwinfo --gfxcard` on `SLE`. Use [G04/G05][legacy] legacy drivers (both are `Proprietary` drivers) for older `NVIDIA` GPUs.
 
-There are two different ways to install NVIDIA drivers. Either use `GFX Repository` or use `CUDA Repository`.
+There are two different ways to install `NVIDIA` drivers. Either use `GFX Repository` or use `CUDA Repository`.
 
 ### GFX Repository
 
-First add the repository if it has not been added yet. On openSUSE Leap/Tumbleweed and SLE 15 Desktop and SLE 15 Workstation Extension it is been added by default. So check first, if it has already been added.
+First add the repository if it has not been added yet. On `openSUSE Leap/Tumbleweed` and `SLE 15 Desktop` and `SLE 15 Workstation Extension` it is being added by default. So check first, if it has already been added.
 
 {% highlight shell %}
 # openSUSE Leap/Tumbleweed
@@ -43,7 +42,7 @@ zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
 zypper addrepo https://download.nvidia.com/suse/sle16/  nvidia
 {% endhighlight %}
 
-With the following command the appropriate driver (proprietary or open kernel driver) will be installed depending on the GPU on your system. In addition the CUDA and Desktop drivers are installed according to the software packages which are currently installed (Desktop driver trigger: libglvnd package). 
+With the following command the appropriate driver (`Proprietary` or `Open` Kernel driver) will be installed depending on the GPU on your system. In addition the `CUDA` and `Desktop` drivers are installed according to the software packages which are currently installed (`Desktop` driver trigger: `libglvnd` package). 
 
 {% highlight shell %}
 zypper inr
@@ -55,7 +54,7 @@ The following graphics explains the installation and package dependancies.
 
 ### CUDA Repository
 
-Add the repository if it hasn't been added yet. On SLE15 it might have already been added as a module. So check first:
+Add the repository if it hasn't been added yet. On `SLE15` it might have already been added as a`Module`. So check first:
 
 {% highlight shell %}
 # openSUSE Leap/Tumbleweed
@@ -75,7 +74,7 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
 {% endhighlight %}
 
-#### Use Open prebuilt/secureboot-signed kernel driver (GPU >= Turing)
+#### Use `Open` prebuilt/secureboot-signed Kernel driver (GPU >= `Turing`)
 
 {% highlight shell %}
 # Install open prebuilt/secureboot-signed Kernel driver
@@ -90,7 +89,7 @@ zypper in nvidia-compute-utils-G06 == ${version}
 zypper in nvidia-video-G06 == ${version}
 {% endhighlight %}
 
-#### Use Open DKMS Kernel driver on GPUs >= Turing (latest driver available)
+#### Use `Open` DKMS Kernel driver on GPUs >= `Turing` (latest driver available)
 
 {% highlight shell %}
 # Install latest Open DKMS Kernel driver 
@@ -104,7 +103,7 @@ zypper in nvidia-video-G06
 {% endhighlight %}
 
 
-#### Use Proprietary DKMS Kernel driver on Maxwell >= GPU < Turing
+#### Use `Proprietary` DKMS Kernel driver on `Maxwell` >= GPU < `Turing`
 
 {% highlight shell %}
 # Install proprietary DKMS Kernel driver
@@ -119,9 +118,9 @@ zypper in nvidia-video-G06
 
 ### Installation of CUDA
 
-In case you used `GFX Repository` for installing NVIDIA drivers before, first add the CUDA repository as outlined above in `CUDA Repository` chapter.
+In case you used `GFX Repository` for installing `NVIDIA` drivers before, first add the `CUDA Repository` as outlined above in `CUDA Repository` chapter.
 
-The following commands will install CUDA itself. It describes a regular and minimal installation. In addition it makes it easy to do first tests with CUDA. Depending on which Kernel driver is being used it may be needed to install different CUDA versions.
+The following commands will install `CUDA` packages themselves. It describes a regular and minimal installation. In addition it makes it easy to do first tests with `CUDA`. Depending on which Kernel driver is being used it may be needed to install different `CUDA` versions.
 
 {% highlight shell %}
 # Kernel driver being installed via GFX Repo
@@ -140,17 +139,17 @@ zypper in cuda-libraries-${cuda_version}
 zypper in cuda-demo-suite-${cuda_version}
 {% endhighlight %}
 
-Let’s have a first test for using libcuda (only available on x86_64).
+Let’s have a first test for using `libcuda` (only available on x86_64).
 
 {% highlight shell %}
 /usr/local/cuda-*/extras/demo_suite/deviceQuery
 {% endhighlight %}
 
 ### Which one to choose for NVIDIA driver installation: GFX or CUDA Repository?
-Good question! Not so easy to answer. If you rely on support from NVIDIA (especially when using SLE), for Compute Usage we strongly recommend to use the `CUDA Repository` for NVIDIA driver installation. Even if you use NVIDIA Desktop drivers as well. 
+Good question! Not so easy to answer. If you rely on support from `NVIDIA` (especially when using `SLE`), for `Compute` usage we strongly recommend to use the ``CUDA Repository`` for `NVIDIA` driver installation. Even if you use `NVIDIA` Desktop drivers as well. 
 
-For others - usually running openSUSE Leap/Tumbleweed - it's fine to use `GFX Repository` for NVIDIA driver installation and adding `CUDA Repository` for adding CUDA packages.
+For others - usually running `openSUSE Leap/Tumbleweed` - it's fine to use `GFX Repository` for `NVIDIA` driver installation and adding `CUDA Repository` for installing `CUDA` packages.
 
-[pci_ids-proprietary]: https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-570.169?expand=1
+[pci_ids-proprietary]: https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-supported?expand=1
 [pci_ids-open]: https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-open-driver-G06-signed/files/pci_ids-supported?expand=1
 [legacy]:https://en.opensuse.org/SDB:NVIDIA_drivers
