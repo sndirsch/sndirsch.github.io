@@ -4,6 +4,12 @@ title:  "NVIDIA Open GPU kernel modules: openSUSE/SLE packages available"
 date:   2022-06-07
 categories: nvidia
 ---
+## Important Notice
+
+With my new blogpost [Installation of NVIDIA drivers on openSUSE and SLE][nvidia-drivers] this article here became more or less obsolete. So it is highly recommended to ready my new article [there][nvidia-drivers] instead.
+
+## Introduction
+
 On May 19, 2022 NVIDIA made a [release][nvidia-release] of their [Open GPU kernel modules][opengpu-github] for their newer GPU platforms (Turing and newer) with Risc-V system processor. Meanwhile we have packages available in our currently supported openSUSE/SLE distributions. If you want to use these you need to install `nvidia-open-driver-G06-signed` package.
 
 ## Installation
@@ -102,6 +108,7 @@ version=$(rpm -qa --queryformat '%{VERSION}\n' nvidia-open-driver-G06-signed-kmp
 
 If you have questions, comments and any kind of feedback regarding this topic, don't hesitate to contact me via email. Thanks!
 
+[nvidia-drivers]: https://sndirsch.github.io/nvidia/2025/07/16/nvidia-drivers.html
 [nvidia-release]: https://developer.nvidia.com/blog/nvidia-releases-open-source-gpu-kernel-modules/
 [opengpu-github]: https://github.com/NVIDIA/open-gpu-kernel-modules
 [pci_ids-supported]: https://build.opensuse.org/package/view_file/X11:Drivers:Video:Redesign/nvidia-open-driver-G06-signed/pci_ids-supported
