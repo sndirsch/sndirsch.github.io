@@ -25,7 +25,7 @@ zypper repos -u | grep https://download.nvidia.com/opensuse/
 zypper repos -u | grep https://download.nvidia.com/suse
 {% endhighlight %}
 
-If the output is empty add the repository now:
+Verify that the repository is enabled. If the output was empty add the repository now:
 
 {% highlight shell %}
 # Leap 15.6
@@ -63,7 +63,7 @@ zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/sles15
 {% endhighlight %}
 
-If the output is empty add the repository now:
+Verify that the repository is enabled. If the output is empty add the repository now:
 
 {% highlight shell %}
 # Leap 15.6/16.0(Beta)/Tumbleweed
@@ -75,6 +75,8 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/s
 {% endhighlight %}
 
 #### Use `Open` prebuilt/secureboot-signed Kernel driver (GPU >= `Turing`)
+
+In case you have a `Turing` or later GPU it is strongly recommended to use our `prebuilt` and `secureboot-signed` Kernel driver. Unfortunately this is often not the latest driver, which is availabe, since this driver needs to go through our official `QA` and `Maintenance` process before it can be released through our product update channels, but things are much easier to handle for the user.
 
 {% highlight shell %}
 # Install open prebuilt/secureboot-signed Kernel driver
@@ -91,6 +93,8 @@ zypper in nvidia-video-G06 == ${version}
 
 #### Use `Open` DKMS Kernel driver on GPUs >= `Turing` (latest driver available)
 
+If you really need the latest `Open` driver (also for `Turing` and later), use `NVIDIA`'s `Open` DKMS Kernel driver. This will build this driver on demand for the appropriate Kernel during the boot process.
+
 {% highlight shell %}
 # Install latest Open DKMS Kernel driver 
 zypper in nvidia-open-driver-G06
@@ -104,6 +108,8 @@ zypper in nvidia-video-G06
 
 
 #### Use `Proprietary` DKMS Kernel driver on `Maxwell` >= GPU < `Turing`
+
+For `Maxwell`, `Pascal` and `Volta` you need to use the `Proprietary` DKMS Kernel driver.
 
 {% highlight shell %}
 # Install proprietary DKMS Kernel driver
