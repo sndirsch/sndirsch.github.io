@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-17T20:32:41+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-17T20:17:04+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-18T14:13:43+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-18T14:11:51+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
 
 <ul>
   <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-supported?expand=1">Maxwell, Pascal, Volta</a> (<code class="language-plaintext highlighter-rouge">Proprietary</code> Kernel driver)</li>
@@ -18,7 +18,7 @@ zypper repos <span class="nt">-u</span> | <span class="nb">grep </span>https://d
 <span class="c"># SLE</span>
 zypper repos <span class="nt">-u</span> | <span class="nb">grep </span>https://download.nvidia.com/suse</code></pre></figure>
 
-<p>If the output is empty add the repository now:</p>
+<p>Verify that the repository is enabled. If the output was empty add the repository now:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Leap 15.6</span>
 zypper addrepo https://download.nvidia.com/opensuse/leap/15.6/  nvidia
@@ -50,7 +50,7 @@ zypper repos <span class="nt">-u</span> | <span class="nb">grep </span>https://d
 <span class="c"># SLE</span>
 zypper repos <span class="nt">-u</span> | <span class="nb">grep </span>https://developer.download.nvidia.com/compute/cuda/repos/sles15</code></pre></figure>
 
-<p>If the output is empty add the repository now:</p>
+<p>Verify that the repository is enabled. If the output is empty add the repository now:</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Leap 15.6/16.0(Beta)/Tumbleweed</span>
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
@@ -60,6 +60,8 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda</code></pre></figure>
 
 <h4 id="use-open-prebuiltsecureboot-signed-kernel-driver-gpu--turing">Use <code class="language-plaintext highlighter-rouge">Open</code> prebuilt/secureboot-signed Kernel driver (GPU &gt;= <code class="language-plaintext highlighter-rouge">Turing</code>)</h4>
+
+<p>In case you have a <code class="language-plaintext highlighter-rouge">Turing</code> or later GPU it is strongly recommended to use our <code class="language-plaintext highlighter-rouge">prebuilt</code> and <code class="language-plaintext highlighter-rouge">secureboot-signed</code> Kernel driver. Unfortunately this is often not the latest driver, which is availabe, since this driver needs to go through our official <code class="language-plaintext highlighter-rouge">QA</code> and <code class="language-plaintext highlighter-rouge">Maintenance</code> process before it can be released through our product update channels, but things are much easier to handle for the user.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Install open prebuilt/secureboot-signed Kernel driver</span>
 zypper <span class="k">in </span>nvidia-open-driver-G06-signed-cuda-kmp-default
@@ -74,6 +76,8 @@ zypper <span class="k">in </span>nvidia-video-G06 <span class="o">==</span> <spa
 
 <h4 id="use-open-dkms-kernel-driver-on-gpus--turing-latest-driver-available">Use <code class="language-plaintext highlighter-rouge">Open</code> DKMS Kernel driver on GPUs &gt;= <code class="language-plaintext highlighter-rouge">Turing</code> (latest driver available)</h4>
 
+<p>If you really need the latest <code class="language-plaintext highlighter-rouge">Open</code> driver (also for <code class="language-plaintext highlighter-rouge">Turing</code> and later), use <code class="language-plaintext highlighter-rouge">NVIDIA</code>’s <code class="language-plaintext highlighter-rouge">Open</code> DKMS Kernel driver. This will build this driver on demand for the appropriate Kernel during the boot process.</p>
+
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Install latest Open DKMS Kernel driver </span>
 zypper <span class="k">in </span>nvidia-open-driver-G06
 
@@ -84,6 +88,8 @@ zypper <span class="k">in </span>nvidia-compute-utils-G06
 zypper <span class="k">in </span>nvidia-video-G06</code></pre></figure>
 
 <h4 id="use-proprietary-dkms-kernel-driver-on-maxwell--gpu--turing">Use <code class="language-plaintext highlighter-rouge">Proprietary</code> DKMS Kernel driver on <code class="language-plaintext highlighter-rouge">Maxwell</code> &gt;= GPU &lt; <code class="language-plaintext highlighter-rouge">Turing</code></h4>
+
+<p>For <code class="language-plaintext highlighter-rouge">Maxwell</code>, <code class="language-plaintext highlighter-rouge">Pascal</code> and <code class="language-plaintext highlighter-rouge">Volta</code> you need to use the <code class="language-plaintext highlighter-rouge">Proprietary</code> DKMS Kernel driver.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Install proprietary DKMS Kernel driver</span>
 zypper <span class="k">in </span>nvidia-driver-G06
