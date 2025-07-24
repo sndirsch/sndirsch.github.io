@@ -148,7 +148,7 @@ zypper in cuda-demo-suite-${cuda_version}
 Let’s have a first test for using `libcuda` (only available on x86_64).
 
 {% highlight shell %}
-/usr/local/cuda-*/extras/demo_suite/deviceQuery
+/usr/local/cuda-12/extras/demo_suite/deviceQuery
 {% endhighlight %}
 
 ### Which one to choose for NVIDIA driver installation: GFX or CUDA Repository?
