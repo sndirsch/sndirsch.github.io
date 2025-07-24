@@ -6,7 +6,7 @@ categories: nvidia
 ---
 ## Important Notice
 
-With my new blogpost [Installation of NVIDIA drivers on openSUSE and SLE][nvidia-drivers] this article here became more or less obsolete. So it is highly recommended to ready my new article [there][nvidia-drivers] instead.
+With my new blogpost [Installation of NVIDIA drivers on openSUSE and SLE][nvidia-drivers] this article here became more or less obsolete. So it is highly recommended to read my new article [there][nvidia-drivers] instead.
 
 ## Introduction
 
