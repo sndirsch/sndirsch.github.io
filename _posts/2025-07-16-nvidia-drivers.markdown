@@ -48,7 +48,17 @@ With the following command the appropriate driver (`Proprietary` or `Open` Kerne
 zypper inr
 {% endhighlight %}
 
-The following graphics explains the installation and package dependancies.
+#### Installation of `Open` driver on SLE15-SP6 and Leap 15.6
+
+Unfortunately in our `SLE15-SP6` and `Leap 15.6` repositories we still have driver packages for older `Proprietary` driver (version 550), which are still registered for `Turing+` GPUs. The reason is that at that time the `Open` driver wasn't considered stable yet for the desktop. Therefore, if you own a `Turing+` GPU (check above) and would like to use the `Open` driver (which is recommended!) please use the following command instead of the above. Otherwise you will end up with a `Proprietary` driver release 550 initially, which then will be updated later to the current version of the `Proprietary` driver, but not replaced by the open driver automatically.
+
+{% highlight shell %}
+zypper in nvidia-open-driver-G06-signed-kmp-meta
+{% endhighlight %}
+
+#### Understanding package dependancies
+
+The following graphics explains the installation and package dependancies. Zoom in for better reading.
 
 ![gfx-repo](/assets/2025-07-16-gfx-repo.svg)
 
