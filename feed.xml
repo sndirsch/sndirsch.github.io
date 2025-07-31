@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-24T01:44:00+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-24T01:42:06+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-07-31T11:54:47+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-07-31T11:49:26+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
 
 <ul>
   <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-supported?expand=1">Maxwell, Pascal, Volta</a> (<code class="language-plaintext highlighter-rouge">Proprietary</code> Kernel driver)</li>
@@ -37,7 +37,15 @@ zypper addrepo https://download.nvidia.com/suse/sle16/  nvidia</code></pre></fig
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper inr</code></pre></figure>
 
-<p>The following graphics explains the installation and package dependancies.</p>
+<h4 id="installation-of-open-driver-on-sle15-sp6-and-leap-156">Installation of <code class="language-plaintext highlighter-rouge">Open</code> driver on SLE15-SP6 and Leap 15.6</h4>
+
+<p>Unfortunately in our <code class="language-plaintext highlighter-rouge">SLE15-SP6</code> and <code class="language-plaintext highlighter-rouge">Leap 15.6</code> repositories we still have driver packages for older <code class="language-plaintext highlighter-rouge">Proprietary</code> driver (version 550), which are still registered for <code class="language-plaintext highlighter-rouge">Turing+</code> GPUs. The reason is that at that time the <code class="language-plaintext highlighter-rouge">Open</code> driver wasn’t considered stable yet for the desktop. Therefore, if you own a <code class="language-plaintext highlighter-rouge">Turing+</code> GPU (check above) and would like to use the <code class="language-plaintext highlighter-rouge">Open</code> driver (which is recommended!) please use the following command instead of the above. Otherwise you will end up with a <code class="language-plaintext highlighter-rouge">Proprietary</code> driver release 550 initially, which then will be updated later to the current version of the <code class="language-plaintext highlighter-rouge">Proprietary</code> driver, but not replaced by the open driver automatically.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper <span class="k">in </span>nvidia-open-driver-G06-signed-kmp-meta</code></pre></figure>
+
+<h4 id="understanding-package-dependancies">Understanding package dependancies</h4>
+
+<p>The following graphics explains the installation and package dependancies. Zoom in for better reading.</p>
 
 <p><img src="/assets/2025-07-16-gfx-repo.svg" alt="gfx-repo" /></p>
 
