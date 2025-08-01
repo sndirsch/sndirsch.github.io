@@ -50,11 +50,13 @@ zypper inr
 
 #### Installation of `Open` driver on SLE15-SP6 and Leap 15.6
 
-Unfortunately in our `SLE15-SP6` and `Leap 15.6` repositories we still have driver packages for older `Proprietary` driver (version 550), which are still registered for `Turing+` GPUs. The reason is that at that time the `Open` driver wasn't considered stable yet for the desktop. Therefore, if you own a `Turing+` GPU (check above) and would like to use the `Open` driver (which is recommended!) please use the following command instead of the above. Otherwise you will end up with a `Proprietary` driver release 550 initially, which then will be updated later to the current version of the `Proprietary` driver, but not replaced by the open driver automatically.
+Unfortunately in our `SLE15-SP6` and `Leap 15.6` repositories we still have driver packages for older `Proprietary` driver (version 550), which are still registered for `Turing+` GPUs. The reason is that at that time the `Open` driver wasn't considered stable yet for the desktop. Therefore, if you own a `Turing+` GPU (check above) and would like to use the `Open` driver (which is recommended!) please use the following command instead of the above.
 
 {% highlight shell %}
 zypper in nvidia-open-driver-G06-signed-kmp-meta
 {% endhighlight %}
+
+Otherwise you will end up with a `Proprietary` driver release 550 initially, which then will be updated later to the current version of the `Proprietary` driver, but not replaced by the open driver automatically.
 
 #### Understanding package dependancies
 
@@ -117,7 +119,7 @@ zypper in nvidia-video-G06
 {% endhighlight %}
 
 
-#### Use `Proprietary` DKMS Kernel driver on `Maxwell` >= GPU < `Turing`
+#### Use `Proprietary` DKMS Kernel driver on `Maxwell` <= GPU < `Turing`
 
 For `Maxwell`, `Pascal` and `Volta` you need to use the `Proprietary` DKMS Kernel driver.
 
@@ -165,6 +167,22 @@ Let’s have a first test for using `libcuda` (only available on x86_64).
 Good question! Not so easy to answer. If you rely on support from `NVIDIA` (especially when using `SLE`), for `Compute` usage we strongly recommend to use the ``CUDA Repository`` for `NVIDIA` driver installation. Even if you use `NVIDIA` Desktop drivers as well. 
 
 For others - usually running `openSUSE Leap/Tumbleweed` - it's fine to use `GFX Repository` for `NVIDIA` driver installation and adding `CUDA Repository` for installing `CUDA` packages.
+
+### Troubleshooting
+
+In case you got lost in a mess of nvidia driver packages for different driver versions the best way to figure out what the current state the system is in is to run:
+
+{% highlight shell %}
+rpm -qa | grep -e ^nvidia -e ^libnvidia | sort
+{% endhighlight %}
+
+Often then the best approach is to begin from scratch, i.e remove all the nvidia driver packages by running:
+
+{% highlight shell %}
+rpm -e $(rpm -qa | grep -e ^nvidia -e ^libnvidia)
+{% endhighlight %}
+
+Then follow (again) the instructions above for installing the driver using the GFX or CUDA Repository.
 
 [pci_ids-proprietary]: https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-supported?expand=1
 [pci_ids-open]: https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-open-driver-G06-signed/files/pci_ids-supported?expand=1
