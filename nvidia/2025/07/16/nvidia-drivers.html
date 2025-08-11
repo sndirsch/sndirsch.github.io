@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Installation of NVIDIA drivers on openSUSE and SLE" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-08-01T11:24:23+00:00","datePublished":"2025-07-16T00:00:00+00:00","description":"This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.","headline":"Installation of NVIDIA drivers on openSUSE and SLE","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2025/07/16/nvidia-drivers.html"},"url":"/nvidia/2025/07/16/nvidia-drivers.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-08-11T11:55:20+00:00","datePublished":"2025-07-16T00:00:00+00:00","description":"This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.","headline":"Installation of NVIDIA drivers on openSUSE and SLE","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2025/07/16/nvidia-drivers.html"},"url":"/nvidia/2025/07/16/nvidia-drivers.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -43,7 +43,7 @@
     <h1 class="post-title p-name" itemprop="name headline">Installation of NVIDIA drivers on openSUSE and SLE</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2025-07-16T00:00:00+00:00" itemprop="datePublished">Jul 16, 2025
-      </time>• <span class="dt-modified">Last updated on Aug 1, 2025</span></p>
+      </time>• <span class="dt-modified">Last updated on Aug 11, 2025</span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -146,6 +146,12 @@ zypper <span class="k">in </span>nvidia-compute-utils-G06
 <span class="c"># Install Desktop drivers</span>
 zypper <span class="k">in </span>nvidia-video-G06</code></pre></figure>
 
+<p>On <code class="language-plaintext highlighter-rouge">Secure Boot</code> systems you still need to import the <code class="language-plaintext highlighter-rouge">certificate</code>, so you can later <code class="language-plaintext highlighter-rouge">enroll</code> it right after reboot in the <code class="language-plaintext highlighter-rouge">MOK-Manager</code> by using your <code class="language-plaintext highlighter-rouge">root</code> password.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">mokutil <span class="nt">--import</span> /var/lib/dkms/mok.pub <span class="nt">--root-pw</span></code></pre></figure>
+
+<p>Otherwise your freshly built kernel modules can’t be loaded by your kernel later.</p>
+
 <h4 id="use-proprietary-dkms-kernel-driver-on-maxwell--gpu--turing">Use <code class="language-plaintext highlighter-rouge">Proprietary</code> DKMS Kernel driver on <code class="language-plaintext highlighter-rouge">Maxwell</code> &lt;= GPU &lt; <code class="language-plaintext highlighter-rouge">Turing</code></h4>
 
 <p>For <code class="language-plaintext highlighter-rouge">Maxwell</code>, <code class="language-plaintext highlighter-rouge">Pascal</code> and <code class="language-plaintext highlighter-rouge">Volta</code> you need to use the <code class="language-plaintext highlighter-rouge">Proprietary</code> DKMS Kernel driver.</p>
@@ -193,11 +199,11 @@ zypper <span class="k">in </span>cuda-demo-suite-<span class="k">${</span><span 
 
 <p>In case you got lost in a mess of nvidia driver packages for different driver versions the best way to figure out what the current state the system is in is to run:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">rpm <span class="nt">-qa</span> | <span class="nb">grep</span> <span class="nt">-e</span> ^nvidia <span class="nt">-e</span> ^libnvidia | <span class="nb">sort</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">rpm <span class="nt">-qa</span> | <span class="nb">grep</span> <span class="nt">-e</span> ^nvidia <span class="nt">-e</span> ^libnvidia | <span class="nb">grep</span> <span class="nt">-v</span> container | <span class="nb">sort</span></code></pre></figure>
 
 <p>Often then the best approach is to begin from scratch, i.e remove all the nvidia driver packages by running:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">rpm <span class="nt">-e</span> <span class="si">$(</span>rpm <span class="nt">-qa</span> | <span class="nb">grep</span> <span class="nt">-e</span> ^nvidia <span class="nt">-e</span> ^libnvidia<span class="si">)</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">rpm <span class="nt">-e</span> <span class="si">$(</span>rpm <span class="nt">-qa</span> | <span class="nb">grep</span> <span class="nt">-e</span> ^nvidia <span class="nt">-e</span> ^libnvidia | <span class="nb">grep</span> <span class="nt">-v</span> container<span class="si">)</span></code></pre></figure>
 
 <p>Then follow (again) the instructions above for installing the driver using the GFX or CUDA Repository.</p>
 
