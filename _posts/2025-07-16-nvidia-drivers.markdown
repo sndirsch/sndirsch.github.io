@@ -118,6 +118,13 @@ zypper in nvidia-compute-utils-G06
 zypper in nvidia-video-G06
 {% endhighlight %}
 
+On `Secure Boot` systems you still need to import the `certificate`, so you can later `enroll` it right after reboot in the `MOK-Manager` by using your `root` password.
+
+{% highlight shell %}
+mokutil --import /var/lib/dkms/mok.pub --root-pw
+{% endhighlight %}
+
+Otherwise your freshly built kernel modules can't be loaded by your kernel later.
 
 #### Use `Proprietary` DKMS Kernel driver on `Maxwell` <= GPU < `Turing`
 
@@ -173,13 +180,13 @@ For others - usually running `openSUSE Leap/Tumbleweed` - it's fine to use `GFX 
 In case you got lost in a mess of nvidia driver packages for different driver versions the best way to figure out what the current state the system is in is to run:
 
 {% highlight shell %}
-rpm -qa | grep -e ^nvidia -e ^libnvidia | sort
+rpm -qa | grep -e ^nvidia -e ^libnvidia | grep -v container | sort
 {% endhighlight %}
 
 Often then the best approach is to begin from scratch, i.e remove all the nvidia driver packages by running:
 
 {% highlight shell %}
-rpm -e $(rpm -qa | grep -e ^nvidia -e ^libnvidia)
+rpm -e $(rpm -qa | grep -e ^nvidia -e ^libnvidia | grep -v container)
 {% endhighlight %}
 
 Then follow (again) the instructions above for installing the driver using the GFX or CUDA Repository.
