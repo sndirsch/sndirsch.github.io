@@ -98,7 +98,7 @@ zypper in nvidia-open-driver-G06-signed-cuda-kmp-default
 version=$(rpm -qa --queryformat '%{VERSION}\n' nvidia-open-driver-G06-signed-cuda-kmp-default | cut -d "_" -f1 | sort -u | tail -n 1)
 
 # Install CUDA drivers
-zypper in nvidia-compute-utils-G06 == ${version} 
+zypper in nvidia-compute-utils-G06 == ${version} nvidia-persistenced == ${version}
 # Install Desktop drivers
 zypper in nvidia-video-G06 == ${version}
 {% endhighlight %}
