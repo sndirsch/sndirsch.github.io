@@ -149,9 +149,9 @@ The following commands will install `CUDA` packages themselves. It describes a r
 
 {% highlight shell %}
 # Kernel driver being installed via GFX Repo
-cuda_version=12-8
+cuda_version=13-0
 # Kernel driver being installed via CUDA Repo
-cuda_version=12-9
+cuda_version=13-0
 
 # Regular installation
 zypper in cuda-toolkit-${cuda_version}
@@ -161,7 +161,7 @@ zypper in cuda-libraries-${cuda_version}
 # Unfortunately the following package is not available for aarch64,
 # but there are CUDA samples available on GitHub, which can be
 # compiled from source: https://github.com/nvidia/cuda-samples
-zypper in cuda-demo-suite-${cuda_version}
+zypper in cuda-demo-suite-12-9
 {% endhighlight %}
 
 Let’s have a first test for using `libcuda` (only available on x86_64).
