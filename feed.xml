@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-09-06T13:56:12+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-09-06T13:52:13+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-10-07T13:40:24+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-10-07T13:37:46+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
 
 <ul>
   <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-supported?expand=1">Maxwell, Pascal, Volta</a> (<code class="language-plaintext highlighter-rouge">Proprietary</code> Kernel driver)</li>
@@ -123,9 +123,9 @@ zypper <span class="k">in </span>nvidia-video-G06</code></pre></figure>
 <p>The following commands will install <code class="language-plaintext highlighter-rouge">CUDA</code> packages themselves. It describes a regular and minimal installation. In addition it makes it easy to do first tests with <code class="language-plaintext highlighter-rouge">CUDA</code>. Depending on which Kernel driver is being used it may be needed to install different <code class="language-plaintext highlighter-rouge">CUDA</code> versions.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Kernel driver being installed via GFX Repo</span>
-<span class="nv">cuda_version</span><span class="o">=</span>12-8
+<span class="nv">cuda_version</span><span class="o">=</span>13-0
 <span class="c"># Kernel driver being installed via CUDA Repo</span>
-<span class="nv">cuda_version</span><span class="o">=</span>12-9
+<span class="nv">cuda_version</span><span class="o">=</span>13-0
 
 <span class="c"># Regular installation</span>
 zypper <span class="k">in </span>cuda-toolkit-<span class="k">${</span><span class="nv">cuda_version</span><span class="k">}</span>
@@ -135,7 +135,7 @@ zypper <span class="k">in </span>cuda-libraries-<span class="k">${</span><span c
 <span class="c"># Unfortunately the following package is not available for aarch64,</span>
 <span class="c"># but there are CUDA samples available on GitHub, which can be</span>
 <span class="c"># compiled from source: https://github.com/nvidia/cuda-samples</span>
-zypper <span class="k">in </span>cuda-demo-suite-<span class="k">${</span><span class="nv">cuda_version</span><span class="k">}</span></code></pre></figure>
+zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
 
 <p>Let’s have a first test for using <code class="language-plaintext highlighter-rouge">libcuda</code> (only available on x86_64).</p>
 
