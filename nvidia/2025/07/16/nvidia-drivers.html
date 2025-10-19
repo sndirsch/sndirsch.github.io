@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Installation of NVIDIA drivers on openSUSE and SLE" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-07T13:37:46+00:00","datePublished":"2025-07-16T00:00:00+00:00","description":"This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.","headline":"Installation of NVIDIA drivers on openSUSE and SLE","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2025/07/16/nvidia-drivers.html"},"url":"/nvidia/2025/07/16/nvidia-drivers.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-19T18:48:55+00:00","datePublished":"2025-07-16T00:00:00+00:00","description":"This blogpost covers only installation of G06 drivers, i.e. drivers for GPUs &gt;= Maxwell, i.e.","headline":"Installation of NVIDIA drivers on openSUSE and SLE","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2025/07/16/nvidia-drivers.html"},"url":"/nvidia/2025/07/16/nvidia-drivers.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -43,7 +43,7 @@
     <h1 class="post-title p-name" itemprop="name headline">Installation of NVIDIA drivers on openSUSE and SLE</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2025-07-16T00:00:00+00:00" itemprop="datePublished">Jul 16, 2025
-      </time>• <span class="dt-modified">Last updated on Oct 7, 2025</span></p>
+      </time>• <span class="dt-modified">Last updated on Oct 19, 2025</span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -194,6 +194,29 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
 <p>Good question! Not so easy to answer. If you rely on support from <code class="language-plaintext highlighter-rouge">NVIDIA</code> (especially when using <code class="language-plaintext highlighter-rouge">SLE</code>), for <code class="language-plaintext highlighter-rouge">Compute</code> usage we strongly recommend to use the <code class="language-plaintext highlighter-rouge">CUDA Repository</code> for <code class="language-plaintext highlighter-rouge">NVIDIA</code> driver installation. Even if you use <code class="language-plaintext highlighter-rouge">NVIDIA</code> Desktop drivers as well.</p>
 
 <p>For others - usually running <code class="language-plaintext highlighter-rouge">openSUSE Leap/Tumbleweed</code> - it’s fine to use <code class="language-plaintext highlighter-rouge">GFX Repository</code> for <code class="language-plaintext highlighter-rouge">NVIDIA</code> driver installation and adding <code class="language-plaintext highlighter-rouge">CUDA Repository</code> for installing <code class="language-plaintext highlighter-rouge">CUDA</code> packages.</p>
+
+<h3 id="known-issues">Known issues</h3>
+<p>Once you have added the <code class="language-plaintext highlighter-rouge">CUDA Repository</code> it may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:</p>
+
+<ul>
+  <li>nvidia-gfxG05-kmp-default  535.x</li>
+  <li>nvidia-open-gfxG05-kmp-default  535.x</li>
+  <li>nvidia-open-driver-G06-kmp-default  570.x</li>
+  <li>nvidia-driver-G06-kmp-default  570.x</li>
+  <li>nvidia-open-driver-G06</li>
+</ul>
+
+<p>In order to avoid mistakenly installing them add package locks for them with zypper.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper addlock nvidia-gfxG05-kmp-default
+zypper addlock nvidia-open-gfxG05-kmp-default
+zypper addlock nvidia-open-driver-G06-kmp-default
+<span class="c"># only if you have Turing and higher, i.e. use Open Kernel driver</span>
+zypper addlock nvidia-driver-G06-kmp-default
+<span class="c"># unless you plan to use the DKMS Open driver package from CUDA repository</span>
+zypper addlock nvidia-open-driver-G06</code></pre></figure>
+
+<p>In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.</p>
 
 <h3 id="troubleshooting">Troubleshooting</h3>
 
