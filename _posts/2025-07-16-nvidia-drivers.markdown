@@ -175,6 +175,29 @@ Good question! Not so easy to answer. If you rely on support from `NVIDIA` (espe
 
 For others - usually running `openSUSE Leap/Tumbleweed` - it's fine to use `GFX Repository` for `NVIDIA` driver installation and adding `CUDA Repository` for installing `CUDA` packages.
 
+### Known issues
+Once you have added the `CUDA Repository` it may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:
+
+* nvidia-gfxG05-kmp-default  535.x
+* nvidia-open-gfxG05-kmp-default  535.x
+* nvidia-open-driver-G06-kmp-default  570.x
+* nvidia-driver-G06-kmp-default  570.x
+* nvidia-open-driver-G06
+
+In order to avoid mistakenly installing them add package locks for them with zypper.
+
+{% highlight shell %}
+zypper addlock nvidia-gfxG05-kmp-default
+zypper addlock nvidia-open-gfxG05-kmp-default
+zypper addlock nvidia-open-driver-G06-kmp-default
+# only if you have Turing and higher, i.e. use Open Kernel driver
+zypper addlock nvidia-driver-G06-kmp-default
+# unless you plan to use the DKMS Open driver package from CUDA repository
+zypper addlock nvidia-open-driver-G06
+{% endhighlight %}
+
+In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.
+
 ### Troubleshooting
 
 In case you got lost in a mess of nvidia driver packages for different driver versions the best way to figure out what the current state the system is in is to run:
