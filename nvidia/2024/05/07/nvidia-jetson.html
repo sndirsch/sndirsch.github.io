@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-04-16T14:58:44+00:00","datePublished":"2024-05-07T00:00:00+00:00","description":"This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano.","headline":"How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2024/05/07/nvidia-jetson.html"},"url":"/nvidia/2024/05/07/nvidia-jetson.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-10-20T20:00:09+00:00","datePublished":"2024-05-07T00:00:00+00:00","description":"This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano.","headline":"How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2024/05/07/nvidia-jetson.html"},"url":"/nvidia/2024/05/07/nvidia-jetson.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -43,7 +43,7 @@
     <h1 class="post-title p-name" itemprop="name headline">How to install SLE-15-SP6 on NVIDIA&#39;s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2024-05-07T00:00:00+00:00" itemprop="datePublished">May 7, 2024
-      </time>• <span class="dt-modified">Last updated on Apr 16, 2025</span></p>
+      </time>• <span class="dt-modified">Last updated on Oct 20, 2025</span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -496,6 +496,7 @@ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc<
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Jetson AGX Orin</span>
 <span class="nb">sudo </span>nvpmodel <span class="nt">-m</span> 0
 <span class="c"># Jetson Orin Nano</span>
+<span class="nb">sudo ln</span> <span class="nt">-snf</span> nvpmodel/nvpmodel_p3767_0003_super.conf /etc/nvpmodel.conf
 <span class="nb">sudo </span>nvpmodel <span class="nt">-m</span> 2</code></pre></figure>
 
 <p>Afterwards on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> you need to reboot the system though.</p>
@@ -510,7 +511,7 @@ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc<
 
 <h4 id="jetson-orin-nano-super-mode">Jetson Orin Nano: Super Mode</h4>
 
-<p>Unfortunately <code class="language-plaintext highlighter-rouge">Super</code> mode of <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> needs Jetpack 6.2/36.4.3 for Firmware, KMP drivers and userspace. We’re currently working on providing these as easily installable packages in addition to our packages for Jetpack 6.1/36.4.0. This document will be updated accordingly once these are available. Therefore currently when trying to switch Jetson Orin Nano into <code class="language-plaintext highlighter-rouge">Super</code> mode with</p>
+<p>Unfortunately <code class="language-plaintext highlighter-rouge">Super</code> mode of <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> needs Jetpack 6.2.1/36.4.4 for Firmware, KMP drivers and userspace. We’re currently working on providing these as easily installable packages in addition to our packages for Jetpack 6.1/36.4.0. This document will be updated accordingly once these are available. Therefore currently when trying to switch Jetson Orin Nano into <code class="language-plaintext highlighter-rouge">Super</code> mode with</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nvpmodel <span class="nt">-m</span> 2</code></pre></figure>
 
