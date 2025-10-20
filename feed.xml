@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-10-19T18:52:03+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-10-19T18:48:55+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-10-20T13:16:28+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-10-20T13:14:13+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
 
 <ul>
   <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-supported?expand=1">Maxwell, Pascal, Volta</a> (<code class="language-plaintext highlighter-rouge">Proprietary</code> Kernel driver)</li>
@@ -147,6 +147,9 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
 <p>For others - usually running <code class="language-plaintext highlighter-rouge">openSUSE Leap/Tumbleweed</code> - it’s fine to use <code class="language-plaintext highlighter-rouge">GFX Repository</code> for <code class="language-plaintext highlighter-rouge">NVIDIA</code> driver installation and adding <code class="language-plaintext highlighter-rouge">CUDA Repository</code> for installing <code class="language-plaintext highlighter-rouge">CUDA</code> packages.</p>
 
 <h3 id="known-issues">Known issues</h3>
+
+<h4 id="cuda-repository-1">CUDA Repository</h4>
+
 <p>Once you have added the <code class="language-plaintext highlighter-rouge">CUDA Repository</code> it may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:</p>
 
 <ul>
@@ -166,6 +169,22 @@ zypper addlock nvidia-open-driver-G06-kmp-default
 zypper addlock nvidia-driver-G06-kmp-default
 <span class="c"># unless you plan to use the DKMS Open driver package from CUDA repository</span>
 zypper addlock nvidia-open-driver-G06</code></pre></figure>
+
+<p>In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.</p>
+
+<h4 id="tumbleweed">Tumbleweed</h4>
+
+<p>On Tumbleweed it may happen that some legacy driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:</p>
+
+<ul>
+  <li>nvidia-gfxG04-kmp-default</li>
+  <li>nvidia-gfxG05-kmp-default</li>
+</ul>
+
+<p>In order to avoid mistakenly installing them add package locks for them with zypper.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper addlock nvidia-gfxG04-kmp-default
+zypper addlock nvidia-gfxG05-kmp-default</code></pre></figure>
 
 <p>In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.</p>
 
