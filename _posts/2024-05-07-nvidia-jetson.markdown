@@ -532,6 +532,7 @@ For maximum performance you also need to set `MaxN/MaxN_Super` Power. This can b
 # Jetson AGX Orin
 sudo nvpmodel -m 0
 # Jetson Orin Nano
+sudo ln -snf nvpmodel/nvpmodel_p3767_0003_super.conf /etc/nvpmodel.conf
 sudo nvpmodel -m 2
 {% endhighlight %}
 
@@ -551,7 +552,7 @@ sudo nvpmodel -q
 
 ####  Jetson Orin Nano: Super Mode
 
-Unfortunately `Super` mode of `Jetson Orin Nano` needs Jetpack 6.2/36.4.3 for Firmware, KMP drivers and userspace. We're currently working on providing these as easily installable packages in addition to our packages for Jetpack 6.1/36.4.0. This document will be updated accordingly once these are available. Therefore currently when trying to switch Jetson Orin Nano into `Super` mode with 
+Unfortunately `Super` mode of `Jetson Orin Nano` needs Jetpack 6.2.1/36.4.4 for Firmware, KMP drivers and userspace. We're currently working on providing these as easily installable packages in addition to our packages for Jetpack 6.1/36.4.0. This document will be updated accordingly once these are available. Therefore currently when trying to switch Jetson Orin Nano into `Super` mode with
 
 {% highlight shell %}
 sudo nvpmodel -m 2
