@@ -53,7 +53,7 @@ Updating the firmware on `Jetson Orin Nano` is similar to the process above for 
 
 Unfortunately the board automation tools do not support `Jetson Orin Nano`. Therefore for switching this device in recovery mode instead of running `boardctl` you need to connect two pins or put a jumper on both respectively. These are the pins 9/10 (GND/FC REC) of the 12-pin `J14` "button" header of carrier board located under the Jetson module (right below the fan next to the SD card slot).
 
-So disconnect `Jetson AGX Orin` from power, then connect these pins and then reconnect power. With that the device should be in Recovery mode. Connect an USB cable to the Type-C port of `Jetson AGX Orin` and check if it is now in Recovery mode.
+So disconnect `Jetson Orin Nano` from power, then connect these pins and then reconnect power. With that the device should be in Recovery mode. Connect an USB cable to the Type-C port of `Jetson Orin Nano` and check if it is now in Recovery mode.
 
 {% highlight shell %}
 lsusb
@@ -68,7 +68,7 @@ Now flash your firmware. Make sure you have package `dtc` installed, because the
 sudo ./flash.sh p3768-0000-p3767-0000-a0-qspi external
 {% endhighlight %}
 
-Disconnect `Jetson AGX Orin` from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.4.0-gcid-XXXXXXXX`.
+Disconnect `Jetson Orin Nano` from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.4.0-gcid-XXXXXXXX`.
 
 ### Serial Console on Jetson Orin Nano
 
