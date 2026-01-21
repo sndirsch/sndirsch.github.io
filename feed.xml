@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2025-11-06T15:04:24+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2025-10-20T13:14:13+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-01-21T22:29:24+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2026-01-21T22:24:44+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G06</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Maxwell</code>, i.e.</p>
 
 <ul>
   <li><a href="https://build.opensuse.org/projects/X11:Drivers:Video:Redesign/packages/nvidia-driver-G06/files/pci_ids-supported?expand=1">Maxwell, Pascal, Volta</a> (<code class="language-plaintext highlighter-rouge">Proprietary</code> Kernel driver)</li>
@@ -187,6 +187,12 @@ zypper addlock nvidia-open-driver-G06</code></pre></figure>
 zypper addlock nvidia-gfxG05-kmp-default</code></pre></figure>
 
 <p>In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.</p>
+
+<h4 id="leap-156">Leap 15.6</h4>
+
+<p>On Leap 15.6 when doing a <code class="language-plaintext highlighter-rouge">zypper dup</code> this may result in a proposal to dowgrade the driver packages to some older 570 version and switching to <code class="language-plaintext highlighter-rouge">-azure</code> kernel flavor at the same time. The culprit for this issue is currently unknown, but you can prevent it from happening by adding a package lock with zypper.</p>
+
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper addlock nvidia-open-driver-G06-signed-kmp-azure</code></pre></figure>
 
 <h3 id="troubleshooting">Troubleshooting</h3>
 
