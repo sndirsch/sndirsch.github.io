@@ -217,6 +217,14 @@ zypper addlock nvidia-gfxG05-kmp-default
 
 In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.
 
+#### Leap 15.6
+
+On Leap 15.6 when doing a `zypper dup` this may result in a proposal to dowgrade the driver packages to some older 570 version and switching to `-azure` kernel flavor at the same time. The culprit for this issue is currently unknown, but you can prevent it from happening by adding a package lock with zypper.
+
+{% highlight shell %}
+zypper addlock nvidia-open-driver-G06-signed-kmp-azure
+{% endhighlight %}
+
 ### Troubleshooting
 
 In case you got lost in a mess of nvidia driver packages for different driver versions the best way to figure out what the current state the system is in is to run:
