@@ -55,9 +55,9 @@ zypper in nvidia-open-driver-G07-signed-kmp-meta
 
 The following graphics explains the installation and package dependancies. Zoom in for better reading.
 
-TODO: Update graphic
-
 ![gfx-repo](/assets/2025-07-16-gfx-repo.svg)
+
+Once `in-sync` becomes `latest` driver version, i.e the `nvidia-open-driver-G07-kmp-<flavor>` of `latest` driver has been released for your product and `nvidia-open-driver-G07-kmp-meta` has been updated accordingly all remaining userspace driver packages (`nvidia-video-G07`, `nvidia-compute-utils-G07` and dependancies) get updated to `latest` driver version.
 
 ### CUDA Repository
 
@@ -155,9 +155,15 @@ Good question! Not so easy to answer. If you rely on support from `NVIDIA` (espe
 
 For others - usually running `openSUSE Leap/Tumbleweed` - it's fine to use `GFX Repository` for `NVIDIA` driver installation and adding `CUDA Repository` for installing `CUDA` packages.
 
-### Migration from G06 to G07 drivers
+### Migration from G06 to G07 Open drivers
 
-TODO
+Migration from G06 `Open` drivers to G07 is a manual step. Uninstall all NVIDIA driver packages first:
+
+{% highlight shell %}
+rpm -e $(rpm -qa | grep -e ^nvidia -e ^libnvidia | grep -v container)
+{% endhighlight %}
+
+Then install G07 `Open` drivers as described in the sections above.
 
 ### Known issues
 
