@@ -8,12 +8,12 @@ This covers the installation of updated Kernel, out-of-tree nvidia kernel module
 
 ### Firmware Update on Jetson AGX Orin
 
-On `Jetson AGX Orin` first update the firmware to Jetpack 6.1/36.4.0.
+On `Jetson AGX Orin` first update the firmware to Jetpack 6.2.2/36.5.0.
 
-Download [Driver Package (BSP)][driver-pkg-bsp-jetson] from this [location][jetpack6-website-jetson]. Extract `Jetson_Linux_R36.4.0_aarch64.tbz2`.
+Download [Driver Package (BSP)][driver-pkg-bsp-jetson] from this [location][jetpack6-website-jetson]. Extract `Jetson_Linux_r36.5.0_aarch64.tbz`.
 
 {% highlight shell %}
-tar xf Jetson_Linux_R36.4.0_aarch64.tbz2
+tar xf Jetson_Linux_r36.5.0_aarch64.tbz
 {% endhighlight %}
 
 Then connect with two cables your computer to the Micro-USB port and Type-C port (next to the 40pin connector) of `Jetson AGX Orin`.
@@ -45,7 +45,7 @@ Reboot `Jetson AGX Orin`.
 sudo ./tools/board_automation/boardctl -t topo power_on
 {% endhighlight %}
 
-After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.4.0-gcid-XXXXXXXX`.
+After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.5.0-gcid-XXXXXXXX`.
 
 ### Firmware Update on Jetson Orin Nano
 
@@ -68,7 +68,7 @@ Now flash your firmware. Make sure you have package `dtc` installed, because the
 sudo ./flash.sh p3768-0000-p3767-0000-a0-qspi external
 {% endhighlight %}
 
-Disconnect `Jetson Orin Nano` from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.4.0-gcid-XXXXXXXX`.
+Disconnect `Jetson Orin Nano` from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version `36.5.0-gcid-XXXXXXXX`.
 
 ### Serial Console on Jetson Orin Nano
 
@@ -96,21 +96,21 @@ This setting for `SOC Display Hand-Off Mode` will change automatically to `Never
 
 #### Installation
 
-Once grub starts you need to edit the grub entry `Installation`. Press `e` for doing this and add `console=tty0 exec="date -s 2025-01-27"` (when using a connected monitor for intallation) or `exec="date -s 2025-01-27"` (when installing on a serial console and add also `console=ttyTCU0,115200` on `Jetson Orin Nano`) to the `linux [...]` line. Replace `2025-01-27` with the current date.
+Once grub starts you need to edit the grub entry `Installation`. Press `e` for doing this and add `console=tty0 exec="date -s 2026-02-20"` (when using a connected monitor for intallation) or `exec="date -s 2026-02-20"` (when installing on a serial console and add also `console=ttyTCU0,115200` on `Jetson Orin Nano`) to the `linux [...]` line. Replace `2026-02-20` with the current date.
 
 {% highlight shell %}
 ### When using a connected monitor for intallation
 [...]
-linux /boot/aarch64/linux splash=silent console=tty0 exec="date -s 2025-01-27"
+linux /boot/aarch64/linux splash=silent console=tty0 exec="date -s 2026-02-20"
 [...]
 {% endhighlight %}
 
 {% highlight shell %}
 ### When installing on a serial console
 [...]
-linux /boot/aarch64/linux splash=silent exec="date -s 2025-01-27"
+linux /boot/aarch64/linux splash=silent exec="date -s 2026-02-20"
 # On Jetson Orin Nano
-linux /boot/aarch64/linux splash=silent console=ttyTCU0,115200 exec="date -s 2025-01-27"
+linux /boot/aarch64/linux splash=silent console=ttyTCU0,115200 exec="date -s 2026-02-20"
 [...]
 {% endhighlight %}
 
@@ -147,8 +147,8 @@ The KMP is available as a driver kit via the SolidDriver Program. For installati
 {% highlight shell %}
 # flavor either default or 64kb (check with `uname -r` command)
 sudo zypper up kernel-<flavor>
-sudo zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.1/sle-15-sp6-aarch64/1.0/install jetson-kmp
-sudo zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.1/sle-15-sp6-aarch64/1.0/update  jetson-kmp-update
+sudo zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.2.2/sle-15-sp6-aarch64/1.0/install jetson-kmp
+sudo zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.2.2/sle-15-sp6-aarch64/1.0/update  jetson-kmp-update
 sudo zypper ref
 sudo zypper in -r jetson-kmp nvidia-jetson-kmp-<flavor>
 {% endhighlight %}
@@ -172,7 +172,7 @@ sudo zypper in -r jetson-kmp nvidia-igx-kmp-<flavor>
 Please install userspace on these devices by using the following commands:
 
 {% highlight shell %}
-sudo zypper ar https://repo.download.nvidia.com/jetson/sle15-sp6/jp6.1/ jetson-userspace 
+sudo zypper ar https://repo.download.nvidia.com/jetson/sle15-sp6/jp6.2.2/ jetson-userspace
 sudo zypper ref 
 sudo zypper in nvidia-jetpack-all
 {% endhighlight %}
@@ -532,7 +532,6 @@ For maximum performance you also need to set `MaxN/MaxN_Super` Power. This can b
 # Jetson AGX Orin
 sudo nvpmodel -m 0
 # Jetson Orin Nano
-sudo ln -snf nvpmodel/nvpmodel_p3767_0003_super.conf /etc/nvpmodel.conf
 sudo nvpmodel -m 2
 {% endhighlight %}
 
@@ -548,23 +547,11 @@ In order to check for the current value run
 sudo nvpmodel -q
 {% endhighlight %}
 
-### Known Issues
-
-####  Jetson Orin Nano: Super Mode
-
-Unfortunately `Super` mode of `Jetson Orin Nano` needs Jetpack 6.2.1/36.4.4 for Firmware, KMP drivers and userspace. We're currently working on providing these as easily installable packages in addition to our packages for Jetpack 6.1/36.4.0. This document will be updated accordingly once these are available. Therefore currently when trying to switch Jetson Orin Nano into `Super` mode with
-
-{% highlight shell %}
-sudo nvpmodel -m 2
-{% endhighlight %}
-
-you'll get an error message. Of course the other non-`Super` modes on `Jetson Orin Nano` are still available and working.
-
 [image]: https://www.suse.com/download/sles/
 [buildstatus]: https://build.opensuse.org/project/monitor/X11:XOrg
-[jetpack6-website-jetson]: https://developer.nvidia.com/embedded/jetson-linux-r3640
+[jetpack6-website-jetson]: https://developer.nvidia.com/embedded/jetson-linux-r365
 [jetpack6-website]: https://developer.nvidia.com/igx-downloads
-[driver-pkg-bsp-jetson]: https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.0/release/Jetson_Linux_R36.4.0_aarch64.tbz2
+[driver-pkg-bsp-jetson]: https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v5.0/release/Jetson_Linux_r36.5.0_aarch64.tbz2
 [driver-pkg-bsp]: https://developer.nvidia.com/downloads/igx/v1.1.1/Jetson_Linux_R36.4.5_aarch64.tbz2
 [container]: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-jetpack
 [container-toolkit]: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html
