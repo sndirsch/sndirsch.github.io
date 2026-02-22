@@ -7,15 +7,15 @@ categories: nvidia
 
 ### Important
 
-This document explains how to install new `G07 NVIDIA` drivers. It is temporarily available as long as the content of the current [document][g06-doc] for installation of `G06 NVIDIA` drivers is still needed.
+This blogpost explains how to install new `G07 NVIDIA` drivers. It is temporarily available as long as the content of the current [blogpost][g06-doc] for installation of `G06 NVIDIA` drivers is still needed.
 
 The availability of `G07 NVIDIA` driver packages will happen soon. 
 
-Currently this document can be used for the following `openSUSE` and `SLE` products:
+Currently this blogpost can be used for the following `openSUSE` and `SLE` products:
 
 * (empty list)
 
-For the following `openSUSE` and `SLE` products you still need to use the current [document][g06-doc]  for installation of `G06 NVIDIA` drivers:
+For the following `openSUSE` and `SLE` products you still need to use the current [blogpost][g06-doc]  for installation of `G06 NVIDIA` drivers:
 
 * `openSUSE Tumbleweed`
 * `Leap 15.6` / `SLE 15 SP6`
