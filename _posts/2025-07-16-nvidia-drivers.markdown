@@ -61,24 +61,30 @@ Once `in-sync` becomes `latest` driver version, i.e the `nvidia-open-driver-G07-
 
 ### CUDA Repository
 
-Add the repository if it hasn't been added yet. On `SLE15` it might have already been added as a`Module`. So check first:
+Add the repository if it hasn't been added yet. On `SLE15/SLE16` it might have already been added as a`Module`. So check first:
 
 {% highlight shell %}
-# openSUSE Leap/Tumbleweed
+# openSUSE Leap 15.6
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/opensuse15
-# SLE
+# SLE15
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/sles15
+# SLE16/Leap 16.x/Tumbleweed
+zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/suse16
 {% endhighlight %}
 
 Verify that the repository is enabled. If the output is empty add the repository now:
 
 {% highlight shell %}
-# Leap 15.6/16.0/16.1(Beta)/Tumbleweed
+# Leap 15.6
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse15/x86_64/  cuda
-# SLE15-SPx/SLE16/SLE16.1(Beta) (x86_64)
+# SLE15-SPx (x86_64)
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
-# SLE15-SPx/SLE16/SLE16.1(Beta) (aarch64)
+# SLE15-SPx (aarch64)
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
+# SLE16/SLE16.1(Beta)/Leap 16.0/16.1(Beta)/Tumbleweed (x86_64)
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/suse16/x86_64/  cuda
+# SLE16/SLE16.1(Beta)/Leap 16.0/16.1(Beta)/Tumbleweed (aarch64)
+zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/suse16/sbsa/  cuda
 {% endhighlight %}
 
 #### Use `Open` prebuilt/secureboot-signed Kernel driver
@@ -129,9 +135,9 @@ The following commands will install `CUDA` packages themselves. It describes a r
 
 {% highlight shell %}
 # Kernel driver being installed via GFX Repo
-cuda_version=13-1
+cuda_version=13-2
 # Kernel driver being installed via CUDA Repo
-cuda_version=13-1
+cuda_version=13-2
 
 # Regular installation
 zypper in cuda-toolkit-${cuda_version}
