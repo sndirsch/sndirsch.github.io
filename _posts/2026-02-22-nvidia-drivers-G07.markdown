@@ -13,13 +13,13 @@ We're currently in the release process of `G07 NVIDIA` driver packages.
 
 At that moment this blogpost can be used for the following `openSUSE` and `SLE` products:
 
+* `Leap 16.0` / `SLE 16`
 * `openSUSE Tumbleweed`
 
 For the following `openSUSE` and `SLE` products you still need to use the current [blogpost][g06-doc]  for installation of `G06 NVIDIA` drivers:
 
 * `Leap 15.6` / `SLE 15 SP6`
 * `SLE 15 SP7`
-* `Leap 16.0` / `SLE 16`
 
 Both lists above are updated when `G07 NVIDIA` driver packages are becoming available for the appropriate products.
 
