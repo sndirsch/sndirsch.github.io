@@ -33,3 +33,9 @@ gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 gem "jekyll-last-modified-at"
+
+# needed with ruby 3.4/Leap 16.0
+gem 'csv'
+gem 'base64'
+gem 'bigdecimal'
+gem 'webrick' # Jekyll's local server also needs this in Ruby 3+
