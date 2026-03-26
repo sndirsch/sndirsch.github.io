@@ -193,40 +193,48 @@ Then install G07 `Open` drivers as described in the sections above.
 
 ### Known issues
 
-#### CUDA Repository
+#### Mistakenly selected/installed packages
 
-Once you have added the `CUDA Repository` it may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:
+It may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:
 
-* nvidia-gfxG05-kmp-default  535.x
-* nvidia-open-gfxG05-kmp-default  535.x
-* nvidia-open-driver-G06-kmp-default  570.x
-* nvidia-driver-G06-kmp-default  570.x
-* nvidia-open-driver-G06
+##### On Leap 15.6/SLE15-SP6, SLE16 and Tumbleweed
 
-In order to avoid mistakenly installing them add package locks for them with zypper.
+* nvidia-open-driver-G06-signed-kmp-meta 580.xxx.yy (GFX repo)
 
-{% highlight shell %}
-zypper addlock nvidia-gfxG05-kmp-default
-zypper addlock nvidia-open-gfxG05-kmp-default
-zypper addlock nvidia-open-driver-G06-kmp-default
-zypper addlock nvidia-driver-G06-kmp-default
-zypper addlock nvidia-open-driver-G06
-{% endhighlight %}
+##### On Leap 15.6/SLE15-SP6 and Tumbleweed
 
-In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.
+* nvidia-driver-G06-kmp-default 550.xxx.yy/570.xxx.yy (GFX repo)
+* nvidia-open-driver-G07 595.xx.yy (CUDA repo)
 
-#### Tumbleweed
+##### On Leap 15.6/SLE15-SP6
 
-On Tumbleweed it may happen that some legacy driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:
+* nvidia-open-driver-G06 580.xxx.yy (CUDA repo)
+* nvidia-open-driver-G06-kmp-default  570.xxx.yy (CUDA repo)
+* nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6)
 
-* nvidia-gfxG04-kmp-default
-* nvidia-gfxG05-kmp-default
+##### On Tumbleweed
+
+* nvidia-gfxG05-kmp-default 470.xxx.yy (GFX repo)
 
 In order to avoid mistakenly installing them add package locks for them with zypper.
 
 {% highlight shell %}
-zypper addlock nvidia-gfxG04-kmp-default
-zypper addlock nvidia-gfxG05-kmp-default
+# Leap 15.6/SLE15-SP6
+zypper addlock \
+  nvidia-open-driver-G06-signed-kmp-meta \
+  nvidia-driver-G06-kmp-default \
+  nvidia-open-driver-G07 \
+  nvidia-open-driver-G06 \
+  nvidia-open-driver-G06-kmp-default \
+  nvidia-open-driver-G06-signed-kmp-default
+# SLE16
+zypper addlock nvidia-open-driver-G06-signed-kmp-meta
+# Tumbleweed
+zypper addlock \
+  nvidia-open-driver-G06-signed-kmp-meta \
+  nvidia-driver-G06-kmp-default \
+  nvidia-open-driver-G07 \
+  nvidia-gfxG05-kmp-default
 {% endhighlight %}
 
 In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.
