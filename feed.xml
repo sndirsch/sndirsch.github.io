@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-03-21T09:55:55+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE (G07)</title><link href="/nvidia/2026/02/22/nvidia-drivers-G07.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE (G07)" /><published>2026-02-22T00:00:00+00:00</published><updated>2026-03-20T23:55:55+00:00</updated><id>/nvidia/2026/02/22/nvidia-drivers-G07</id><content type="html" xml:base="/nvidia/2026/02/22/nvidia-drivers-G07.html"><![CDATA[<h3 id="important">Important</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-03-26T12:28:48+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE (G07)</title><link href="/nvidia/2026/02/22/nvidia-drivers-G07.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE (G07)" /><published>2026-02-22T00:00:00+00:00</published><updated>2026-03-26T12:27:01+00:00</updated><id>/nvidia/2026/02/22/nvidia-drivers-G07</id><content type="html" xml:base="/nvidia/2026/02/22/nvidia-drivers-G07.html"><![CDATA[<h3 id="important">Important</h3>
 
 <p>This blogpost explains how to install new <code class="language-plaintext highlighter-rouge">G07 NVIDIA</code> drivers. It is temporarily available as long as the content of the current <a href="https://sndirsch.github.io/nvidia/2025/07/16/nvidia-drivers.html">blogpost</a> for installation of <code class="language-plaintext highlighter-rouge">G06 NVIDIA</code> drivers is still needed.</p>
 
@@ -7,6 +7,7 @@
 <p>At that moment this blogpost can be used for the following <code class="language-plaintext highlighter-rouge">openSUSE</code> and <code class="language-plaintext highlighter-rouge">SLE</code> products:</p>
 
 <ul>
+  <li><code class="language-plaintext highlighter-rouge">Leap 15.6</code> / <code class="language-plaintext highlighter-rouge">SLE 15 SP6</code></li>
   <li><code class="language-plaintext highlighter-rouge">Leap 16.0</code> / <code class="language-plaintext highlighter-rouge">SLE 16</code></li>
   <li><code class="language-plaintext highlighter-rouge">openSUSE Tumbleweed</code></li>
 </ul>
@@ -14,7 +15,6 @@
 <p>For the following <code class="language-plaintext highlighter-rouge">openSUSE</code> and <code class="language-plaintext highlighter-rouge">SLE</code> products you still need to use the current <a href="https://sndirsch.github.io/nvidia/2025/07/16/nvidia-drivers.html">blogpost</a>  for installation of <code class="language-plaintext highlighter-rouge">G06 NVIDIA</code> drivers:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">Leap 15.6</code> / <code class="language-plaintext highlighter-rouge">SLE 15 SP6</code></li>
   <li><code class="language-plaintext highlighter-rouge">SLE 15 SP7</code></li>
 </ul>
 
