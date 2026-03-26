@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Installation of NVIDIA drivers on openSUSE and SLE (G07)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-03-26T12:27:01+00:00","datePublished":"2026-02-22T00:00:00+00:00","description":"Important","headline":"Installation of NVIDIA drivers on openSUSE and SLE (G07)","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2026/02/22/nvidia-drivers-G07.html"},"url":"/nvidia/2026/02/22/nvidia-drivers-G07.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-03-26T13:30:20+00:00","datePublished":"2026-02-22T00:00:00+00:00","description":"Important","headline":"Installation of NVIDIA drivers on openSUSE and SLE (G07)","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2026/02/22/nvidia-drivers-G07.html"},"url":"/nvidia/2026/02/22/nvidia-drivers-G07.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -219,41 +219,55 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
 
 <h3 id="known-issues">Known issues</h3>
 
-<h4 id="cuda-repository-1">CUDA Repository</h4>
+<h4 id="mistakenly-selectedinstalled-packages">Mistakenly selected/installed packages</h4>
 
-<p>Once you have added the <code class="language-plaintext highlighter-rouge">CUDA Repository</code> it may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:</p>
+<p>It may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:</p>
+
+<h5 id="on-leap-156sle15-sp6-sle16-and-tumbleweed">On Leap 15.6/SLE15-SP6, SLE16 and Tumbleweed</h5>
 
 <ul>
-  <li>nvidia-gfxG05-kmp-default  535.x</li>
-  <li>nvidia-open-gfxG05-kmp-default  535.x</li>
-  <li>nvidia-open-driver-G06-kmp-default  570.x</li>
-  <li>nvidia-driver-G06-kmp-default  570.x</li>
-  <li>nvidia-open-driver-G06</li>
+  <li>nvidia-open-driver-G06-signed-kmp-meta 580.xxx.yy (GFX repo)</li>
+</ul>
+
+<h5 id="on-leap-156sle15-sp6-and-tumbleweed">On Leap 15.6/SLE15-SP6 and Tumbleweed</h5>
+
+<ul>
+  <li>nvidia-driver-G06-kmp-default 550.xxx.yy/570.xxx.yy (GFX repo)</li>
+  <li>nvidia-open-driver-G07 595.xx.yy (CUDA repo)</li>
+</ul>
+
+<h5 id="on-leap-156sle15-sp6">On Leap 15.6/SLE15-SP6</h5>
+
+<ul>
+  <li>nvidia-open-driver-G06 580.xxx.yy (CUDA repo)</li>
+  <li>nvidia-open-driver-G06-kmp-default  570.xxx.yy (CUDA repo)</li>
+  <li>nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6)</li>
+</ul>
+
+<h5 id="on-tumbleweed">On Tumbleweed</h5>
+
+<ul>
+  <li>nvidia-gfxG05-kmp-default 470.xxx.yy (GFX repo)</li>
 </ul>
 
 <p>In order to avoid mistakenly installing them add package locks for them with zypper.</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper addlock nvidia-gfxG05-kmp-default
-zypper addlock nvidia-open-gfxG05-kmp-default
-zypper addlock nvidia-open-driver-G06-kmp-default
-zypper addlock nvidia-driver-G06-kmp-default
-zypper addlock nvidia-open-driver-G06</code></pre></figure>
-
-<p>In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.</p>
-
-<h4 id="tumbleweed">Tumbleweed</h4>
-
-<p>On Tumbleweed it may happen that some legacy driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:</p>
-
-<ul>
-  <li>nvidia-gfxG04-kmp-default</li>
-  <li>nvidia-gfxG05-kmp-default</li>
-</ul>
-
-<p>In order to avoid mistakenly installing them add package locks for them with zypper.</p>
-
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell">zypper addlock nvidia-gfxG04-kmp-default
-zypper addlock nvidia-gfxG05-kmp-default</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Leap 15.6/SLE15-SP6</span>
+zypper addlock <span class="se">\</span>
+  nvidia-open-driver-G06-signed-kmp-meta <span class="se">\</span>
+  nvidia-driver-G06-kmp-default <span class="se">\</span>
+  nvidia-open-driver-G07 <span class="se">\</span>
+  nvidia-open-driver-G06 <span class="se">\</span>
+  nvidia-open-driver-G06-kmp-default <span class="se">\</span>
+  nvidia-open-driver-G06-signed-kmp-default
+<span class="c"># SLE16</span>
+zypper addlock nvidia-open-driver-G06-signed-kmp-meta
+<span class="c"># Tumbleweed</span>
+zypper addlock <span class="se">\</span>
+  nvidia-open-driver-G06-signed-kmp-meta <span class="se">\</span>
+  nvidia-driver-G06-kmp-default <span class="se">\</span>
+  nvidia-open-driver-G07 <span class="se">\</span>
+  nvidia-gfxG05-kmp-default</code></pre></figure>
 
 <p>In case you see any of these packages already installed on your system, better read the Troubleshooting section below how to get rid of these and all other nvidia driver packages related to them. Afterwards add locks to them as described right above.</p>
 
