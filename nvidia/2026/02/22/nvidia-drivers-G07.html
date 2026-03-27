@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Installation of NVIDIA drivers on openSUSE and SLE (G07)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-03-26T13:30:20+00:00","datePublished":"2026-02-22T00:00:00+00:00","description":"Important","headline":"Installation of NVIDIA drivers on openSUSE and SLE (G07)","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2026/02/22/nvidia-drivers-G07.html"},"url":"/nvidia/2026/02/22/nvidia-drivers-G07.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-03-27T12:38:43+00:00","datePublished":"2026-02-22T00:00:00+00:00","description":"Important","headline":"Installation of NVIDIA drivers on openSUSE and SLE (G07)","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2026/02/22/nvidia-drivers-G07.html"},"url":"/nvidia/2026/02/22/nvidia-drivers-G07.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -43,7 +43,7 @@
     <h1 class="post-title p-name" itemprop="name headline">Installation of NVIDIA drivers on openSUSE and SLE (G07)</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2026-02-22T00:00:00+00:00" itemprop="datePublished">Feb 22, 2026
-      </time>• <span class="dt-modified">Last updated on Mar 26, 2026</span></p>
+      </time>• <span class="dt-modified">Last updated on Mar 27, 2026</span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -223,7 +223,7 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
 
 <p>It may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:</p>
 
-<h5 id="on-leap-156sle15-sp6-sle16-and-tumbleweed">On Leap 15.6/SLE15-SP6, SLE16 and Tumbleweed</h5>
+<h5 id="on-leap-156sle15-sp6-leap-160sle16-and-tumbleweed">On Leap 15.6/SLE15-SP6, Leap 16.0/SLE16 and Tumbleweed</h5>
 
 <ul>
   <li>nvidia-open-driver-G06-signed-kmp-meta 580.xxx.yy (GFX repo)</li>
@@ -244,6 +244,12 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
   <li>nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6)</li>
 </ul>
 
+<h5 id="on-leap-161sle161">On Leap 16.1/SLE16.1</h5>
+
+<ul>
+  <li>nvidia-open-driver-G07  595.xx.yy (CUDA repo)</li>
+</ul>
+
 <h5 id="on-tumbleweed">On Tumbleweed</h5>
 
 <ul>
@@ -260,8 +266,10 @@ zypper addlock <span class="se">\</span>
   nvidia-open-driver-G06 <span class="se">\</span>
   nvidia-open-driver-G06-kmp-default <span class="se">\</span>
   nvidia-open-driver-G06-signed-kmp-default
-<span class="c"># SLE16</span>
+<span class="c"># Leap 16.0/SLE16</span>
 zypper addlock nvidia-open-driver-G06-signed-kmp-meta
+<span class="c"># Leap 16.1/SLE16.1</span>
+zypper addlock nvidia-open-driver-G07
 <span class="c"># Tumbleweed</span>
 zypper addlock <span class="se">\</span>
   nvidia-open-driver-G06-signed-kmp-meta <span class="se">\</span>

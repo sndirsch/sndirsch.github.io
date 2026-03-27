@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-03-26T13:34:50+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE (G07)</title><link href="/nvidia/2026/02/22/nvidia-drivers-G07.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE (G07)" /><published>2026-02-22T00:00:00+00:00</published><updated>2026-03-26T13:30:20+00:00</updated><id>/nvidia/2026/02/22/nvidia-drivers-G07</id><content type="html" xml:base="/nvidia/2026/02/22/nvidia-drivers-G07.html"><![CDATA[<h3 id="important">Important</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-03-27T12:40:41+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE (G07)</title><link href="/nvidia/2026/02/22/nvidia-drivers-G07.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE (G07)" /><published>2026-02-22T00:00:00+00:00</published><updated>2026-03-27T12:38:43+00:00</updated><id>/nvidia/2026/02/22/nvidia-drivers-G07</id><content type="html" xml:base="/nvidia/2026/02/22/nvidia-drivers-G07.html"><![CDATA[<h3 id="important">Important</h3>
 
 <p>This blogpost explains how to install new <code class="language-plaintext highlighter-rouge">G07 NVIDIA</code> drivers. It is temporarily available as long as the content of the current <a href="https://sndirsch.github.io/nvidia/2025/07/16/nvidia-drivers.html">blogpost</a> for installation of <code class="language-plaintext highlighter-rouge">G06 NVIDIA</code> drivers is still needed.</p>
 
@@ -174,7 +174,7 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
 
 <p>It may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:</p>
 
-<h5 id="on-leap-156sle15-sp6-sle16-and-tumbleweed">On Leap 15.6/SLE15-SP6, SLE16 and Tumbleweed</h5>
+<h5 id="on-leap-156sle15-sp6-leap-160sle16-and-tumbleweed">On Leap 15.6/SLE15-SP6, Leap 16.0/SLE16 and Tumbleweed</h5>
 
 <ul>
   <li>nvidia-open-driver-G06-signed-kmp-meta 580.xxx.yy (GFX repo)</li>
@@ -195,6 +195,12 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
   <li>nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6)</li>
 </ul>
 
+<h5 id="on-leap-161sle161">On Leap 16.1/SLE16.1</h5>
+
+<ul>
+  <li>nvidia-open-driver-G07  595.xx.yy (CUDA repo)</li>
+</ul>
+
 <h5 id="on-tumbleweed">On Tumbleweed</h5>
 
 <ul>
@@ -211,8 +217,10 @@ zypper addlock <span class="se">\</span>
   nvidia-open-driver-G06 <span class="se">\</span>
   nvidia-open-driver-G06-kmp-default <span class="se">\</span>
   nvidia-open-driver-G06-signed-kmp-default
-<span class="c"># SLE16</span>
+<span class="c"># Leap 16.0/SLE16</span>
 zypper addlock nvidia-open-driver-G06-signed-kmp-meta
+<span class="c"># Leap 16.1/SLE16.1</span>
+zypper addlock nvidia-open-driver-G07
 <span class="c"># Tumbleweed</span>
 zypper addlock <span class="se">\</span>
   nvidia-open-driver-G06-signed-kmp-meta <span class="se">\</span>
