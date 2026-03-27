@@ -197,7 +197,7 @@ Then install G07 `Open` drivers as described in the sections above.
 
 It may happen that some old or not recommended driver packages get mistakenly auto-selected for installation or even have already been mistakenly installed. These are:
 
-##### On Leap 15.6/SLE15-SP6, SLE16 and Tumbleweed
+##### On Leap 15.6/SLE15-SP6, Leap 16.0/SLE16 and Tumbleweed
 
 * nvidia-open-driver-G06-signed-kmp-meta 580.xxx.yy (GFX repo)
 
@@ -211,6 +211,10 @@ It may happen that some old or not recommended driver packages get mistakenly au
 * nvidia-open-driver-G06 580.xxx.yy (CUDA repo)
 * nvidia-open-driver-G06-kmp-default  570.xxx.yy (CUDA repo)
 * nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6)
+
+##### On Leap 16.1/SLE16.1
+
+* nvidia-open-driver-G07  595.xx.yy (CUDA repo)
 
 ##### On Tumbleweed
 
@@ -227,8 +231,10 @@ zypper addlock \
   nvidia-open-driver-G06 \
   nvidia-open-driver-G06-kmp-default \
   nvidia-open-driver-G06-signed-kmp-default
-# SLE16
+# Leap 16.0/SLE16
 zypper addlock nvidia-open-driver-G06-signed-kmp-meta
+# Leap 16.1/SLE16.1
+zypper addlock nvidia-open-driver-G07
 # Tumbleweed
 zypper addlock \
   nvidia-open-driver-G06-signed-kmp-meta \
