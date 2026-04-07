@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Installation of NVIDIA drivers on openSUSE and SLE (G07)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-03-27T12:38:43+00:00","datePublished":"2026-02-22T00:00:00+00:00","description":"Important","headline":"Installation of NVIDIA drivers on openSUSE and SLE (G07)","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2026/02/22/nvidia-drivers-G07.html"},"url":"/nvidia/2026/02/22/nvidia-drivers-G07.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-04-07T13:38:19+00:00","datePublished":"2026-02-22T00:00:00+00:00","description":"Important","headline":"Installation of NVIDIA drivers on openSUSE and SLE (G07)","mainEntityOfPage":{"@type":"WebPage","@id":"/nvidia/2026/02/22/nvidia-drivers-G07.html"},"url":"/nvidia/2026/02/22/nvidia-drivers-G07.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Stefan&apos;s openSUSE Blog" /></head>
 <body><header class="site-header" role="banner">
@@ -43,7 +43,7 @@
     <h1 class="post-title p-name" itemprop="name headline">Installation of NVIDIA drivers on openSUSE and SLE (G07)</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="2026-02-22T00:00:00+00:00" itemprop="datePublished">Feb 22, 2026
-      </time>• <span class="dt-modified">Last updated on Mar 27, 2026</span></p>
+      </time>• <span class="dt-modified">Last updated on Apr 7, 2026</span></p>
   </header>
 
   <div class="post-content e-content" itemprop="articleBody">
@@ -57,6 +57,7 @@
 
 <ul>
   <li><code class="language-plaintext highlighter-rouge">Leap 15.6</code> / <code class="language-plaintext highlighter-rouge">SLE 15 SP6</code></li>
+  <li><code class="language-plaintext highlighter-rouge">SLE 15 SP7</code></li>
   <li><code class="language-plaintext highlighter-rouge">Leap 16.0</code> / <code class="language-plaintext highlighter-rouge">SLE 16</code></li>
   <li><code class="language-plaintext highlighter-rouge">openSUSE Tumbleweed</code></li>
 </ul>
@@ -64,7 +65,7 @@
 <p>For the following <code class="language-plaintext highlighter-rouge">openSUSE</code> and <code class="language-plaintext highlighter-rouge">SLE</code> products you still need to use the current <a href="https://sndirsch.github.io/nvidia/2025/07/16/nvidia-drivers.html">blogpost</a>  for installation of <code class="language-plaintext highlighter-rouge">G06 NVIDIA</code> drivers:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">SLE 15 SP7</code></li>
+  <li>(empty list)</li>
 </ul>
 
 <p>Both lists above are updated when <code class="language-plaintext highlighter-rouge">G07 NVIDIA</code> driver packages are becoming available for the appropriate products.</p>
@@ -236,7 +237,7 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
   <li>nvidia-open-driver-G07 595.xx.yy (CUDA repo)</li>
 </ul>
 
-<h5 id="on-leap-156sle15-sp6">On Leap 15.6/SLE15-SP6</h5>
+<h5 id="on-leap-156sle15-sp6sle15-sp7">On Leap 15.6/SLE15-SP6/SLE15-SP7</h5>
 
 <ul>
   <li>nvidia-open-driver-G06 580.xxx.yy (CUDA repo)</li>
@@ -244,10 +245,17 @@ zypper <span class="k">in </span>cuda-demo-suite-12-9</code></pre></figure>
   <li>nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6)</li>
 </ul>
 
-<h5 id="on-leap-161sle161">On Leap 16.1/SLE16.1</h5>
+<h5 id="on-sle15-sp7leap-161sle161">On SLE15-SP7/Leap 16.1/SLE16.1</h5>
 
 <ul>
   <li>nvidia-open-driver-G07  595.xx.yy (CUDA repo)</li>
+</ul>
+
+<h4 id="on-sle15-sp7">On SLE15-SP7</h4>
+
+<ul>
+  <li>nvidia-gfxG05-kmp-default 535.xxx.yy (CUDA repo)</li>
+  <li>nvidia-open-gfxG05-kmp-default 535.xxx.yy (CUDA repo)</li>
 </ul>
 
 <h5 id="on-tumbleweed">On Tumbleweed</h5>
@@ -266,6 +274,14 @@ zypper addlock <span class="se">\</span>
   nvidia-open-driver-G06 <span class="se">\</span>
   nvidia-open-driver-G06-kmp-default <span class="se">\</span>
   nvidia-open-driver-G06-signed-kmp-default
+<span class="c"># SLE15-SP7</span>
+zypper addlock <span class="se">\</span>
+  nvidia-gfxG05-kmp-default <span class="se">\</span>
+  nvidia-open-gfxG05-kmp-default <span class="se">\</span>
+  nvidia-open-driver-G06 <span class="se">\</span>
+  nvidia-open-driver-G06-kmp-default <span class="se">\</span>
+  nvidia-open-driver-G06-signed-kmp-default <span class="se">\</span>
+  nvidia-open-driver-G07
 <span class="c"># Leap 16.0/SLE16</span>
 zypper addlock nvidia-open-driver-G06-signed-kmp-meta
 <span class="c"># Leap 16.1/SLE16.1</span>
