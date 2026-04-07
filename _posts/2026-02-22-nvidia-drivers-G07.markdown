@@ -22,7 +22,7 @@ For the following `openSUSE` and `SLE` products you still need to use the curren
 
 * (empty list)
 
-Both lists above are updated when `G07 NVIDIA` driver packages are becoming available for the appropriate products.
+Both lists above are updated when driver packages are becoming available for the appropriate products.
 
 ### Let's begin
 
