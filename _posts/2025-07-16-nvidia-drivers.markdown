@@ -186,15 +186,20 @@ It may happen that some old or not recommended driver packages get mistakenly au
 * nvidia-driver-G06-kmp-default 550.xxx.yy/570.xxx.yy (GFX repo)
 * nvidia-open-driver-G07 595.xx.yy (CUDA repo)
 
-##### On Leap 15.6/SLE15-SP6
+##### On Leap 15.6/SLE15-SP6/SLE15-SP7
 
 * nvidia-open-driver-G06 580.xxx.yy (CUDA repo)
 * nvidia-open-driver-G06-kmp-default  570.xxx.yy (CUDA repo)
-* nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6)
+* nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6/SLE15-SP7)
 
-##### On Leap 16.1/SLE16.1
+##### On SLE15-SP7/Leap 16.1/SLE16.1
 
 * nvidia-open-driver-G07  595.xx.yy (CUDA repo)
+
+#### On SLE15-SP7
+
+* nvidia-gfxG05-kmp-default 535.xxx.yy (CUDA repo)
+* nvidia-open-gfxG05-kmp-default 535.xxx.yy (CUDA repo)
 
 ##### On Tumbleweed
 
@@ -211,6 +216,14 @@ zypper addlock \
   nvidia-open-driver-G06 \
   nvidia-open-driver-G06-kmp-default \
   nvidia-open-driver-G06-signed-kmp-default
+# SLE15-SP7
+zypper addlock \
+  nvidia-gfxG05-kmp-default \
+  nvidia-open-gfxG05-kmp-default \
+  nvidia-open-driver-G06 \
+  nvidia-open-driver-G06-kmp-default \
+  nvidia-open-driver-G06-signed-kmp-default \
+  nvidia-open-driver-G07
 # Leap 16.0/SLE16
 zypper addlock nvidia-open-driver-G06-signed-kmp-meta
 # Leap 16.1/SLE16.1
