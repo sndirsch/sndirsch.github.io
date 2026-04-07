@@ -211,7 +211,7 @@ It may happen that some old or not recommended driver packages get mistakenly au
 
 * nvidia-open-driver-G06 580.xxx.yy (CUDA repo)
 * nvidia-open-driver-G06-kmp-default  570.xxx.yy (CUDA repo)
-* nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6)
+* nvidia-open-driver-G06-signed-kmp-default  570.xxx.yy (SLE15-SP6/SLE15-SP7)
 
 ##### On SLE15-SP7/Leap 16.1/SLE16.1
 
