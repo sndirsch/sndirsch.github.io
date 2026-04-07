@@ -196,7 +196,7 @@ It may happen that some old or not recommended driver packages get mistakenly au
 
 * nvidia-open-driver-G07  595.xx.yy (CUDA repo)
 
-#### On SLE15-SP7
+##### On SLE15-SP7
 
 * nvidia-gfxG05-kmp-default 535.xxx.yy (CUDA repo)
 * nvidia-open-gfxG05-kmp-default 535.xxx.yy (CUDA repo)
