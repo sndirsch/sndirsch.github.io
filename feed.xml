@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-04-07T15:12:57+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE (G07)</title><link href="/nvidia/2026/02/22/nvidia-drivers-G07.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE (G07)" /><published>2026-02-22T00:00:00+00:00</published><updated>2026-04-07T15:11:28+00:00</updated><id>/nvidia/2026/02/22/nvidia-drivers-G07</id><content type="html" xml:base="/nvidia/2026/02/22/nvidia-drivers-G07.html"><![CDATA[<h3 id="important">Important</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2026-04-16T15:15:51+00:00</updated><id>/feed.xml</id><title type="html">Stefan’s openSUSE Blog</title><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE (G07)</title><link href="/nvidia/2026/02/22/nvidia-drivers-G07.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE (G07)" /><published>2026-02-22T00:00:00+00:00</published><updated>2026-04-07T15:11:28+00:00</updated><id>/nvidia/2026/02/22/nvidia-drivers-G07</id><content type="html" xml:base="/nvidia/2026/02/22/nvidia-drivers-G07.html"><![CDATA[<h3 id="important">Important</h3>
 
 <p>This blogpost explained how to install the new <code class="language-plaintext highlighter-rouge">G07 NVIDIA</code> drivers. It was temporarily available as long as the content of the existing blogpost for installation of <code class="language-plaintext highlighter-rouge">G06 NVIDIA</code> drivers was still needed. The existing blogpost meanwhile has been updated to explain the installation of the new <code class="language-plaintext highlighter-rouge">G07 drivers</code>. So use <a href="https://sndirsch.github.io/nvidia/2025/07/16/nvidia-drivers.html">that blogpost</a> again from now on.</p>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[Important]]></summary></entry><entry><title type="html">Installation of NVIDIA drivers on openSUSE and SLE</title><link href="/nvidia/2025/07/16/nvidia-drivers.html" rel="alternate" type="text/html" title="Installation of NVIDIA drivers on openSUSE and SLE" /><published>2025-07-16T00:00:00+00:00</published><updated>2026-04-07T14:52:56+00:00</updated><id>/nvidia/2025/07/16/nvidia-drivers</id><content type="html" xml:base="/nvidia/2025/07/16/nvidia-drivers.html"><![CDATA[<p>This blogpost covers only installation of <code class="language-plaintext highlighter-rouge">G07</code> drivers, i.e. drivers for GPUs &gt;= <code class="language-plaintext highlighter-rouge">Turing</code>, i.e.</p>
 
@@ -239,15 +239,15 @@ zypper addlock <span class="se">\</span>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">rpm <span class="nt">-e</span> <span class="si">$(</span>rpm <span class="nt">-qa</span> | <span class="nb">grep</span> <span class="nt">-e</span> ^nvidia <span class="nt">-e</span> ^libnvidia | <span class="nb">grep</span> <span class="nt">-v</span> container<span class="si">)</span></code></pre></figure>
 
-<p>Then follow (again) the instructions above for installing the driver using the GFX or CUDA Repository.</p>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[This blogpost covers only installation of G07 drivers, i.e. drivers for GPUs &gt;= Turing, i.e.]]></summary></entry><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2025-11-06T15:01:56+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
+<p>Then follow (again) the instructions above for installing the driver using the GFX or CUDA Repository.</p>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[This blogpost covers only installation of G07 drivers, i.e. drivers for GPUs &gt;= Turing, i.e.]]></summary></entry><entry><title type="html">How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin</title><link href="/nvidia/2024/05/07/nvidia-jetson.html" rel="alternate" type="text/html" title="How to install SLE-15-SP6 on NVIDIA’s Jetson AGX Orin, Jetson Orin Nano/NX and IGX Orin" /><published>2024-05-07T00:00:00+00:00</published><updated>2026-04-16T15:14:37+00:00</updated><id>/nvidia/2024/05/07/nvidia-jetson</id><content type="html" xml:base="/nvidia/2024/05/07/nvidia-jetson.html"><![CDATA[<p>This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> and <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> and how to connect a serial console to <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>.</p>
 
 <h3 id="firmware-update-on-jetson-agx-orin">Firmware Update on Jetson AGX Orin</h3>
 
-<p>On <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> first update the firmware to Jetpack 6.1/36.4.0.</p>
+<p>On <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> first update the firmware to Jetpack 6.2.2/36.5.0.</p>
 
-<p>Download <a href="https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v4.0/release/Jetson_Linux_R36.4.0_aarch64.tbz2">Driver Package (BSP)</a> from this <a href="https://developer.nvidia.com/embedded/jetson-linux-r3640">location</a>. Extract <code class="language-plaintext highlighter-rouge">Jetson_Linux_R36.4.0_aarch64.tbz2</code>.</p>
+<p>Download <a href="https://developer.nvidia.com/downloads/embedded/l4t/r36_release_v5.0/release/Jetson_Linux_r36.5.0_aarch64.tbz2">Driver Package (BSP)</a> from this <a href="https://developer.nvidia.com/embedded/jetson-linux-r365">location</a>. Extract <code class="language-plaintext highlighter-rouge">Jetson_Linux_r36.5.0_aarch64.tbz</code>.</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">tar </span>xf Jetson_Linux_R36.4.0_aarch64.tbz2</code></pre></figure>
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">tar </span>xf Jetson_Linux_r36.5.0_aarch64.tbz</code></pre></figure>
 
 <p>Then connect with two cables your computer to the Micro-USB port and Type-C port (next to the 40pin connector) of <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code>.
 Now switch <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> to recovery mode (using your Micro-USB cable).</p>
@@ -270,7 +270,7 @@ Bus 003 Device 099: ID 0955:7023 NVIDIA Corp. APX
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo</span> ./tools/board_automation/boardctl <span class="nt">-t</span> topo power_on</code></pre></figure>
 
-<p>After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version <code class="language-plaintext highlighter-rouge">36.4.0-gcid-XXXXXXXX</code>.</p>
+<p>After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version <code class="language-plaintext highlighter-rouge">36.5.0-gcid-XXXXXXXX</code>.</p>
 
 <h3 id="firmware-update-on-jetson-orin-nano">Firmware Update on Jetson Orin Nano</h3>
 
@@ -289,7 +289,7 @@ Bus 003 Device 105: ID 0955:7523 NVIDIA Corp. APX
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo</span> ./flash.sh p3768-0000-p3767-0000-a0-qspi external</code></pre></figure>
 
-<p>Disconnect <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version <code class="language-plaintext highlighter-rouge">36.4.0-gcid-XXXXXXXX</code>.</p>
+<p>Disconnect <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> from power and reconnect it to power. After reboot you should see in the Firmware setup - shown on your monitor or on your serial console - the firmware version <code class="language-plaintext highlighter-rouge">36.5.0-gcid-XXXXXXXX</code>.</p>
 
 <h3 id="serial-console-on-jetson-orin-nano">Serial Console on Jetson Orin Nano</h3>
 
@@ -315,18 +315,18 @@ Bus 003 Device 105: ID 0955:7523 NVIDIA Corp. APX
 
 <h4 id="installation">Installation</h4>
 
-<p>Once grub starts you need to edit the grub entry <code class="language-plaintext highlighter-rouge">Installation</code>. Press <code class="language-plaintext highlighter-rouge">e</code> for doing this and add <code class="language-plaintext highlighter-rouge">console=tty0 exec="date -s 2025-01-27"</code> (when using a connected monitor for intallation) or <code class="language-plaintext highlighter-rouge">exec="date -s 2025-01-27"</code> (when installing on a serial console and add also <code class="language-plaintext highlighter-rouge">console=ttyTCU0,115200</code> on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>) to the <code class="language-plaintext highlighter-rouge">linux [...]</code> line. Replace <code class="language-plaintext highlighter-rouge">2025-01-27</code> with the current date.</p>
+<p>Once grub starts you need to edit the grub entry <code class="language-plaintext highlighter-rouge">Installation</code>. Press <code class="language-plaintext highlighter-rouge">e</code> for doing this and add <code class="language-plaintext highlighter-rouge">console=tty0 exec="date -s 2026-02-20"</code> (when using a connected monitor for intallation) or <code class="language-plaintext highlighter-rouge">exec="date -s 2026-02-20"</code> (when installing on a serial console and add also <code class="language-plaintext highlighter-rouge">console=ttyTCU0,115200</code> on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code>) to the <code class="language-plaintext highlighter-rouge">linux [...]</code> line. Replace <code class="language-plaintext highlighter-rouge">2026-02-20</code> with the current date.</p>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">### When using a connected monitor for intallation</span>
 <span class="o">[</span>...]
-linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nv">console</span><span class="o">=</span>tty0 <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2025-01-27"</span>
+linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nv">console</span><span class="o">=</span>tty0 <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2026-02-20"</span>
 <span class="o">[</span>...]</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c">### When installing on a serial console</span>
 <span class="o">[</span>...]
-linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2025-01-27"</span>
+linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2026-02-20"</span>
 <span class="c"># On Jetson Orin Nano</span>
-linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nv">console</span><span class="o">=</span>ttyTCU0,115200 <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2025-01-27"</span>
+linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>silent <span class="nv">console</span><span class="o">=</span>ttyTCU0,115200 <span class="nb">exec</span><span class="o">=</span><span class="s2">"date -s 2026-02-20"</span>
 <span class="o">[</span>...]</code></pre></figure>
 
 <p>The reason for this is that during installation the driver <code class="language-plaintext highlighter-rouge">nvvrs-pseq-rtc</code> for the battery-backed RTC0 (Real Time Clock) is not yet available and therefore the non-battery-backed RTC1 is used, which doesn’t have the correct time set during installation. So this is a workaround to avoid a product registration failure later due to a certificate, which is not valid yet.</p>
@@ -361,8 +361,8 @@ linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>
 
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># flavor either default or 64kb (check with `uname -r` command)</span>
 <span class="nb">sudo </span>zypper up kernel-&lt;flavor&gt;
-<span class="nb">sudo </span>zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.1/sle-15-sp6-aarch64/1.0/install jetson-kmp
-<span class="nb">sudo </span>zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.1/sle-15-sp6-aarch64/1.0/update  jetson-kmp-update
+<span class="nb">sudo </span>zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.2.2/sle-15-sp6-aarch64/1.0/install jetson-kmp
+<span class="nb">sudo </span>zypper ar https://drivers.suse.com/nvidia/Jetson/NVIDIA_JetPack_6.2.2/sle-15-sp6-aarch64/1.0/update  jetson-kmp-update
 <span class="nb">sudo </span>zypper ref
 <span class="nb">sudo </span>zypper <span class="k">in</span> <span class="nt">-r</span> jetson-kmp nvidia-jetson-kmp-&lt;flavor&gt;</code></pre></figure>
 
@@ -382,7 +382,7 @@ linux /boot/aarch64/linux <span class="nv">splash</span><span class="o">=</span>
 
 <p>Please install userspace on these devices by using the following commands:</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>zypper ar https://repo.download.nvidia.com/jetson/sle15-sp6/jp6.1/ jetson-userspace 
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>zypper ar https://repo.download.nvidia.com/jetson/sle15-sp6/jp6.2.2/ jetson-userspace
 <span class="nb">sudo </span>zypper ref 
 <span class="nb">sudo </span>zypper <span class="k">in </span>nvidia-jetpack-all</code></pre></figure>
 
@@ -688,7 +688,6 @@ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc<
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="c"># Jetson AGX Orin</span>
 <span class="nb">sudo </span>nvpmodel <span class="nt">-m</span> 0
 <span class="c"># Jetson Orin Nano</span>
-<span class="nb">sudo ln</span> <span class="nt">-snf</span> nvpmodel/nvpmodel_p3767_0003_super.conf /etc/nvpmodel.conf
 <span class="nb">sudo </span>nvpmodel <span class="nt">-m</span> 2</code></pre></figure>
 
 <p>Afterwards on <code class="language-plaintext highlighter-rouge">Jetson AGX Orin</code> you need to reboot the system though.</p>
@@ -697,17 +696,7 @@ make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc<
 
 <p>In order to check for the current value run</p>
 
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nvpmodel <span class="nt">-q</span></code></pre></figure>
-
-<h3 id="known-issues">Known Issues</h3>
-
-<h4 id="jetson-orin-nano-super-mode">Jetson Orin Nano: Super Mode</h4>
-
-<p>Unfortunately <code class="language-plaintext highlighter-rouge">Super</code> mode of <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> needs Jetpack 6.2.1/36.4.4 for Firmware, KMP drivers and userspace. We’re currently working on providing these as easily installable packages in addition to our packages for Jetpack 6.1/36.4.0. This document will be updated accordingly once these are available. Therefore currently when trying to switch Jetson Orin Nano into <code class="language-plaintext highlighter-rouge">Super</code> mode with</p>
-
-<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nvpmodel <span class="nt">-m</span> 2</code></pre></figure>
-
-<p>you’ll get an error message. Of course the other non-<code class="language-plaintext highlighter-rouge">Super</code> modes on <code class="language-plaintext highlighter-rouge">Jetson Orin Nano</code> are still available and working.</p>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano.]]></summary></entry><entry><title type="html">Packages needed for Vulkan development on openSUSE</title><link href="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html" rel="alternate" type="text/html" title="Packages needed for Vulkan development on openSUSE" /><published>2022-10-20T00:00:00+00:00</published><updated>2022-10-20T13:27:07+00:00</updated><id>/vulkan/2022/10/20/vulkan-packages-on-opensuse</id><content type="html" xml:base="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html"><![CDATA[<p>Recently I had a first look into <code class="language-plaintext highlighter-rouge">Vulkan</code> development. So I started by reading
+<figure class="highlight"><pre><code class="language-shell" data-lang="shell"><span class="nb">sudo </span>nvpmodel <span class="nt">-q</span></code></pre></figure>]]></content><author><name></name></author><category term="nvidia" /><summary type="html"><![CDATA[This covers the installation of updated Kernel, out-of-tree nvidia kernel modules package, how to get GNOME desktop running and installation/run of glmark2 benchmark. Also it describes how to get some CUDA and TensorRT samples running. In addition it describes the firmware update on Jetson AGX Orin and Jetson Orin Nano and how to connect a serial console to Jetson Orin Nano.]]></summary></entry><entry><title type="html">Packages needed for Vulkan development on openSUSE</title><link href="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html" rel="alternate" type="text/html" title="Packages needed for Vulkan development on openSUSE" /><published>2022-10-20T00:00:00+00:00</published><updated>2022-10-20T13:27:07+00:00</updated><id>/vulkan/2022/10/20/vulkan-packages-on-opensuse</id><content type="html" xml:base="/vulkan/2022/10/20/vulkan-packages-on-opensuse.html"><![CDATA[<p>Recently I had a first look into <code class="language-plaintext highlighter-rouge">Vulkan</code> development. So I started by reading
 a <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a>. It’s rather detailed and actually it takes a
 long time before you see your first shaded triangle (about 900 lines of
 code!). The <a href="https://vulkan-tutorial.com/">Vulkan Tutorial</a> has some software requirements on
