@@ -152,9 +152,9 @@
 <!-- command1 -->
 <g id="node15" class="node">
 <title>command1</title>
-<text text-anchor="middle" x="268" y="-465.97" font-family="Times,serif" font-size="14.00">zypper ar &lt;NVIDIA GFX Repository&gt; &#160;nvidia&#45;gfx</text>
+<text text-anchor="middle" x="268" y="-465.97" font-family="Times,serif" font-size="14.00">zypper ar &lt;NVIDIA GFX Repository&gt; &#160;nvidia</text>
 <text text-anchor="middle" x="268" y="-450.97" font-family="Times,serif" font-size="14.00">zypper ref</text>
-<text text-anchor="middle" x="268" y="-435.97" font-family="Times,serif" font-size="14.00">zypper inr &#45;&#45;no&#45;recommends</text>
+<text text-anchor="middle" x="268" y="-435.97" font-family="Times,serif" font-size="14.00">zypper in nvidia&#45;open&#45;driver&#45;G07&#45;signed&#45;kmp&#45;meta</text>
 </g>
 </g>
 </svg>

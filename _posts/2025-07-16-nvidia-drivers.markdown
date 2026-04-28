@@ -68,7 +68,7 @@ Add the repository if it hasn't been added yet. On `SLE15/SLE16` it might have a
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/opensuse15
 # SLE15
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/sles15
-# SLE16/Leap 16.x/Tumbleweed
+# SLE16/SLE16.1(Beta)/Leap 16.0/Leap 16.1(Beta)/Tumbleweed
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/suse16
 {% endhighlight %}
 
