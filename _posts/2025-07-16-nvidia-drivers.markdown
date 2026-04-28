@@ -81,9 +81,10 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
 # SLE15-SPx (aarch64)
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
-# SLE16/SLE16.1(Beta)/Leap 16.0/16.1(Beta)/Tumbleweed (x86_64)
+# SLE16/SLE16.1(Beta)/Leap 16.0/Leap 16.1(Beta)/Tumbleweed (x86_64)
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/suse16/x86_64/  cuda
-# SLE16/SLE16.1(Beta)/Leap 16.0/16.1(Beta)/Tumbleweed (aarch64)
+# SLE16/SLE16.1(Beta)/Leap 16.0/Leap 16.1(Beta)/Tumbleweed (aarch64)
+
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/suse16/sbsa/  cuda
 {% endhighlight %}
 
