@@ -30,7 +30,7 @@ digraph {
 		cluster0_anchor; // Dummy node inside cluster
                 bgcolor="lightgreen"
                 repo_install[fillcolor=green,style=filled,width=2.5,shape=component,label="Installation"]
-                command1[shape=none,width=7,label="zypper ar <NVIDIA GFX Repository>  nvidia-gfx\nzypper ref\nzypper inr --no-recommends"]
+                command1[shape=none,width=7,label="zypper ar <NVIDIA GFX Repository>  nvidia\nzypper ref\nzypper in nvidia-open-driver-G07-signed-kmp-meta"]
         }
 
         open_meta -> open
