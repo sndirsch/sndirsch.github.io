@@ -138,7 +138,7 @@ The following commands will install `CUDA` packages themselves. It describes a r
 # Kernel driver being installed via GFX Repo
 cuda_version=13-2
 # Kernel driver being installed via CUDA Repo
-cuda_version=13-2
+cuda_version=13-4
 
 # Regular installation
 zypper in cuda-toolkit-${cuda_version}
