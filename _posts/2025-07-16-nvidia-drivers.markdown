@@ -31,7 +31,7 @@ Verify that the repository is enabled. If the output was empty add the repositor
 zypper addrepo https://download.nvidia.com/opensuse/leap/15.6/  nvidia
 # Leap 16.0
 zypper addrepo https://download.nvidia.com/opensuse/leap/16.0/  nvidia
-# Leap 16.1 (Beta)
+# Leap 16.1
 zypper addrepo https://download.nvidia.com/opensuse/leap/16.1/  nvidia
 # Tumbleweed
 zypper addrepo https://download.nvidia.com/opensuse/tumbleweed/  nvidia
@@ -41,7 +41,7 @@ zypper addrepo https://download.nvidia.com/suse/sle15sp6/  nvidia
 zypper addrepo https://download.nvidia.com/suse/sle15sp7/  nvidia
 # SLE16
 zypper addrepo https://download.nvidia.com/suse/sle16/  nvidia
-# SLE16.1 (Beta)
+# SLE16.1
 zypper addrepo https://download.nvidia.com/suse/sle16.1/  nvidia
 {% endhighlight %}
 
@@ -68,7 +68,7 @@ Add the repository if it hasn't been added yet. On `SLE15/SLE16` it might have a
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/opensuse15
 # SLE15
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/sles15
-# SLE16/SLE16.1(Beta)/Leap 16.0/Leap 16.1(Beta)/Tumbleweed
+# SLE16/SLE16.1/Leap 16.0/Leap 16.1/Tumbleweed
 zypper repos -u | grep https://developer.download.nvidia.com/compute/cuda/repos/suse16
 {% endhighlight %}
 
@@ -81,9 +81,9 @@ zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/opensuse
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/x86_64/  cuda
 # SLE15-SPx (aarch64)
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/sles15/sbsa/  cuda
-# SLE16/SLE16.1(Beta)/Leap 16.0/Leap 16.1(Beta)/Tumbleweed (x86_64)
+# SLE16/SLE16.1/Leap 16.0/Leap 16.1/Tumbleweed (x86_64)
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/suse16/x86_64/  cuda
-# SLE16/SLE16.1(Beta)/Leap 16.0/Leap 16.1(Beta)/Tumbleweed (aarch64)
+# SLE16/SLE16.1/Leap 16.0/Leap 16.1/Tumbleweed (aarch64)
 
 zypper addrepo https://developer.download.nvidia.com/compute/cuda/repos/suse16/sbsa/  cuda
 {% endhighlight %}
